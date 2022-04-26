@@ -1,6 +1,26 @@
 {
-  "name": "myTable",
-  "private": true,
+  "name": "mytable",
+  "version": "1.0.0",
+  "description": "This README would normally document whatever steps are necessary to get the application up and running.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wcorona269/myTable.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wcorona269/myTable/issues"
+  },
+  "homepage": "https://github.com/wcorona269/myTable#readme",
   "dependencies": {
     "@babel/core": "^7.17.9",
     "@babel/preset-env": "^7.16.11",
