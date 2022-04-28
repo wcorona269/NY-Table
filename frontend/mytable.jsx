@@ -6,16 +6,16 @@ import {signup} from "./actions/user_actions"
 import {login, logout} from "./actions/session_actions"
 
 document.addEventListener("DOMContentLoaded", () => {
-    
-    const root = document.getElementById("root");
     const store = configureStore();
-    
+
     window.store = store;
     window.getState = store.getState;
     window.dispatch = store.dispatch;
     window.signup = signup;
     window.login = login;
     window.logout = logout;
+
+    const root = document.getElementById("root");
     ReactDOM.render(<Root store={store} />, root);
 });
 
