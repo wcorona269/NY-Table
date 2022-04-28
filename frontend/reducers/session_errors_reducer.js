@@ -2,9 +2,9 @@ import {
 	RECEIVE_SESSION_ERRORS,
 	RECEIVE_CURRENT_USER,
 	REMOVE_SESSION_ERRORS
-} from "../actions/session_actions"
+} from "../actions/session_actions";
 
-const sessionErrorsReducer = (oldState = {}, action) {
+const sessionErrorsReducer = (oldState = {}, action) => {
 	Object.freeze(oldState);
 
 	switch(action.type) {
@@ -14,6 +14,8 @@ const sessionErrorsReducer = (oldState = {}, action) {
 			return [];
 		case REMOVE_SESSION_ERRORS:
 			return [];
-	}
-}
+	};
+};
+
+export default sessionErrorsReducer;
 
