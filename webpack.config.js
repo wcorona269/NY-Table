@@ -4,7 +4,8 @@ module.exports = {
   entry: './frontend/mytable.jsx',
   output: {
     path: path.resolve(__dirname, 'app', 'assets', 'javascripts'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    sourceMapFilename: 'bundle.js.map',
   },
   module: {
     rules: [
