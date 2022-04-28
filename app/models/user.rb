@@ -9,8 +9,8 @@ class User < ApplicationRecord
     has_many :reservations
     has_many :saved_restaurants
 
-    def self.find_by_credentials(username, password)
-        user = User.find_by(username: username)
+    def self.find_by_credentials(email, password)
+        user = User.find_by(email: email)
         if user && user.is_password?(password)
             user
         else
@@ -19,7 +19,7 @@ class User < ApplicationRecord
     end
 
     def is_password?(password)
-        pass_obj = BCrypt::Password.new(password)
+        pass_obj = BCrypt::Password.new(self.password_digest)
         pass_obj.is_password?(password)
     end
 
