@@ -8,8 +8,8 @@ export const receiveUserInfo = user => ({
 	user
 });
 
-export const signup = user => dispatch => (
-	UserUtils.signup(user).then(user => dispatch(receiveCurrentUser(user)))
+export const signup = formUser => dispatch => (
+	UserUtils.signup(formUser).then(user => dispatch(receiveCurrentUser(user)))
 );
 
 

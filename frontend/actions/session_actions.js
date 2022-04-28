@@ -12,8 +12,8 @@ const logoutCurrentUser = () => ({
     type: LOGOUT_CURRENT_USER
 });
 
-export const login = user => dispatch => (
-    SessionUtils.login(user)
+export const login = formUser => dispatch => (
+    SessionUtils.login(formUser)
     .then(user => dispatch(receiveCurrentUser(user)))
 );
 
