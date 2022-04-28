@@ -1,6 +1,5 @@
 import React from 'react';
-import SignupFormContainer from "../signup_container";
-
+import SignupFormContainer from "../form/signup_form_container";
 
 class Modal extends React.Component {
 	constructor(props) {
@@ -10,14 +9,16 @@ class Modal extends React.Component {
 	render() {
 		const {modal} = this.props;
 
-		if (!modal) {
-			return null;
-		};
+		// if (!modal) {
+		// 	return null;
+		// };
 
 		let component = SignupFormContainer;
 
 		return (
-			<div className="form-background" onClick={this.enableScrolling}>
+			<div className="form-background" 
+			// onClick={this.enableScrolling}
+			>
 				<div className="modal-child" onClick={e => e.stopPropagation()}>
 					{ component }
 				</div>

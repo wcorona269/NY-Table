@@ -1,4 +1,4 @@
-import {closeModal} from '../actions/modal_actions';
+import {closeModal} from '../../actions/modal_actions';
 import { connect } from 'react-redux';
 import Modal from './modal';
 

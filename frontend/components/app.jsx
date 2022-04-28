@@ -1,12 +1,14 @@
 import React from "react";
-import SignupContainer from "./form/signup_container";
+import SignupContainer from "./form/signup_form_container";
 import { Link, Route } from "react-router-dom";
+import Modal from "./modal/modal_container";
 
 const App = () => (
     <div>
-        <h1>it's working</h1>
+        <Modal/>
+        {/* <h1>it's working</h1> */}
         {/* <Route path="/" component={SignupContainer}/> */}
-        <SignupContainer/>
+        {/* <SignupContainer/> */}
     </div>
 )
 
