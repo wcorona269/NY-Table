@@ -1,5 +1,4 @@
 import React from "react";
-import {useHistory} from 'react-router-dom';
 import { closeModal } from "../../actions/modal_actions";
 
 class SignupForm extends React.Component {
