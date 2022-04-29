@@ -25,16 +25,17 @@ class LoginForm extends React.Component {
 
     render() {
 			return (
-				<div className='auth-form'>
-					<form className="session_form" onSubmit={this.handleSubmit}>
+				<div className='auth-form-container'>
+					<form className="auth-form" onSubmit={this.handleSubmit}>
 						<h2>Sign In</h2>
-						<div className="auth-border">
+						<div className="auth-content-container">
 							<input className="auth-field"
 								type="text"
 								placeholder="Email"
 								value={this.state.email}
 								onChange={this.handleInput('email')}
 							/>
+							
 							<br />
 							<input className="auth-field"
 								type="password"
@@ -43,7 +44,7 @@ class LoginForm extends React.Component {
 								onChange={this.handleInput('password')}
 							/>
 							<br />
-							<button className="auth-button" type="submit">Continue</button>
+							<button id="auth-button" className="auth-field" type="submit">Continue</button>
 						</div>
 					</form>
 				</div>

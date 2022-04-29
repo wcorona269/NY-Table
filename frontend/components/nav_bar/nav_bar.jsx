@@ -16,7 +16,7 @@ class NavBar extends React.Component {
 	loginModal() {
 		this.props.showModal("login")
 	}
-
+	
 	render() {
 		const {currentUser} = this.props;
 		// debugger;

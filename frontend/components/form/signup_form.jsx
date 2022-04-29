@@ -30,10 +30,10 @@ class SignupForm extends React.Component {
 
     render() {
 			return (
-				<div className='auth-form'>
-					<form className="session_form" onSubmit={this.handleSubmit}>
+				<div className='auth-form-container'>
+					<form className="auth-form" onSubmit={this.handleSubmit}>
 						<h2>Sign Up</h2>
-						<div className="auth-border">
+						<div className="auth-content-container">
 							<input className="auth-field"
 								type="tel"
 								placeholder="Phone number"
@@ -71,7 +71,7 @@ class SignupForm extends React.Component {
 							/>
 							<br />
 							<small className="form-small">
-								This is a name that will be shown whenever you leave a review. Remember to not use your full name or email.	
+								{/* This is a name that will be shown whenever you leave a review. Remember to not use your full name or email.	 */}
 							</small>
 							<br />
 							<input className="auth-field"
@@ -81,7 +81,7 @@ class SignupForm extends React.Component {
 								onChange={this.handleInput('password')}
 							/>
 							<br />
-							<button className="auth-button" type="submit">Continue</button>
+							<button id="auth-button" className="auth-field" type="submit">Continue</button>
 						</div>
 					</form>
 				</div>
