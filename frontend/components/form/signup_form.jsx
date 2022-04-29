@@ -1,15 +1,18 @@
 import React from "react";
+import {useHistory} from 'react-router-dom';
+import { closeModal } from "../../actions/modal_actions";
 
 class SignupForm extends React.Component {
     constructor(props) {
         super(props)
 
+				// this.history = useHistory();
         this.state = {
-            phone_number: '',
-            first_name: '',
-            last_name: '',
+            phone: '',
+            fname: '',
+            lname: '',
             email: '',
-            username: '',
+            display_name: '',
             password: '',
         };
 
@@ -23,8 +26,7 @@ class SignupForm extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         this.props.signup(this.state)
-					.then( () => this.props.history.push('/'));
-			
+					.then(() => dispatch(closeModal()))
     }
 
     render() {
@@ -37,22 +39,22 @@ class SignupForm extends React.Component {
 								type="tel"
 								placeholder="Phone number"
 								maxLength="12"
-								value={this.state.phone_number}
-								onChange={this.handleInput('phone_number')}
+								value={this.state.phone}
+								onChange={this.handleInput('phone')}
 									/>
 									<br />
 							<input className="auth-field"
 								type="text"
 								placeholder="First name"
-								value={this.state.first_name}
-								onChange={this.handleInput('first_name')}
+								value={this.state.fname}
+								onChange={this.handleInput('fname')}
 							/>
 							<br />
 							<input className="auth-field"
 								type="text"
 								placeholder="Last name"
-								value={this.state.last_name}
-								onChange={this.handleInput('last_name')}
+								value={this.state.lname}
+								onChange={this.handleInput('lname')}
 							/>
 							<br />
 							<input className="auth-field"
@@ -65,8 +67,8 @@ class SignupForm extends React.Component {
 							<input className="auth-field"
 								type="text"
 								placeholder="Review display name"
-								value={this.state.username}
-								onChange={this.handleInput('username')}
+								value={this.state.display_name}
+								onChange={this.handleInput('display_name')}
 							/>
 							<br />
 							<small className="form-small">

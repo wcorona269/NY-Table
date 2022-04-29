@@ -7,7 +7,8 @@ const MSTP = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    signup: formUser => dispatch(signup(formUser))
+    signup: formUser => dispatch(signup(formUser)),
+    closeModal: () => dispatch(closeModal())
 });
 
 const SignupFormContainer = connect(null, mapDispatchToProps)(SignupForm);

@@ -1,7 +1,6 @@
 class User < ApplicationRecord
-    validates :username, :email, :password_digest, :phone_number, :first_name, :last_name, presence: true
-    validates :username, length: { minimum: 5 }
-    validates :phone_number, length: {is: 10}
+    validates :email, :password_digest, :phone, :fname, :lname, presence: true
+    validates_length_of :phone, is: 10,  message: "Number must be 10 digits"  
     after_initialize :ensure_session_token
     attr_reader :password
 
