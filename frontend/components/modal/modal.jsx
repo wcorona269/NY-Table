@@ -1,30 +1,35 @@
 import React from 'react';
+import { render } from 'react-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import SignupFormContainer from "../form/signup_form_container";
 
 class Modal extends React.Component {
 	constructor(props) {
-		super(props);
-	}
-
+		super(props)
+	};
+	
+	// const modal = useSelector(state => state.ui.modal.type);
+	// const dispatch = useDispatch();
+	
 	render() {
 		const {modal} = this.props;
+		let component;
 
-		// if (!modal) {
-		// 	return null;
-		// };
-
-		let component = SignupFormContainer;
+		switch (modal) {
+			case "signup":
+				component = <SignupFormContainer/>
+				break;
+			default:
+				return null;
+		}
 
 		return (
-			<div className="form-background" 
-			// onClick={this.enableScrolling}
-			>
-				<div className="modal-child" onClick={e => e.stopPropagation()}>
-					{ component }
-				</div>
+			<div>
+				{component}
 			</div>
-		);
+		)
 	}
 }
 
 export default Modal;
+
