@@ -27,8 +27,8 @@ class LoginForm extends React.Component {
 			return (
 				<div className='auth-form-container'>
 					<form className="auth-form" onSubmit={this.handleSubmit}>
-						<h2>Sign In</h2>
 						<div className="auth-content-container">
+						<h2>Sign In</h2>
 							<input className="auth-field"
 								type="text"
 								placeholder="Email"

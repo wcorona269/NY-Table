@@ -32,8 +32,8 @@ class SignupForm extends React.Component {
 			return (
 				<div className='auth-form-container'>
 					<form className="auth-form" onSubmit={this.handleSubmit}>
-						<h2>Sign Up</h2>
 						<div className="auth-content-container">
+						<h2>Sign Up</h2>
 							<input className="auth-field"
 								type="tel"
 								placeholder="Phone number"

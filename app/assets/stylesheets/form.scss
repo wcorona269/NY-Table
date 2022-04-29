@@ -1,4 +1,9 @@
 .auth-form-container {
+	position: absolute;
+	top: 50%;
+	transform: translate(0, -50%);
+	// border: 5px solid #FFFF00;
+	padding: 10px;
 	border: 4px solid lightgray;
 	border-radius: 4px;
 	width: 450px;
@@ -9,14 +14,23 @@
 	// padding-top: auto;
 }
 
+// @will here’s an easy way to center things:   .ex1 .parent {
+// 	display: grid;
+// 	place-items: center;
+// }
+
+// display: flex;
+// justify-content: center:
+// align-items: center
 // .auth-form {
-	// display: flex;
-	// justify-content: center;
+// 	display: flex;
+// 	justify-content: center;
 // }
 
 .auth-content-container {
 	padding: 20px;
 	display: flex;
+	width: 400px;
 	justify-content: center;
 	flex-direction: column;
 }
@@ -69,4 +83,3 @@ small {
 .auth-button:hover {
 	background-color: var(--hover-red);
 }
-
