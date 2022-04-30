@@ -7,7 +7,7 @@ const MSTP = state => ({
 });
 
 const MDTP = dispatch => ({
-	closeModal: () => dispatch(closeModal)
+	closeModal: () => dispatch(closeModal())
 });
 
 const ModalContainer = connect(MSTP, MDTP)(Modal);

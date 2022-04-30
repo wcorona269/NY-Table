@@ -7,11 +7,22 @@ import LoginFormContainer from '../form/login_form_container';
 class Modal extends React.Component {
 	constructor(props) {
 		super(props)
+
+		this.handleModal = this.handleModal.bind(this);
 	};
 	
 	// const modal = useSelector(state => state.ui.modal.type);
 	// const dispatch = useDispatch();
 	
+	handleModal(e) {
+		e.preventDefault();
+		const bg = document.getElementsByClassName("modal-bg");
+		// debugger;
+		if (e.currentTarget == bg[0]) {
+			this.props.closeModal();
+		}
+	};
+
 	render() {
 		// deconstruct modal from props
 		const {modal} = this.props;
@@ -30,8 +41,10 @@ class Modal extends React.Component {
 		}
 
 		return (
-			<div>
+			<div className="modal-bg" onClick={this.handleModal}>
+				<div className="modal-guts" onClick={e => e.stopPropagation()}>
 				{component}
+				</div>
 			</div>
 		)
 	}

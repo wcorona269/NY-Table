@@ -21,20 +21,25 @@ class NavBar extends React.Component {
 		const {currentUser} = this.props;
 		// debugger;
 		const display = currentUser ? (
-			<div className='right-navbar'>
-			<button onClick={() => this.props.logout()}>Sign Out</button>
-		</div>
-		) : (
-			<div>
+			<div className="nav-bar-container">
+				<div className="nav-left">
+					OpenTable
+				</div>
+				<div className='right-navbar'>
+					<button className="btn btn-logout" onClick={() => this.props.logout()}>Sign Out</button>
+				</div>
+			</div>
+			) : (
+			<div className="nav-bar-container">
 				<div className="nav-left">
 					OpenTable
 				</div>
 				<div className="nav-right">
-					<button onClick={this.signupModal}>Sign Up</button>
-					<button onClick={this.loginModal}>Sign In</button>
+					<button className="btn btn-signup" onClick={this.signupModal}>Sign Up</button>
+					<button className="btn btn-signin" onClick={this.loginModal}>Sign In</button>
 				</div>
 			</div>
-		);
+			);
 		return(
 			<div>
 				{display}

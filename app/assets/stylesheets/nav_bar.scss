@@ -1,0 +1,27 @@
+.nav-bar-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding:20px;
+	width: 80vw;
+}
+
+.btn {
+	background-color: transparent;
+	border: 0.0625rem solid #d8d9db;
+	color: #2d333f;
+	font-size: 14px;
+	margin: 0;
+	border-radius: 0.1875rem;
+	cursor: pointer;
+	line-height: 2rem;
+	padding: 0 16px;
+}
+
+.btn-signup {
+	background-color: #247f9e;
+	border: 0.0625rem solid #247f9e;
+	color: #fff;
+	font-size: 14px;
+	margin: 0 8px;
+}

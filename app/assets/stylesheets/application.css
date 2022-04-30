@@ -16,8 +16,19 @@
 
  body {
 	font-family: BrandonText,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+	display: flex; 
+	justify-content: center;
+	/* flex-direction: row; */
  }
 
+ /* .modalContainer {
+	display: grid;
+	justify-content: left;
+	color: blue;
+	border: 10px solid black !important; */
+
  @import "./reset.scss";
+ @import "./colors.scss";
+ @import "./nav_bar.scss";
  @import "./form.scss";
- @import "./colors.scss"
+

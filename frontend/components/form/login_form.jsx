@@ -25,31 +25,34 @@ class LoginForm extends React.Component {
 
     render() {
 			return (
-				<div className='auth-form-container'>
-					<form className="auth-form" onSubmit={this.handleSubmit}>
-						<div className="auth-content-container">
-						<h2>Sign In</h2>
-							<input className="auth-field"
-								type="text"
-								placeholder="Email"
-								value={this.state.email}
-								onChange={this.handleInput('email')}
-							/>
-							
-							<br />
-							<input className="auth-field"
-								type="password"
-								placeholder="Password"
-								value={this.state.password}
-								onChange={this.handleInput('password')}
-							/>
-							<br />
-							<button id="auth-button" className="auth-field" type="submit">Continue</button>
-						</div>
-					</form>
-				</div>
+					<div className='auth-form-container'>
+						<form className="auth-form" onSubmit={this.handleSubmit}>
+							<div className="auth-content-container">
+								<div className="auth-content-header">Enter your email</div>
+								{/* <br/> */}
+								<div className="auth-content-sub-header">We'll need to verify it's you to continue.</div>
+								<input className="auth-field"
+									type="text"
+									placeholder="Email"
+									value={this.state.email}
+									onChange={this.handleInput('email')}
+								/>
+								
+								<br />
+								<input className="auth-field"
+									type="password"
+									placeholder="Password"
+									value={this.state.password}
+									onChange={this.handleInput('password')}
+								/>
+								<br />
+								<button id="auth-button" className="auth-field" type="submit">Continue</button>
+							</div>
+						</form>
+					</div>
         )
     }
 }
 
 export default LoginForm;
+

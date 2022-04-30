@@ -1,31 +1,40 @@
-.auth-form-container {
+// b
+@import "./variables.scss";
+
+.modal-bg {
+	z-index: 20;
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.5);
+	overflow: hidden;
+}
+
+.modal-guts {
 	position: absolute;
-	top: 50%;
-	transform: translate(0, -50%);
-	// border: 5px solid #FFFF00;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 0;
+}
+
+.auth-form-container {
+	background-color: $background-color;
 	padding: 10px;
-	border: 4px solid lightgray;
 	border-radius: 4px;
 	width: 450px;
 	height: 750px;
 	display: flex;
 	justify-content: center;
-	margin: auto;
-	// padding-top: auto;
+	position: absolute;
+	z-index: 20;
 }
-
-// @will here’s an easy way to center things:   .ex1 .parent {
-// 	display: grid;
-// 	place-items: center;
-// }
-
-// display: flex;
-// justify-content: center:
-// align-items: center
-// .auth-form {
-// 	display: flex;
-// 	justify-content: center;
-// }
 
 .auth-content-container {
 	padding: 20px;
@@ -33,6 +42,7 @@
 	width: 400px;
 	justify-content: center;
 	flex-direction: column;
+	z-index: 5;
 }
 
 small {
@@ -43,13 +53,10 @@ small {
 	background: #fff;
 	border: 0.0625rem solid #d8d9db;
 	border-radius: 4px;
-	// box-sizing: border-box;
 	color: #2d333f;
 	font-size: 16px;
 	line-height: 24px;
 	padding: 10px;
-	margin: 10px;
-	// width: max-content;
 }
 
 .auth-field:hover {
@@ -62,24 +69,55 @@ small {
 }
 
 #auth-button {
-	font-size: 16px;
-	// display: flex;
-	// justify-content: space-around;
-	// margin-left: auto;
-	// margin-right: auto;
+	font-size: 12px;
+	font-family: $roboto;
 	background-color: var(--red-1);
 	color: #fff;
 	-webkit-transition: background-color .3s ease-out;
   -moz-transition: background-color .3s ease-out;
   -o-transition: background-color .3s ease-out;
   transition: background-color .3s ease-out;
-	// padding: 10px;
-	// border-radius: 4px;
 	line-height: 1.15;
 }
 
-
-
-.auth-button:hover {
+#auth-button:hover {
+	border: none;
 	background-color: var(--hover-red);
+	cursor: pointer; 
 }
+
+.auth-content-header {
+	font-family: $auth-font;
+	font-weight: 600;
+	padding-bottom: 10px;
+	font-size: 16px;
+}
+
+.auth-content-sub-header {
+	font-family: $auth-font;
+	font-weight: 200;
+	padding-bottom: 20px;
+	font-size: font-size-base;
+}
+
+
+
+
+
+// .modal-container * {
+// 	border: 20px solid black;
+//  }
+
+// @will here’s an easy way to center things:  
+// body {
+// 	display: grid;
+// 	place-items: center;
+// }
+
+// display: flex;
+// justify-content: center:
+// align-items: center
+// .auth-form {
+// 	display: flex;
+// 	justify-content: center;
+// }

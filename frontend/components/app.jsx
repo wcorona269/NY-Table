@@ -6,9 +6,10 @@ import Modal from "./modal/modal";
 import ModalContainer from "./modal/modal_container";
 
 const App = () => (
+    
     <div>
-        <ModalContainer/>
         <NavBarContainer/>
+        <ModalContainer className="modal-container"/>
         {/* <h1>it's working</h1> */}
         {/* <Route path="/" component={SignupContainer}/> */}
         {/* <SignupContainer/> */}
