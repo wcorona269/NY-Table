@@ -6,4 +6,10 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-User.create(first_name: "Food", last_name: "Enjoyer", username: "foodenjoyer", password: "ilovefood", email: "foodenjoyer@foodnetwork.com, phone_number: "203-913-8354");
+User.create(fname: "Food", lname: "Enjoyer", dname: "foodenjoyer", password: "ilovefood", email: "foodenjoyer@foodnetwork.com", phone: 2039138354, city_id: 1)
+
+City.create(name: "New York City", state: "New York")
+City.create(name: "Los Angeles", state: "California")
+City.create(name: "Chicago", state: "Illinois")
+City.create(name: "Houston", state: "Texas")
+

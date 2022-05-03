@@ -15,7 +15,7 @@ class SignupForm extends React.Component {
             fname: '',
             lname: '',
             email: '',
-            display_name: '',
+            dname: '',
             password: '',
         };
 
@@ -81,8 +81,8 @@ class SignupForm extends React.Component {
 								<input className="auth-field"
 									type="text"
 									placeholder="Review display name"
-									value={this.state.display_name}
-									onChange={this.handleInput('display_name')}
+									value={this.state.dname}
+									onChange={this.handleInput('dname')}
 								/>
 								<br />
 								<small className="form-small">

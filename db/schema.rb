@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_01_190448) do
+ActiveRecord::Schema.define(version: 2022_05_03_184834) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,8 +36,33 @@ ActiveRecord::Schema.define(version: 2022_05_01_190448) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "cities", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "state", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_cities_on_name", unique: true
+    t.index ["state"], name: "index_cities_on_state"
+  end
+
+  create_table "restaurants", force: :cascade do |t|
+    t.integer "city_id", null: false
+    t.string "name", null: false
+    t.string "description", null: false
+    t.string "cuisines", null: false
+    t.integer "price_range", null: false
+    t.string "neighborhood", null: false
+    t.string "address", null: false
+    t.bigint "phone", null: false
+    t.float "latitude", null: false
+    t.float "longitude", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_restaurants_on_name", unique: true
+  end
+
   create_table "users", force: :cascade do |t|
-    t.string "display_name", null: false
+    t.string "dname", null: false
     t.string "fname", null: false
     t.string "lname", null: false
     t.string "email", null: false
@@ -46,6 +71,7 @@ ActiveRecord::Schema.define(version: 2022_05_01_190448) do
     t.string "password_digest", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "city_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["phone"], name: "index_users_on_phone", unique: true
     t.index ["session_token"], name: "index_users_on_session_token", unique: true

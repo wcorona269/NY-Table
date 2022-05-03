@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  city_id: 1
+  name: MyString
+  description: MyString
+  cuisines: MyString
+  price_range: 1
+  address: MyString
+  phone: 
+  menu: MyString
+
+two:
+  city_id: 1
+  name: MyString
+  description: MyString
+  cuisines: MyString
+  price_range: 1
+  address: MyString
+  phone: 
+  menu: MyString
