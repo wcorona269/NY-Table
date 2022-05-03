@@ -14,14 +14,45 @@
 
 .modal-guts {
 	position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+	top: 50%;
+	left: 50%;
+	height: fit-content;
+	width: fit-content;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	z-index: 0;
+}
+
+.auth-form-x-btn-wrapper {
+	width: 200px;
+	height: 40px;
+	align-items: center;
+}
+
+.auth-form-x-btn-container {
+	top: 0;
+	padding: 20px;
+	margin: 20px;
+	margin-top: 40px; 
+	background-color: transparent;
+	border: none;
+	border-radius: 50%;
+	cursor: pointer;
+	height: 1.5rem;
+	padding: 0;
+	position: absolute;
+	right: 16px;
+	width: 1.5rem;
+	z-index: 1;
+}
+
+.auth-form-x-btn-image {
+	position: absolute;
+	height: 20px;
+	width: 20px;
+	display:inline-block;
+	overflow: visible;
 }
 
 .auth-form-container {
@@ -45,9 +76,6 @@
 	z-index: 5;
 }
 
-small {
-	font-size: 2px;
-}
 
 .auth-field {
 	background: #fff;
@@ -64,13 +92,15 @@ small {
 }
 
 .form-small {
-	font-size: 10px;
+	font-size: 12px;
 	color: gray;
+	line-height: 20px;
+	font-weight: normal;
 }
 
 #auth-button {
-	font-size: 12px;
-	font-family: $roboto;
+	font-size: 16px;
+	font-family: $auth-font;
 	background-color: var(--red-1);
 	color: #fff;
 	-webkit-transition: background-color .3s ease-out;
@@ -78,6 +108,8 @@ small {
   -o-transition: background-color .3s ease-out;
   transition: background-color .3s ease-out;
 	line-height: 1.15;
+	height: 3rem;
+	font-weight: 400;
 }
 
 #auth-button:hover {
@@ -99,25 +131,3 @@ small {
 	padding-bottom: 20px;
 	font-size: font-size-base;
 }
-
-
-
-
-
-// .modal-container * {
-// 	border: 20px solid black;
-//  }
-
-// @will here’s an easy way to center things:  
-// body {
-// 	display: grid;
-// 	place-items: center;
-// }
-
-// display: flex;
-// justify-content: center:
-// align-items: center
-// .auth-form {
-// 	display: flex;
-// 	justify-content: center;
-// }

@@ -1,0 +1,135 @@
+@import "./variables.scss";
+
+.user-search-popout-button:hover {
+	cursor: pointer;
+}
+
+#user-dropdown {
+	width: 100%;
+}
+
+.user-info-dropdown-list-container {
+	position: absolute;
+	z-index: 100;
+	border: 1px $border-color;
+	width: 30px;
+	background-color: $background-color;
+	margin-top: 40px;
+}
+
+.ud-item {
+	background-color: transparent;
+}
+
+.btn-logout {
+	color: blue;
+}
+
+.user-dropdown-ul {
+	font-family: $main_font;
+	box-sizing: border-box;
+	display: block;
+	width: 19.75rem;
+	height: 300x;
+	background-color: white;
+	border: 1px solid $border-color;
+	border-radius: 3px;
+	top: 86px;
+	right: 215px;
+	position: absolute;
+	z-index: 100;
+}
+
+.dropdown-title {
+	font-size: 16px;
+	font-weight: 500;
+	margin-bottom: 15px;
+	padding-left: 16px;
+}
+
+.user-dropdown-ul {
+	box-sizing: border-box;
+	height: 200px;
+	padding-top: 10px;
+	font-family: $auth-font;
+	font-weight: 300;
+	font-size: 13px;
+	text-decoration: none;
+	color:rgb(59, 59, 59);
+	line-height: 30px;
+	bottom: 0;
+	position:absolute;
+	right: 13.75%;
+}
+
+.user-dropdown-ul > ul {
+	border-top: 1.5px solid rgba(211, 211, 211, 0.6);
+	list-style: none;
+	color: #2d333f;
+	font-size: 16px;
+	padding: 8px 16px;
+	font-family: $auth-font;
+	line-height: 1.5;
+	margin: 0;
+}
+
+.user-dropdown-ul > ul:hover {
+	cursor: pointer;
+	background-color: $background-color;
+
+}
+
+%user-drops {
+	top: 86px;
+	padding: 8px 16px;
+}
+
+
+#res-drop {
+	@extend %user-drops;
+	right: 11.75%;
+	height: 95px;
+}
+
+#abt-drop {
+	@extend %user-drops;
+	right: 9.75%;
+	box-sizing: border-box;
+	height: fit-content;
+}
+
+%drop-titles {
+	font-weight: 600;
+	margin: 0;
+	padding-left: 0;
+	padding-bottom: 5px;
+	padding-top: 5px;
+}
+
+#res-drop-title {
+	@extend %drop-titles;
+}
+
+#abt-drop-title {
+	@extend %drop-titles;
+}
+
+
+.abt-drop-info-container {
+	border-top: 1.5px solid rgba(211, 211, 211, 0.6);
+	margin-top: 10px;
+	padding-top: 10px;
+	font-size: 12px;
+}
+
+.blue-text {
+	display: inline;
+	color: $turquoise;
+	font-weight: bold;
+}
+
+.red-text {
+	display: inline;
+	font-weight: bold;
+	color: $red;
+}

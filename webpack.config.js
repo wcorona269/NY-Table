@@ -10,9 +10,10 @@ module.exports = {
   module: {
     rules: [
       {
-        test: [/\.js?$/, /\.jsx?$/], 
+        test: [/\.js?$/, /\.jsx?$/, /\.svg$/, /\.(sass|less|css)$/],
+        use: ['@svgr/webpack'], 
         exclude: /(node_modules)/,
-        loader: 'babel-loader',
+        loaders: ['babel-loader', 'style-loader', 'css-loader', 'less-loader'],
         options: {
           presets: ['@babel/env', '@babel/react'] 
         }
@@ -24,3 +25,4 @@ module.exports = {
     extensions: ['.js', '.jsx', '*'],
   }
 };
+

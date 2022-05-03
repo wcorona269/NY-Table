@@ -1,6 +1,8 @@
 import React from "react";
 import { closeModal } from "../../actions/modal_actions";
-import { icTicket } from '../../../node_modules/otkit-icons/token.common'
+import { icClose } from 'otkit-icons/token.theme.common';
+
+
 
 
 class SignupForm extends React.Component {
@@ -27,15 +29,23 @@ class SignupForm extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         this.props.signup(this.state)
+
+					// user not bootstrapping on sign-up
+					// .then(this.props.login(this.state))
+					
 					.then(() => dispatch(closeModal()))
     }
 
     render() {
 			return (
-					<div className='auth-form-container'>
-						<div id="close-modal-btn" onClick={() => dispatch(closeModal())}></div>
+				<div className='auth-form-container'>
 						<form className="auth-form" onSubmit={this.handleSubmit}>
 							<div className="auth-content-container">
+								<div className="auth-form-x-btn-wrapper">
+									<div onClick={() => dispatch(closeModal())} className="auth-form-x-btn-container">
+										<img className="auth-form-x-button-image" src={`data:image/svg+xml;utf8,${icClose}`}/>
+									</div>
+								</div>
 							<div className="auth-content-header">Sign Up</div>
 								{/* <br/> */}
 								<div className="auth-content-sub-header">Fill out required fields to continue.</div>
@@ -76,7 +86,7 @@ class SignupForm extends React.Component {
 								/>
 								<br />
 								<small className="form-small">
-									{/* This is a name that will be shown whenever you leave a review. Remember to not use your full name or email.	 */}
+									This is a name that will be shown whenever you leave a review. Remember to not use your full name or email.	
 								</small>
 								<br />
 								<input className="auth-field"

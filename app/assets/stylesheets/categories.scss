@@ -1,0 +1,56 @@
+@import "./variables.scss";
+
+.categories-section-container {
+	width: auto;
+	height: fit-content;
+	margin-top: 30px;
+}
+
+.categories-section {
+	align-items: right;
+	height: fit-content;
+	padding: 0 32px;
+	font-family: $auth-font;
+}
+
+.categories-section-header {
+	border-bottom: 0.0625rem solid #d8d9db;
+	display: flex;
+	justify-content: space-between;
+	margin: 0 0 16px;
+	padding-bottom: 16px;
+	min-height: 2.25rem;
+}
+
+.categories-section-header-text {
+	display: block;
+	font-size: 1.5em;
+	margin-block-start: 0.83em;
+	margin-block-end: 0.83em;
+	margin-inline-start: 0px;
+	margin-inline-end: 0px;
+	font-weight: bold;
+	color: #2d333f;
+	width: auto;
+
+}
+
+.view-all-button {
+	margin-left: 1rem;
+	margin-top: 0.5rem;
+	line-height: 1.25rem;
+	margin-top: 24px;
+	font-size: .875rem;
+	color: #da3743;
+	cursor: pointer;
+	display: flex;
+	flex-direction: row-reverse;
+	text-decoration: none;
+	font-weight: 500;
+}
+
+.outer-scroll-container {	border: 1px solid gray;
+	width: auto;
+	height: fit-content;
+	padding-top: 8px;
+}

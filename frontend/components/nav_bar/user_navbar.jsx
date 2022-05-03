@@ -12,7 +12,8 @@ const UserNavBar = (props) =>	{
 
 	return (
 		<div className='right-navbar'>
-			<button onClick={handleModal}>Sign Out</button>
+			
+				<button onClick={handleModal}>Sign Out</button>
 		</div>
 	)
 };

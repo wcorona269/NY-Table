@@ -3,6 +3,9 @@ import { render } from 'react-dom';
 // import { useSelector, useDispatch } from 'react-redux';
 import SignupFormContainer from "../form/signup_form_container";
 import LoginFormContainer from '../form/login_form_container';
+import { closeModal } from '../../actions/modal_actions';
+import { icClose } from 'otkit-icons/token.theme.common';
+
 
 class Modal extends React.Component {
 	constructor(props) {
@@ -16,11 +19,7 @@ class Modal extends React.Component {
 	
 	handleModal(e) {
 		e.preventDefault();
-		const bg = document.getElementsByClassName("modal-bg");
-		// debugger;
-		if (e.currentTarget == bg[0]) {
-			this.props.closeModal();
-		}
+		this.props.closeModal();
 	};
 
 	render() {
@@ -43,7 +42,8 @@ class Modal extends React.Component {
 		return (
 			<div className="modal-bg" onClick={this.handleModal}>
 				<div className="modal-guts" onClick={e => e.stopPropagation()}>
-				{component}
+						{/* <img className="auth-form-x-btn-img" src={`data:image/svg+xml;utf8,${icClose}`}/> */}
+					{component}
 				</div>
 			</div>
 		)

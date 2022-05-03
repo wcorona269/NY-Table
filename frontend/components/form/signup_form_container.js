@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import {signup} from '../../actions/session_actions';
+import {signup, login} from '../../actions/session_actions';
 import SignupForm from "./signup_form";
 
 const MSTP = state => ({
@@ -8,6 +8,7 @@ const MSTP = state => ({
 
 const mapDispatchToProps = dispatch => ({
     signup: formUser => dispatch(signup(formUser)),
+    login: formUser => dispatch(login(formUser)),
     closeModal: () => dispatch(closeModal())
 });
 

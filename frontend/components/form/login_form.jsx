@@ -1,5 +1,6 @@
 import React from "react";
 import { closeModal } from "../../actions/modal_actions";
+import { icClose } from 'otkit-icons/token.theme.common';
 
 class LoginForm extends React.Component {
     constructor(props) {
@@ -28,6 +29,11 @@ class LoginForm extends React.Component {
 					<div className='auth-form-container'>
 						<form className="auth-form" onSubmit={this.handleSubmit}>
 							<div className="auth-content-container">
+								<div className="auth-form-x-btn-wrapper">
+									<div onClick={() => dispatch(closeModal())} className="auth-form-x-btn-container">
+										<img className="auth-form-x-button-image" src={`data:image/svg+xml;utf8,${icClose}`}/>
+									</div>
+								</div>
 								<div className="auth-content-header">Enter your email</div>
 								{/* <br/> */}
 								<div className="auth-content-sub-header">We'll need to verify it's you to continue.</div>

@@ -42,6 +42,31 @@ table {
 	border-spacing: 0;
 }
 
-// .modal-container * {
-// 	border: 20px solid black;
-//  }
+html {
+	-webkit-text-size-adjust: 100%;
+	line-height: 1.15;
+}
+
+@import "./variables.scss";
+
+.outer-body {
+	display: grid;
+	grid-template-columns: auto 85vw auto;
+	grid-template-rows: 16px 100vw;
+	height: 100vw;
+	background-color: $background-color;
+}
+
+.outer-body .inner-body {
+	background-color: #fff;
+	grid-column-start: 2;
+	grid-row-start: 2;
+	grid-row-end: 3;
+	margin-top: 10px;
+}
+
+.inner-body {
+	display: grid;
+	grid-template-columns: auto;
+	grid-template-rows: auto 1fr;
+}
