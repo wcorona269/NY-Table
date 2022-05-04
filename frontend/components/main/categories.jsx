@@ -1,4 +1,5 @@
 import React from "react";
+import CatList from "./category_list";
 
 class Categories extends React.Component {
 	constructor(props) {
@@ -6,30 +7,12 @@ class Categories extends React.Component {
 	}
 
 	render() {
+		const titles = ['Recommended for you', 'Award Winning', 'Get it delivered'];
 		return (
-			<>
-			<div className="categories-section-container">
-				<section className="categories-section">
-					<header className="categories-section-header">
-						<div className="categories-section-header-container">
-							<h2 className="categories-section-header-text">
-								Outdoor dining
-							</h2>
-						</div>
-						<a className="view-all-button">
-							View all
-						</a>
-					</header>
-					<div className="outer-scroll-container">
-						Hello
-						{/* <ListContainer/> */}
-					</div>
-				</section>
-			</div>
-		</>
-		);
+			titles.map((title, idx) => <CatList title={title} key={idx}/>)
+		)
 	}
 }
 
-export default Categories;
 
+export default Categories;

@@ -10,6 +10,5 @@ const mDTP = dispatch => ({
 
 })
 
-
 const CategoriesContainer = connect(mSTP, mDTP)(Categories);
 export default CategoriesContainer;

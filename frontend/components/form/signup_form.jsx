@@ -2,9 +2,6 @@ import React from "react";
 import { closeModal } from "../../actions/modal_actions";
 import { icClose } from 'otkit-icons/token.theme.common';
 
-
-
-
 class SignupForm extends React.Component {
     constructor(props) {
         super(props)
@@ -18,7 +15,7 @@ class SignupForm extends React.Component {
             dname: '',
             password: '',
         };
-
+				
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
