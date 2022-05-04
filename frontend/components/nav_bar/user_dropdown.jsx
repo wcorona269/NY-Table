@@ -16,5 +16,4 @@ const UserDropdown = ({userDropdown, logout, currentUser}) => {
 		</div>
 	)
 }
-
 export default withRouter(UserDropdown)

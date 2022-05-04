@@ -80,7 +80,7 @@ Restaurant.create(
 Restaurant.create(
 	city_id: 1,
 	name: "Peter Luger Steak House",
-	description: "Dig into a delicious steak at Peter Luger. With a history that stretches across three centuries, this landmark chophouse offers a classic "no-frill" menu that includes mouthwatering grilled dishes served with delicious old fashioned sauce. Voted NYC's No. 1 steakhouse, Peter Luger is popular with many residents who rave about the burgers and steaks. Its casual decor and hall-type atmosphere provide the ideal setting for fun outings with friends or celebrating birthdays. This restaurant also provides catering services on request. Note that Peter Lugar accepts cash, checks and debit cards only.",
+	description: "Dig into a delicious steak at Peter Luger. With a history that stretches across three centuries, this landmark chophouse offers a classic 'no-frill' menu that includes mouthwatering grilled dishes served with delicious old fashioned sauce. Voted NYC's No. 1 steakhouse, Peter Luger is popular with many residents who rave about the burgers and steaks. Its casual decor and hall-type atmosphere provide the ideal setting for fun outings with friends or celebrating birthdays. This restaurant also provides catering services on request. Note that Peter Lugar accepts cash, checks and debit cards only.",
 	cuisines: "Steakhouse",
 	price_range: 3,
 	neighborhood: "Williamsburg",

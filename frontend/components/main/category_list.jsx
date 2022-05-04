@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import ScrollBarContainer from './scrollbar/scrollbar_container';
 
 const CatList = ({title}) => {
 	
@@ -18,6 +19,7 @@ const CatList = ({title}) => {
 						</a>
 					</header>
 					<div className="outer-scroll-container">
+						<ScrollBarContainer/>
 					</div>
 				</section>
 			</div>

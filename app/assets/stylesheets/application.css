@@ -22,6 +22,7 @@
  }
 
  @import "./reset.scss";
+ @import "./home.scss";
  @import "./colors.scss";
  @import "./nav_bar.scss";
  @import "./form.scss";
