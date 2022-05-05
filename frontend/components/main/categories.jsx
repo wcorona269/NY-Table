@@ -7,6 +7,7 @@ class Categories extends React.Component {
 	}
 
 	render() {
+
 		const titles = ['Recommended for you', 'Award Winning', 'Get it delivered'];
 		return (
 			titles.map((title, idx) => <CatList title={title} key={idx}/>)

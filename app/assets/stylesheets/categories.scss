@@ -49,47 +49,9 @@
 }
 
 .outer-scroll-container {
-	border: 1px solid gray;
+	// border: 1px solid gray;
 	width: auto;
 	height: fit-content;
 	padding-top: 8px;
 }
 
-.scrollbar-ul {
-	list-style: none;
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-}
-
-.scrollbar-li {
-	margin: 9px;
-}
-
-.li-button {
-	padding: 8px;
-	transition: all .3s;
-}
-
-.li-button:hover {
-	box-shadow: 0 2px 4px rgba(45, 51, 63, 0.5);
-	transform: translateY(-6px);
-}
-
-.li-button-div {
-	border: 1px solid black;
-	width: 15em;
-	height: 15rem;
-	border: 1px solid #d8d9db;
-	border-radius: 4px;
-	box-sizing: border-box;
-	display: flex;
-	flex-direction: column;
-	margin: 0;
-	overflow: hidden;
-	position: relative;
-	transition: all .3s;
-	z-index: 1;
-	cursor: pointer;
-	// margin: 
-}

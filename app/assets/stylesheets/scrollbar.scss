@@ -1,0 +1,138 @@
+@import "./variables.scss";
+
+
+.scrollbar-ul {
+	list-style: none;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	margin-left: -9px;
+	margin-right: -9px;
+	white-space: nowrap;
+	overflow: hidden !important;
+}
+
+.scrollbar-li {
+	margin: 5px;
+	background-color: white;
+}
+
+scrollbar-li:hover {
+	pointer-events: auto;
+	
+}
+
+.li-button {
+	// margin: 8px;
+	padding: 0px;
+	border: 1px solid $border-color;
+	transition: all .3s;
+	width: fit-content;
+	height: fit-content;
+	background-color: white;
+	border-radius: 4px;
+	// background-color: $background-color;
+}
+
+.li-button:hover {
+	cursor: pointer;
+	box-shadow: 0 2px 4px rgba(45, 51, 63, 0.5);
+	transform: translateY(-6px);
+}
+
+.li-button-div {
+	display: grid;
+	grid-template-rows: 45% 55%;
+	width: 14rem;
+	height: 16.75rem;
+	// border: 1px solid #d8d9db;
+	box-sizing: border-box;
+	margin: 0;
+	position: relative;
+	transition: all .3s;
+	z-index: 1;
+}
+
+.img-placeholder {
+	grid-row-start: 1;
+}
+
+.li-button-rest-info {
+	display: grid;
+	grid-template-rows: auto auto auto auto auto;
+	background-color: #fff;
+	color: initial;
+	overflow: hidden;
+	padding: 9px;
+	position: relative;
+	color: #2d333f;
+	float: left;
+	text-align: left;
+	
+}
+
+.li-button-rest-title {
+	margin: 0 0 4px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	grid-row-start: 1;
+	width: 100%;
+	float: left;
+	font-size: 1.125rem;
+	font-weight: 700;
+	line-height: 1.5rem;
+	white-space: nowrap;
+	overflow: hidden !important;
+	text-overflow: ellipsis;
+}
+
+.li-button-today-div {
+	font-size: .875rem;
+	font-weight: 800;
+	line-height: 1.25rem;
+	display: flex;
+	align-items: center;
+}
+
+.scrollbar-booking-count {
+	height: 20px;
+	width: 20px;
+	margin-right: 5px;
+}
+
+
+.bullet-span {
+	content: "\2022";
+}
+
+.li-button-info-div {
+	color: #2d333f;
+	font-size: .875rem;
+	font-weight: 100;
+	line-height: 1.15rem;
+	white-space: nowrap;
+	overflow: hidden !important;
+	text-overflow: ellipsis;
+}
+
+#dot {
+	margin-left: 3px;
+	margin-right: 3px;
+}
+
+.gray-dollar {
+	color: #eea0a5
+}
+
+.li-button-reserve-div {
+	color: #da3743;
+	font-size: 1rem;
+	font-weight: 900;
+	line-height: 1.5rem;
+	margin-bottom: -10px;
+	padding-top: 5px;
+	margin-top: 5px;
+	border-top: 1px solid $border-color;
+}
+

@@ -52,8 +52,8 @@ html {
 .outer-body {
 	display: grid;
 	grid-template-columns: auto 85vw auto;
-	grid-template-rows: 16px 100vw;
-	height: 100vw;
+	grid-template-rows: 16px 100vw 300px;
+	height: auto;
 	background-color: $background-color;
 }
 

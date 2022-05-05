@@ -4,7 +4,7 @@ import ScrollBar from './scrollbar';
 import { fetchRests } from '../../../actions/rest_actions';
 
 const mSTP = state => ({
-
+	rests: Object.values(state.entities.rests)
 })
 
 const mDTP = dispatch => ({

@@ -1,0 +1,68 @@
+@import './variables.scss';
+
+#footer {
+	background-color: #2d333f;
+	border: 1px solid black;
+	border-top: 0.0625rem solid rgba(0,0,0,.12);
+	height: 400px;
+	display: flex;
+	justify-content: center;
+	color: #fff;
+}
+
+.footer-column-wrapper {
+	// color: black;
+	height: 400px;
+	width: 60vw;
+	margin-right: 50px;
+	// border: 1px solid black;
+}
+
+
+.inner-footer-wrapper {
+	display: grid;
+	grid-template-columns: repeat(4, 18vw);
+	align-items: center;
+}
+
+.footer-col {
+	padding-top: 50px;
+	height: 400px;
+	display: flex;
+	flex-direction: column;
+	justify-content: left;
+	width: auto;
+}
+
+.footer-header {
+	color: #fff;
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 24px;
+	margin: 0 0 8px;
+	text-transform: uppercase;
+}
+
+.footer-col li {
+	list-style: none;
+	display: list-item;
+	text-align: -webkit-match-parent;
+	line-height: 22px;
+	-webkit-font-smoothing: antialiased;
+	font-weight: 100px;
+	color: $gray-color;
+}
+
+li a {
+	all: inherit;
+	width: fit-content;
+}
+
+a:hover {
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+.fa-brands {
+	margin-right: 10px;
+}

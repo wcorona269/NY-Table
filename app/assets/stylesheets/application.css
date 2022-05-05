@@ -21,7 +21,9 @@
 	/* max-width: 80rem; */
  }
 
+ 
  @import "./reset.scss";
+ @import "./scrollbar.scss";
  @import "./home.scss";
  @import "./colors.scss";
  @import "./nav_bar.scss";
@@ -29,4 +31,5 @@
  @import "./nav_bar.scss";
  @import "./searchbar.scss";
  @import './categories.scss';
+ @import './footer.scss';
  /* @import 'react-datepicker/dist/react-datepicker-cssmodules.css'; */
