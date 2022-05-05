@@ -1,10 +1,10 @@
 import React, {useEffect} from 'react';
 import { withRouter } from 'react-router-dom';
 import { icSocialProof } from 'otkit-icons/token.theme.common';
+import StarIcon from "./star_icon";
 
-
-
-const ListIcon = ({name, cuisines, neighborhood, price_range}) => {
+const ListIcon = ({name, cuisines, neighborhood, price_range, icon, rating}) => {
+	
 	const priceRange = (num) => {
 		// debugger;
 		if (num === 1) {
@@ -23,13 +23,15 @@ const ListIcon = ({name, cuisines, neighborhood, price_range}) => {
 			<button className="li-button">
 				<div className="li-button-div">
 					{/* <img src="" /> */}
-					<div className="img-placeholder">{name}</div>
+					<div className="img-placeholder">
+						<img id="splash-rest-icon" src={icon} alt="" />
+					</div>
 					<div className="li-button-rest-info">
 						<h3 className="li-button-rest-title">
 							{name}
 						</h3>
 						<div className="li-button-ratings-div">
-							4 stars
+							<StarIcon rating={rating} />
 						</div>
 						<div className="li-button-info-div">
 							{cuisines}
@@ -42,7 +44,8 @@ const ListIcon = ({name, cuisines, neighborhood, price_range}) => {
 							<img 
 								className="scrollbar-booking-count"
 								src={`data:image/svg+xml;utf8,${icSocialProof}`}
-							/>Booked {Math.floor(Math.random() * (199 - 50) + 50)} times today
+							/>
+							Booked {Math.floor(Math.random() * (199 - 50) + 50)} times today
 						</div>
 						<div className="li-button-reserve-div">Reserve</div>
 					</div>
