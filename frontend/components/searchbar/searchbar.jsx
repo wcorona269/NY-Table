@@ -20,7 +20,7 @@ class SearchBar extends React.Component {
 		return (
 			<div className="search-bar-container">
 				<h1 className="searchbar-header">
-					Find your table for any occasion
+					Find your table for a<span className="red-searchbar-header-text">ny</span> occasion
 				</h1>
 				{/* <DatePicker/> */}
 			</div>

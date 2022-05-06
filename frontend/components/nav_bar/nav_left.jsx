@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 const NavLeft = () => {
 	return (
 		<div className="nav-left">
-			<img className="nav-logo" src="//cdn.otstatic.com/cfe/8/images/opentable-logo-153e80.svg" alt="OpenTable logo"/>
+			<img className="nav-logo" src="https://i.imgur.com/TXAOA6P.png" alt="NY Table logo"/>
 		</div>
 	);
 };
