@@ -9,7 +9,7 @@ class ScrollBar extends React.Component {
 		this.shuffle = this.shuffle.bind(this);
 
 		this.state = {
-			rating: (Math.random() * (199 - 50) + 50),
+			// rating: Math.floor((Math.random() * (5 - 1) + 1)),
 			photos: {
 				"Central Park Boathouse": "https://my-table-dev.s3.us-east-1.amazonaws.com/centralpark/41764400.jpg?response-content-disposition=inline&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEMf%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMiJHMEUCIQCMInSssYMdIRf9R0lF6jr3KUNRnr1EJwFUrLUDKZYZJwIgXiF4OThlPEBTyn78UnkXILZOT7GfNtsz3AONUzKXsOQq7QIIkP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgwxMzIzMDg4MjY2MTIiDELPduV50VfOb8DwjyrBAt4MfIOhLlUfbveGmm380ujQOqqGEKRi9TMDJwDJxwABWqVmJV3efjmdkmyYETWNahWM%2FhB4zVMBuZcBLKiLoGDcd3fsykEk43vtOhXZdcYNOanS%2FBtZ%2FzImbO286Lo13%2FKaI2ZjY2eTB3uqbFdUH5YYlH8UbyjVPzXDElDelYr2UkAw%2B2XPRGzbP2xsg1nSrEHzM6bC%2BmSFSzDOO4eGsKabSgWqVlELYEOf26nO2BoRhiGuOjFszHnubWoZn6EZoQVO1QqbSsZjhWTZp8n%2F4sYMu%2B4Vh3Z59w21PQ5J%2BMtsQRPW5fOxvIp40PXqHYPnmTY2bS2NqAsmI7GzD%2FJET9kkFMrNPWeksan2F0xN61u2G3XH%2BcsK%2BW%2BX8Oh2ptxWDVJxZObYW26MluRO3sk7%2F%2F%2F6b%2BU8cIkTSijAx3dfkqgF%2FDCaus%2BTBjqzAp8QNz9GKIPPAHTYsk62MtE%2FHXSsh8xQSaAqchM69GVf%2FdztopngG2O%2BTEsVQeoWy6tFFTpS7ZBfU0zTja2iC8zR6yxVKerfTTEHMixFuMkRpwy2JCGzNjJ5NsHHUBKGlv2l4ouHxTTin68vPpGajWryFkvXVfiyLqp1sqFjN74KzGSaNex9IZ8tBI7lRfH8cjGEvJ04vaHZHeA%2Bi4c2TXg3FuPAETAIR4SksGB9VT9LDFxlyXbdkcoiqLGA%2BFRVRML2E06MWreUW%2B5EUn9pve0sS6oX%2Bf4J743KTU0FzKhNoghNcsOSAv1tjsPoi%2BqtxScHq50pTIRJgUYYIEe%2BxO0fG9AXLuhsendefYWKpmIh%2BmemvqpSsYO1Fy%2BYqdPGw5incyEozeXqDwGCpWrzc7isidw%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20220505T200934Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Credential=ASIAR5TRYPH2C7752IOM%2F20220505%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=4ac773ecc4254ffc0e448013cd3a0a0c9bbf2eeb3a15704cf6ab364510a93b7d",
 				"Bill's Bar and Burger": "https://my-table-dev.s3.us-east-1.amazonaws.com/bills/Bills-Bar-and-Burger-1-415x276.png?response-content-disposition=inline&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEMf%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMiJHMEUCIQCMInSssYMdIRf9R0lF6jr3KUNRnr1EJwFUrLUDKZYZJwIgXiF4OThlPEBTyn78UnkXILZOT7GfNtsz3AONUzKXsOQq7QIIkP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgwxMzIzMDg4MjY2MTIiDELPduV50VfOb8DwjyrBAt4MfIOhLlUfbveGmm380ujQOqqGEKRi9TMDJwDJxwABWqVmJV3efjmdkmyYETWNahWM%2FhB4zVMBuZcBLKiLoGDcd3fsykEk43vtOhXZdcYNOanS%2FBtZ%2FzImbO286Lo13%2FKaI2ZjY2eTB3uqbFdUH5YYlH8UbyjVPzXDElDelYr2UkAw%2B2XPRGzbP2xsg1nSrEHzM6bC%2BmSFSzDOO4eGsKabSgWqVlELYEOf26nO2BoRhiGuOjFszHnubWoZn6EZoQVO1QqbSsZjhWTZp8n%2F4sYMu%2B4Vh3Z59w21PQ5J%2BMtsQRPW5fOxvIp40PXqHYPnmTY2bS2NqAsmI7GzD%2FJET9kkFMrNPWeksan2F0xN61u2G3XH%2BcsK%2BW%2BX8Oh2ptxWDVJxZObYW26MluRO3sk7%2F%2F%2F6b%2BU8cIkTSijAx3dfkqgF%2FDCaus%2BTBjqzAp8QNz9GKIPPAHTYsk62MtE%2FHXSsh8xQSaAqchM69GVf%2FdztopngG2O%2BTEsVQeoWy6tFFTpS7ZBfU0zTja2iC8zR6yxVKerfTTEHMixFuMkRpwy2JCGzNjJ5NsHHUBKGlv2l4ouHxTTin68vPpGajWryFkvXVfiyLqp1sqFjN74KzGSaNex9IZ8tBI7lRfH8cjGEvJ04vaHZHeA%2Bi4c2TXg3FuPAETAIR4SksGB9VT9LDFxlyXbdkcoiqLGA%2BFRVRML2E06MWreUW%2B5EUn9pve0sS6oX%2Bf4J743KTU0FzKhNoghNcsOSAv1tjsPoi%2BqtxScHq50pTIRJgUYYIEe%2BxO0fG9AXLuhsendefYWKpmIh%2BmemvqpSsYO1Fy%2BYqdPGw5incyEozeXqDwGCpWrzc7isidw%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20220505T201540Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Credential=ASIAR5TRYPH2C7752IOM%2F20220505%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=9f53379a46ab7c32a1a02c7cb1a2312850a3105ccca2baea5288763b3e8d9566",
@@ -20,7 +20,7 @@ class ScrollBar extends React.Component {
 			}
 		}
 	}
-
+	
 	componentDidMount() {
 		this.props.fetchRests();
 	}
@@ -60,7 +60,7 @@ class ScrollBar extends React.Component {
 						price_range={rest.price_range}
 						key={idx}
 						icon={this.state.photos[rest.name]}
-						rating={this.state.rating}
+						rating={(Math.random() * (5 - 2) + 2).toFixed(1)}
 						// rating={this.avgRating(rest.name)}
 						// alternatively do this in mSTP
 						// function for this in model/controller?

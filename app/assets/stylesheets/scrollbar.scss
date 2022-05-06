@@ -38,6 +38,11 @@ scrollbar-li:hover {
 	cursor: pointer;
 	box-shadow: 0 2px 4px rgba(45, 51, 63, 0.5);
 	transform: translateY(-6px);
+	overflow: hidden;
+	#splash-rest-icon {
+		transform: scale(1.1);
+		transition: all .3s ease-in-out;
+	}
 }
 
 .li-button-div {

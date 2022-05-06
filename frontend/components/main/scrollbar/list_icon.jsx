@@ -1,7 +1,8 @@
 import React, {useEffect} from 'react';
 import { withRouter } from 'react-router-dom';
 import { icSocialProof } from 'otkit-icons/token.theme.common';
-import StarIcon from "./star_icon";
+import { DynamicStar } from 'react-dynamic-star';
+
 
 const ListIcon = ({name, cuisines, neighborhood, price_range, icon, rating}) => {
 	
@@ -31,7 +32,16 @@ const ListIcon = ({name, cuisines, neighborhood, price_range, icon, rating}) => 
 							{name}
 						</h3>
 						<div className="li-button-ratings-div">
-							<StarIcon rating={rating} />
+						<DynamicStar
+							rating={rating}
+							width={20}
+							height={20}
+							outlined={false}
+							totalStars={5}
+							sharpnessStar={2}
+							fullStarColor="#da3743"
+							emptyStarColor="lightgray"
+      			/>
 						</div>
 						<div className="li-button-info-div">
 							{cuisines}

@@ -10,14 +10,19 @@ module.exports = {
   module: {
     rules: [
       {
-        test: [/\.js?$/, /\.jsx?$/, /\.svg$/, /\.(sass|less|css)$/],
-        use: ['@svgr/webpack'], 
+        test: [/\.js?$/, /\.jsx?$/], 
         exclude: /(node_modules)/,
-        loaders: ['babel-loader', 'style-loader', 'css-loader', 'less-loader'],
-        options: {
-          presets: ['@babel/env', '@babel/react'] 
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/env', '@babel/react']
+          }
         }
-      }
+      },
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
     ]
   },
   devtool: 'source-map',
@@ -25,4 +30,5 @@ module.exports = {
     extensions: ['.js', '.jsx', '*'],
   }
 };
+
 
