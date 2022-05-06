@@ -2,9 +2,10 @@ import React, {useEffect} from 'react';
 import { withRouter } from 'react-router-dom';
 import { icSocialProof } from 'otkit-icons/token.theme.common';
 import { DynamicStar } from 'react-dynamic-star';
+import { Link } from 'react-router-dom';
 
 
-const ListIcon = ({name, cuisines, neighborhood, price_range, icon, rating}) => {
+const ListIcon = ({id, name, cuisines, neighborhood, price_range, icon, rating}) => {
 	
 	const priceRange = (num) => {
 		// debugger;
@@ -21,7 +22,8 @@ const ListIcon = ({name, cuisines, neighborhood, price_range, icon, rating}) => 
 
 	return (
 		<li className="scrollbar-li">
-			<button className="li-button">
+			<Link to={`restaurants/${id}`}>
+				<button className="li-button">
 				<div className="li-button-div">
 					{/* <img src="" /> */}
 					<div className="img-placeholder">
@@ -61,6 +63,7 @@ const ListIcon = ({name, cuisines, neighborhood, price_range, icon, rating}) => 
 					</div>
 				</div>
 			</button>
+			</Link>
 		</li>
 	)
 }

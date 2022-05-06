@@ -5,6 +5,7 @@ import HomeContainer from "./main/home_container";
 import NavBarContainer from "./nav_bar/nav_bar_container";
 import ModalContainer from "./modal/modal_container";
 import Footer from './footer/footer';
+import RestShowContainer from "./restaurant/rest_show_container";
 
 const App = () => (
     <>
@@ -14,6 +15,7 @@ const App = () => (
                 <div className="inner-body">
                     <Route path='/' component={NavBarContainer}/>
                     <Route exact path='/' component={HomeContainer}/>
+                    <Route exact path={"/restaurants/:restId"} component={RestShowContainer} />
                     <Route path='/' component={Footer}/>
                 </div>
         </div>

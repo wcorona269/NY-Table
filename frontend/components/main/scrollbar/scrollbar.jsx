@@ -65,6 +65,7 @@ class ScrollBar extends React.Component {
 			<ul className="scrollbar-ul">
 				{this.shuffle(rests).map((rest, idx) =>
 					<ListIcon
+						id={rest.id}
 						name={rest.name}
 						cuisines={rest.cuisines}
 						neighborhood={rest.neighborhood}
