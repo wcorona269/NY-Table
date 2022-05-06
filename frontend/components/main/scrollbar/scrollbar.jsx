@@ -17,6 +17,17 @@ class ScrollBar extends React.Component {
 				"Carmine's - 91st Street - NYC": "https://www.carminesnyc.com/assets/uploads/general/carmines-upper-west-side-diningroom-shot-1.jpg",
 				"Hearth": "https://resizer.otstatic.com/v2/photos/wide-huge/4/26447906.png",
 				"Peter Luger Steak House": "https://peterluger.com/media/cms/246.jpg",
+				"Katz's Delicatessen": "https://storage.googleapis.com/yk-cdn/photos/pdp/franck-bohbot-studio/katz-s-delicatessen-nyc.jpg",
+				"Lombardi's": "https://pyxis.nymag.com/v1/imgs/684/df8/f106475395d102d3406b7ea904ef7acb63-lombardis-01.rsocial.w1200.jpg",
+				"Tavern on the Green": "https://media.timeout.com/images/105763427/750/422/image.jpg",
+				"Rainbow Room": "https://cdn.sanity.io/images/bs9rmafh/main/90f0dc119674c958e6c9d533e3e43ec6c81e1588-5120x2724.jpg?w=1600&h=851&fit=crop",
+				"Rao's": "https://assets.bonappetit.com/photos/5caa286801ac7c2f98e7b989/master/w_2250,h_1406,c_limit/New-York-raos.jpg",
+				"Grand Central Oyster Bar": "https://www.restaurant-hospitality.com/sites/restaurant-hospitality.com/files/styles/article_featured_retina/public/OYSTER_BAR_DINING_ROOM_BEST_2.jpg?itok=q91zDFad",
+				"Brooklyn Farmacy & Soda Fountain": "https://images.squarespace-cdn.com/content/v1/52d840fce4b09614df37f3d8/1645035345846-T4WBXZMMU4XD0WU74WY0/BrooklynFarmacy_interior+copy.jpg",
+				"Nathan's Famous": "https://upload.wikimedia.org/wikipedia/commons/4/4a/NathansHotDog-3_%2848034232387%29.jpg",
+				"Junior's": "https://brooklyneagle.com/wp-content/uploads/2014/09/juniors-downtown-brooklyn.jpg",
+				"Benihana": "https://www.benihana.com/wp-content/themes/benihana/images/video_slide.png",
+				"Casa Limone": "https://resizer.otstatic.com/v2/photos/wide-huge/2/37697633.jpg"
 			}
 		}
 	}

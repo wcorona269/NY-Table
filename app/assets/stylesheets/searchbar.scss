@@ -1,15 +1,18 @@
 @import "./variables.scss";
+// @import "NYC_Downtown_Manhattan_Skyline_seen_from_Paulus_Hook_2019-12-20_IMG_7347_FRD_\(cropped\).jpg" as background
 
 .search-bar-container {
-	// grid-row-start: 2;
+	text-shadow: 2px 4px 3px rgba(0,0,0,0.3);
 	display: flex;
 	justify-content: center;
 	color: white;
-	border: 1px solid black;
-	height: 15vw;
+	height: 20vw;
 	padding: 32px 0;
-	background-image: url("https://cdn.otstatic.com/cfe/8/images/heading-desktop-cb00bf.jpg");
+	// background-image: url("");
+	background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.4) ), url('https://media.timeout.com/images/105679930/image.jpg');
+
 	background-size: 100%;
+	background-position: center;
 }
 
 .searchbar-header {
