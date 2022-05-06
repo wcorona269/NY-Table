@@ -10,27 +10,16 @@
 #destroy all data before seeding
 User.destroy_all
 Restaurant.destroy_all
-City.destroy_all
 
 
 # create stock users
-User.create(fname: "Food", lname: "Enjoyer", dname: "foodenjoyer", password: "ilovefood", email: "foodenjoyer@foodnetwork.com", phone: 2032550021, city_id: 1)
+User.create(fname: "Food", lname: "Enjoyer", dname: "foodenjoyer", password: "ilovefood", email: "foodenjoyer@foodnetwork.com", phone: 2032550021)
 
-User.create(fname: "Guest", lname: "User", dname: "guest", password: "guest", email: "guest@mytable.com", phone: 1234567890, city_id: 1)
-
-
-
-
-# seed cities
-City.create(name: "New York City", state: "New York")
-City.create(name: "Los Angeles", state: "California")
-City.create(name: "Chicago", state: "Illinois")
-City.create(name: "Houston", state: "Texas")
+User.create(fname: "Guest", lname: "User", dname: "guest", password: "guest", email: "guest@mytable.com", phone: 1234567890)
 
 
 # NY restaurants
-Restaurant.create(
-	city_id: 1,
+Restaurant.create!(
 	name: "Hearth",
 	description: "Hearth is everything the name implies, a warm, comfortable place where nourishment is savored, and hospitality is served up with love. Chef Marco Canora's cuisine employs seasonal, locally-sourced ingredients prepared with an Italian influence. Hearth serves REAL food that tastes, looks, and smells delicious. And most importantly, food that makes you feel good!",
 	cuisines: "Italian",
@@ -40,8 +29,7 @@ Restaurant.create(
 	phone: 6466021300
 )
 
-Restaurant.create(
-	city_id: 1,
+Restaurant.create!(
 	name: "Carmine's - 91st Street - NYC",
 	description: "Carmine's is a family style restaurant offering exceptional value to its guests through the many dishes of Southern Italian cuisine. Restaurateur Artie Cutler crafted Carmine's with a singular vision; bringing his guests abundant portions and making any meal feel like an Italian American wedding feast.
 
@@ -55,8 +43,7 @@ Restaurant.create(
 	phone: 2123622200
 )
 
-Restaurant.create(
-	city_id: 1,
+Restaurant.create!(
 	name: "Bill's Bar and Burger",
 	description: "In 2010, Bill's Bar & Burger Rockefeller Center opened with 400 seats, making it the biggest standalone burger joint in the country. Every burger, shake, and fry, in dozens of varieties and counting, at Bill's is made fresh daily. Bill's now has two locations across NYC.",
 	cuisines: "American",
@@ -66,8 +53,7 @@ Restaurant.create(
 	phone: 2127058510
 )
 
-Restaurant.create(
-	city_id: 1,
+Restaurant.create!(
 	name: "Central Park Boathouse",
 	description: "With their 1858 landscaping plan under construction, Frederick Law Olmsted and Calvert Vaux began adding architectural features to their Park design. Around 1874, Vaux designed a two-story boathouse at the eastern end of the Lake. Here visitors could purchase refreshments, take boat rides, and watch other boats. After this wooden Victorian structure with sloping mansard roof burned down, the current Loeb Boathouse took its place in the 1950s. Today at the New York Boathouse visitors can enjoy a meal in any season, with overhead heating helping to extend as long as possible the pleasure of dining on the deck overlooking the Lake. Come visit a New York legend!",
 	cuisines: "American",
@@ -77,8 +63,7 @@ Restaurant.create(
 	phone: 2125172233
 )
 
-Restaurant.create(
-	city_id: 1,
+Restaurant.create!(
 	name: "Peter Luger Steak House",
 	description: "Dig into a delicious steak at Peter Luger. With a history that stretches across three centuries, this landmark chophouse offers a classic 'no-frill' menu that includes mouthwatering grilled dishes served with delicious old fashioned sauce. Voted NYC's No. 1 steakhouse, Peter Luger is popular with many residents who rave about the burgers and steaks. Its casual decor and hall-type atmosphere provide the ideal setting for fun outings with friends or celebrating birthdays. This restaurant also provides catering services on request. Note that Peter Lugar accepts cash, checks and debit cards only.",
 	cuisines: "Steakhouse",
@@ -88,8 +73,7 @@ Restaurant.create(
 	phone: 7183877400
 )
 
-Restaurant.create(
-	city_id: 1,
+Restaurant.create!(
 	name: "Patsy's Pizzeria",
 	description: "The original Patsy's in Harlem, unaffiliated with the rest of the Patsy's around the city, is a real piece of New York pizza history. Open since 1933, it was not only one of the first pizzerias in the city, it's also the one that supposedly pioneered selling pies by the slice. It still uses the original coal oven, which gives the thin, crisp crust a hint of smoky char that your average corner slice joint can't pull off with its gas ovens.",
 	cuisines: "Pizza",
