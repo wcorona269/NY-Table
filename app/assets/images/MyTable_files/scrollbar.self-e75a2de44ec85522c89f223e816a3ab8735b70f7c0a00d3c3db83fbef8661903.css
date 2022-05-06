@@ -1,0 +1,173 @@
+/* line 3, /Users/Will2/Desktop/myTable/app/assets/stylesheets/variables.scss */
+html {
+  font-size: font-size-base;
+}
+
+/* line 4, /Users/Will2/Desktop/myTable/app/assets/stylesheets/scrollbar.scss */
+.scrollbar-ul {
+  width: 67vw;
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: -9px;
+  margin-right: -9px;
+  white-space: nowrap;
+  overflow: hidden !important;
+}
+
+/* line 16, /Users/Will2/Desktop/myTable/app/assets/stylesheets/scrollbar.scss */
+.scrollbar-li {
+  margin: 5px;
+  background-color: white;
+}
+
+/* line 21, /Users/Will2/Desktop/myTable/app/assets/stylesheets/scrollbar.scss */
+scrollbar-li:hover {
+  pointer-events: auto;
+}
+
+/* line 26, /Users/Will2/Desktop/myTable/app/assets/stylesheets/scrollbar.scss */
+.li-button {
+  padding: 0px;
+  border: 1px solid #d2d4d6;
+  transition: all .3s;
+  width: fit-content;
+  height: fit-content;
+  background-color: white;
+  border-radius: 4px;
+}
+
+/* line 38, /Users/Will2/Desktop/myTable/app/assets/stylesheets/scrollbar.scss */
+.li-button:hover {
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(45, 51, 63, 0.5);
+  transform: translateY(-6px);
+  overflow: hidden;
+}
+/* line 43, /Users/Will2/Desktop/myTable/app/assets/stylesheets/scrollbar.scss */
+.li-button:hover #splash-rest-icon {
+  transform: scale(1.1);
+  transition: all .3s ease-in-out;
+}
+
+/* line 49, /Users/Will2/Desktop/myTable/app/assets/stylesheets/scrollbar.scss */
+.li-button-div {
+  display: grid;
+  grid-template-rows: 45% 55%;
+  width: 14rem;
+  height: 16.75rem;
+  box-sizing: border-box;
+  margin: 0;
+  position: relative;
+  transition: all .3s;
+  z-index: 1;
+}
+
+/* line 62, /Users/Will2/Desktop/myTable/app/assets/stylesheets/scrollbar.scss */
+.img-placeholder {
+  grid-row-start: 1;
+}
+
+/* line 66, /Users/Will2/Desktop/myTable/app/assets/stylesheets/scrollbar.scss */
+.li-button-rest-info {
+  display: grid;
+  grid-template-rows: auto auto auto auto auto;
+  background-color: #fff;
+  color: initial;
+  overflow: hidden;
+  padding: 9px;
+  position: relative;
+  color: #2d333f;
+  float: left;
+  text-align: left;
+}
+
+/* line 80, /Users/Will2/Desktop/myTable/app/assets/stylesheets/scrollbar.scss */
+.li-button-rest-title {
+  margin: 0 0 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  grid-row-start: 1;
+  width: 100%;
+  float: left;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.5rem;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+}
+
+/* line 96, /Users/Will2/Desktop/myTable/app/assets/stylesheets/scrollbar.scss */
+.li-button-today-div {
+  font-size: .875rem;
+  font-weight: 800;
+  line-height: 1.25rem;
+  display: flex;
+  align-items: center;
+}
+
+/* line 104, /Users/Will2/Desktop/myTable/app/assets/stylesheets/scrollbar.scss */
+.scrollbar-booking-count {
+  height: 20px;
+  width: 20px;
+  margin-right: 5px;
+}
+
+/* line 111, /Users/Will2/Desktop/myTable/app/assets/stylesheets/scrollbar.scss */
+.bullet-span {
+  content: "\2022";
+}
+
+/* line 115, /Users/Will2/Desktop/myTable/app/assets/stylesheets/scrollbar.scss */
+.li-button-info-div {
+  color: #2d333f;
+  font-size: .875rem;
+  font-weight: 100;
+  line-height: 1.15rem;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+}
+
+/* line 125, /Users/Will2/Desktop/myTable/app/assets/stylesheets/scrollbar.scss */
+#dot {
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+/* line 130, /Users/Will2/Desktop/myTable/app/assets/stylesheets/scrollbar.scss */
+.gray-dollar {
+  color: #eea0a5;
+}
+
+/* line 134, /Users/Will2/Desktop/myTable/app/assets/stylesheets/scrollbar.scss */
+.li-button-reserve-div {
+  color: #da3743;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5rem;
+  margin-bottom: -10px;
+  padding-top: 5px;
+  margin-top: 5px;
+  border-top: 1px solid #d2d4d6;
+}
+
+/* line 145, /Users/Will2/Desktop/myTable/app/assets/stylesheets/scrollbar.scss */
+#splash-rest-icon {
+  width: 100%;
+  height: 100%;
+}
+
+/* line 155, /Users/Will2/Desktop/myTable/app/assets/stylesheets/scrollbar.scss */
+.fa-thin fa-star {
+  color: red;
+}
+
+/* line 159, /Users/Will2/Desktop/myTable/app/assets/stylesheets/scrollbar.scss */
+.icon-star-empty {
+  color: red;
+  background-color: red;
+}

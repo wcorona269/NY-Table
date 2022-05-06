@@ -1,0 +1,93 @@
+/* line 1, /Users/Will2/Desktop/myTable/app/assets/stylesheets/reset.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+/* line 22, /Users/Will2/Desktop/myTable/app/assets/stylesheets/reset.scss */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+/* line 26, /Users/Will2/Desktop/myTable/app/assets/stylesheets/reset.scss */
+body {
+  line-height: 1;
+}
+
+/* line 29, /Users/Will2/Desktop/myTable/app/assets/stylesheets/reset.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 32, /Users/Will2/Desktop/myTable/app/assets/stylesheets/reset.scss */
+blockquote, q {
+  quotes: none;
+}
+
+/* line 35, /Users/Will2/Desktop/myTable/app/assets/stylesheets/reset.scss */
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+
+/* line 40, /Users/Will2/Desktop/myTable/app/assets/stylesheets/reset.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 45, /Users/Will2/Desktop/myTable/app/assets/stylesheets/reset.scss */
+html {
+  -webkit-text-size-adjust: 100%;
+  line-height: 1.15;
+}
+
+/* line 3, /Users/Will2/Desktop/myTable/app/assets/stylesheets/variables.scss */
+html {
+  font-size: font-size-base;
+}
+
+/* line 52, /Users/Will2/Desktop/myTable/app/assets/stylesheets/reset.scss */
+.outer-body {
+  display: grid;
+  grid-template-columns: auto 85vw auto;
+  grid-template-rows: 16px 100vw 300px;
+  height: 100vw;
+  background-color: #f6f6f6;
+}
+
+/* line 60, /Users/Will2/Desktop/myTable/app/assets/stylesheets/reset.scss */
+.outer-body .inner-body {
+  background-color: #fff;
+  grid-column-start: 2;
+  grid-row-start: 2;
+  grid-row-end: 3;
+  margin-top: 10px;
+}
+
+/* line 68, /Users/Will2/Desktop/myTable/app/assets/stylesheets/reset.scss */
+.inner-body {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto fit-content 1fr;
+  height: fit-content;
+}

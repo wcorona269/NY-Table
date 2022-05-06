@@ -1,0 +1,78 @@
+/* line 3, /Users/Will2/Desktop/myTable/app/assets/stylesheets/variables.scss */
+html {
+  font-size: font-size-base;
+}
+
+/* line 3, /Users/Will2/Desktop/myTable/app/assets/stylesheets/footer.scss */
+#footer {
+  grid-row-start: 3;
+  background-color: #2d333f;
+  border: 1px solid black;
+  border-top: 0.0625rem solid rgba(0, 0, 0, 0.12);
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  color: #fff;
+}
+
+/* line 14, /Users/Will2/Desktop/myTable/app/assets/stylesheets/footer.scss */
+.footer-column-wrapper {
+  height: 400px;
+  width: 60vw;
+  margin-right: 50px;
+}
+
+/* line 23, /Users/Will2/Desktop/myTable/app/assets/stylesheets/footer.scss */
+.inner-footer-wrapper {
+  display: grid;
+  grid-template-columns: repeat(4, 18vw);
+  align-items: center;
+}
+
+/* line 29, /Users/Will2/Desktop/myTable/app/assets/stylesheets/footer.scss */
+.footer-col {
+  padding-top: 50px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  width: auto;
+}
+
+/* line 38, /Users/Will2/Desktop/myTable/app/assets/stylesheets/footer.scss */
+.footer-header {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 24px;
+  margin: 0 0 8px;
+  text-transform: uppercase;
+}
+
+/* line 47, /Users/Will2/Desktop/myTable/app/assets/stylesheets/footer.scss */
+.footer-col li {
+  list-style: none;
+  display: list-item;
+  text-align: -webkit-match-parent;
+  line-height: 22px;
+  -webkit-font-smoothing: antialiased;
+  font-weight: 100px;
+  color: #a7a7a7;
+}
+
+/* line 57, /Users/Will2/Desktop/myTable/app/assets/stylesheets/footer.scss */
+li a {
+  all: inherit;
+  width: fit-content;
+}
+
+/* line 62, /Users/Will2/Desktop/myTable/app/assets/stylesheets/footer.scss */
+a:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* line 67, /Users/Will2/Desktop/myTable/app/assets/stylesheets/footer.scss */
+.fa-brands {
+  margin-right: 10px;
+}

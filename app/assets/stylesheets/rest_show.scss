@@ -1,0 +1,102 @@
+@import "./variables.scss";
+
+.rest-header-container {
+	box-sizing: border-box;
+	width: 100%;
+	grid-row-start: 2;
+	overflow: hidden;
+}
+
+.rest-header-neighborhood {
+	margin: 5px;
+	font-size: 20px;
+	font-style: italic;
+	color: $gray-color;
+}
+
+.rest-header-banner-photo {
+	width: 100%;
+	position: relative;
+	color: white;
+	height: 20vw;
+	padding: 32px 0;
+	background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.4) ), url('https://media.timeout.com/images/105679930/image.jpg');
+	box-sizing: border-box;
+
+	background-size: 100%;
+	background-position: center;
+}
+
+.rest-show-info-container {
+	height: 500px;
+	display: flex;
+	justify-content: center;
+	// align-items: center;
+	flex-direction: row;
+	padding: 32px 0;
+
+}
+
+.main-show-col {
+	display: block;
+	background-color: #fff;
+	border-radius: 4px;
+	box-sizing: border-box;
+	margin-right: 32px;
+	padding: 0 16px calc(128px - 0.25rem);
+	width: 40rem;
+}
+
+.main-col-info {
+	height: 300px;
+	border: 1px solid $border-color;
+}
+
+.rest-show-sidebar {
+	width: 20rem;
+}
+
+.main-show-col-header {
+	padding: 10px;
+	font-size: 48px;
+	font-weight: 800;
+	-webkit-font-smoothing: antialiased;
+	border-bottom: 0.0625rem solid $gray-color;
+	margin: 0;
+}
+
+.main-show-col-details {
+	margin-top: 30px;
+	font-size: .875rem;
+	font-weight: 500;
+	line-height: 1.25rem;
+	display: flex;
+	flex-direction: row;
+}
+
+.rest-show-description {
+	color: $gray-color;
+	margin-top: 20px;
+}
+
+.sidebar-show-col-header {
+	font-size: 1.125rem;
+	font-weight: 700;
+	line-height: 1.5rem;
+	padding-bottom: 10px;
+	border-bottom: 0.0625rem solid $border-color;
+	color: #2d333f;
+	margin: 0;
+	padding: 0 0 0.75rem;
+	text-align: center;
+}
+
+.reservations-container {
+	height: 300px;
+}
+
+.cuisine-type-img {
+	width: 25px;
+	height: 25px;
+	margin-right: 5px;
+}

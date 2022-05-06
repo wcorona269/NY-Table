@@ -1,0 +1,21 @@
+/* line 2, /Users/Will2/Desktop/myTable/app/assets/stylesheets/rest_show.scss */
+.rest-header-container {
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid black;
+  grid-row-start: 2;
+  overflow: hidden;
+}
+
+/* line 10, /Users/Will2/Desktop/myTable/app/assets/stylesheets/rest_show.scss */
+.rest-header-banner-photo {
+  width: 100%;
+  position: relative;
+  color: white;
+  height: 20vw;
+  padding: 32px 0;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.4)), url("https://media.timeout.com/images/105679930/image.jpg");
+  box-sizing: border-box;
+  background-size: 100%;
+  background-position: center;
+}
