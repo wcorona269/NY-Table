@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import ScrollBarContainer from './scrollbar/scrollbar_container';
 
-const CatList = ({title}) => {
+const CatList = ({title, key}) => {
 	
 	return (
 		<>

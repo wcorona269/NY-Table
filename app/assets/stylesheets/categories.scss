@@ -53,5 +53,8 @@
 	width: auto;
 	height: fit-content;
 	padding-top: 8px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
 }
 

@@ -3,8 +3,9 @@ import { connect } from "react-redux";
 import ScrollBar from './scrollbar';
 import { fetchRests } from '../../../actions/rest_actions';
 
-const mSTP = state => ({
-	rests: Object.values(state.entities.rests)
+const mSTP = (state, ownProps) => ({
+	rests: Object.values(state.entities.rests),
+	key: ownProps.key
 })
 
 const mDTP = dispatch => ({

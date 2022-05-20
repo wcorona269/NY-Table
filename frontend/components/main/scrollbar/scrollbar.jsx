@@ -34,6 +34,7 @@ class ScrollBar extends React.Component {
 	
 	componentDidMount() {
 		this.props.fetchRests();
+		console.log(this.props)
 	}
 
 	// Fisher-Yates shuffle 
@@ -55,30 +56,45 @@ class ScrollBar extends React.Component {
 		return array;
 	}
 
+	scroll(distance, id){
+		let bar = document.getElementById(id)
+		console.log(bar)
+		bar.scrollLeft += distance
+	}
+
 
 	render () {
+		const id = Math.floor(Math.random() * 100000000)
 		
 		const {rests} = this.props;
 		// debugger;
 
 		const display = rests.length ? (
-			<ul className="scrollbar-ul">
-				{this.shuffle(rests).map((rest, idx) =>
-					<ListIcon
-						id={rest.id}
-						name={rest.name}
-						cuisines={rest.cuisines}
-						neighborhood={rest.neighborhood}
-						price_range={rest.price_range}
-						key={idx}
-						icon={this.state.photos[rest.name]}
-						rating={(Math.random() * (5 - 2) + 2).toFixed(1)}
-						// rating={this.avgRating(rest.name)}
-						// alternatively do this in mSTP
-						// function for this in model/controller?
-						// 99 cats reservation model -- custom methods
-					/>)}
-			</ul>
+			<>
+				<button className='left-scroll-button' onClick={() => this.scroll(-983, id)}>
+				<i class="fa-solid fa-angle-left"></i>
+				</button>
+					<ul className="scrollbar-ul" id={id}>
+						{this.shuffle(rests).map((rest, idx) =>
+							<ListIcon
+							id={rest.id}
+							name={rest.name}
+							cuisines={rest.cuisines}
+							neighborhood={rest.neighborhood}
+							price_range={rest.price_range}
+							key={idx}
+							icon={this.state.photos[rest.name]}
+							rating={(Math.random() * (5 - 2) + 2).toFixed(1)}
+							// rating={this.avgRating(rest.name)}
+							// alternatively do this in mSTP
+							// function for this in model/controller?
+							// 99 cats reservation model -- custom methods
+							/>)}
+						</ul>
+				<button className='right-scroll-button' onClick={() => this.scroll(983, id)}>
+					<i class="fa-solid fa-angle-right"></i>
+				</button>
+			</>
 		) : (
 			null
 			)
