@@ -10,9 +10,8 @@
 	margin-left: -9px;
 	margin-right: -9px;
 	white-space: nowrap;
-	// overflow: hidden !important;
 	overflow-x: scroll;
-	transition: 1s ease-in;
+	transition: 2s ease-in;
 	scroll-behavior: smooth;
 }
 
@@ -24,7 +23,6 @@
 
 scrollbar-li:hover {
 	pointer-events: auto;
-	
 }
 
 .li-button {
@@ -189,6 +187,7 @@ scrollbar-li:hover {
 	@extend %scroll-button;
 	// transform: rotate(90deg);
 	// margin-right: -100px;
+	overflow: 50;
 }
 
 .left-scroll-button:hover, .right-scroll-button:hover {

@@ -1,13 +1,16 @@
 @import './variables.scss';
 
 #footer {
-	grid-row-start: 3;
+	grid-column: 2;
 	background-color: #2d333f;
 	border: 1px solid black;
 	border-top: 0.0625rem solid rgba(0,0,0,.12);
 	height: 400px;
+	position: relative;
+	bottom: 0;
 	display: flex;
 	justify-content: center;
+	margin-top: 100px;
 	color: #fff;
 }
 
