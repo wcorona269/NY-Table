@@ -33,4 +33,5 @@
  @import './categories.scss';
  @import './footer.scss';
  @import './rest_show.scss';
+ @import './gallery.scss'
  /* @import 'react-datepicker/dist/react-datepicker-cssmodules.css'; */

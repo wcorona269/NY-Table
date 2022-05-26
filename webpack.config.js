@@ -1,13 +1,18 @@
 const path = require('path');
+// const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 
 module.exports = {
+  target: "web",
   entry: './frontend/mytable.jsx',
   output: {
     path: path.resolve(__dirname, 'app', 'assets', 'javascripts'),
     filename: 'bundle.js',
     sourceMapFilename: 'bundle.js.map',
   },
+
+  
   module: {
+    // loaders: 'babel-loader',
     rules: [
       {
         test: [/\.js?$/, /\.jsx?$/], 
@@ -26,8 +31,22 @@ module.exports = {
     ]
   },
   devtool: 'source-map',
+  // devServer: {
+  //   contentBase: 'public',
+  //   watchContentBase: true,
+  //   hot: true,
+  // },
   resolve: {
     extensions: ['.js', '.jsx', '*'],
+  },
+
+  devServer: {
+    before(app, server) {
+      server._watch(`src/*/**.html`);
+    },
+    contentBase: path.join(__dirname, 'src'),
+    watchContentBase: true,
+    hot: true,
   }
 };
 

@@ -8,7 +8,11 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "webpack --watch --mode=development",
+    "start": "webpack serve",
+    "build": "NODE_ENV=production webpack",
+    "build-dev": "webpack"
   },
   "repository": {
     "type": "git",
@@ -50,7 +54,9 @@
   },
   "devDependencies": {
     "@svgr/webpack": "^6.2.1",
+    "browser-sync-webpack-plugin": "^2.3.0",
     "css-loader": "^6.7.1",
-    "style-loader": "^3.3.1"
+    "style-loader": "^3.3.1",
+    "webpack-dev-server": "^4.9.0"
   }
 }

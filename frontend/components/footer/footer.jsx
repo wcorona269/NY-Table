@@ -14,15 +14,15 @@ const Footer = () => {
 						<div>
 							<li>
 								<a href="https://github.com/wcorona269" target="_blank">
-								<i class="fa-brands fa-github"></i>								
+								<i className="fa-brands fa-github"></i>								
 								Github
 								</a>
 							</li>
 							<li><a href="https://www.linkedin.com/in/william-corona/" target="_blank">
-								<i class="fa-brands fa-linkedin"></i>
+								<i className="fa-brands fa-linkedin"></i>
 								LinkedIn</a></li>
 							<li><a href="https://angel.co/u/william-corona-2" target="_blank">
-								<i class="fa-brands fa-angellist"></i>
+								<i className="fa-brands fa-angellist"></i>
 								AngelList</a></li>
 						</div>
 					</div>
@@ -60,7 +60,7 @@ const Footer = () => {
 						</div>
 						<div>
 							<li><a href="https://github.com/wcorona269/LitterBug" target="_blank">Litterbug</a></li>
-							<li>MERN Project</li>
+							<li><a href="https://github.com/jacksondooley/InDevView" target='_blank'>InDevView</a></li>
 						</div>
 					</div>
 				</div>

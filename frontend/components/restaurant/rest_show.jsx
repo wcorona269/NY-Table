@@ -3,8 +3,7 @@ import { icCuisine } from 'otkit-icons/token.theme.common';
 import { icPriceRange } from 'otkit-icons/token.theme.common';
 import { icReview } from 'otkit-icons/token.theme.common';
 import { DynamicStar } from 'react-dynamic-star';
-
-
+import Gallery from './gallery';
 
 class RestShow extends React.Component {
 	constructor(props) {
@@ -54,8 +53,8 @@ class RestShow extends React.Component {
 		const rating = this.rating();
 		return (
 			<>
-		<div class="rest-show-container">
-			<div class="rest-show-main-col">
+		<div className="rest-show-container">
+			<div className="rest-show-main-col">
 				<section className='rest-info-nav-buttons'>
 
 				</section>
@@ -102,15 +101,16 @@ class RestShow extends React.Component {
 						{restaurant.description}
 					</div>
 				</section>
+				<Gallery/>
 			</div>
-			<div class="rest-show-res-col">
+			<div className="rest-show-res-col">
 				<div className="reservations-box">
 					<header className="sidebar-show-col-header">
 						Make a reservation
 					</header>
 					<form className="reservations-container">
-						<div class="rest-show-res-grid">
-							<div class="party-size">
+						<div className="rest-show-res-grid">
+							<div className="party-size">
 								<label id='res-label'>
 									Party Size
 								</label>
@@ -137,7 +137,7 @@ class RestShow extends React.Component {
 										<option value='20'>20 people</option>
 									</select>
 							</div>
-							<div class="res-date">
+							<div className="res-date">
 								<label id='res-label'>
 									Date
 								</label>
@@ -145,7 +145,7 @@ class RestShow extends React.Component {
 									<option>Datepicker</option>
 								</select>
 							</div>
-							<div class="res-time">
+							<div className="res-time">
 								<label id='res-label'>
 									Time
 								</label>
@@ -178,7 +178,7 @@ class RestShow extends React.Component {
 								</select>
 
 							</div>
-							<div class="res-submit">
+							<div className="res-submit">
 								<button id='auth-button'>
 									Find a time
 								</button>
@@ -188,7 +188,6 @@ class RestShow extends React.Component {
 				</div>
 			</div>
 		</div>
-
 			<div className="rest-header-container">
 				<div className="rest-header-neighborhood">
 					{restaurant.neighborhood}
