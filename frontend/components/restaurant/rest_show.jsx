@@ -1,7 +1,7 @@
 import React from 'react';
 import { icCuisine } from 'otkit-icons/token.theme.common';
 import { icPriceRange } from 'otkit-icons/token.theme.common';
-import { icReview } from 'otkit-icons/token.theme.common';
+import { icClock, icReview, icPhone, icNeighborhood, icDiningStyle, icDressCode, icPayment } from 'otkit-icons/token.theme.common';
 import { DynamicStar } from 'react-dynamic-star';
 import Gallery from './gallery';
 import Menu from './menu';
@@ -37,6 +37,11 @@ class RestShow extends React.Component {
 				return "$50 and over";
 				break;
 		}
+	}
+
+	parsePhone(phone) {
+		let str = phone.toString();
+		return `(${str.slice(0, 3)}) ${str.slice(3,6)}-${str.slice(6,10)}`
 	}
 
 	rating() {
@@ -189,6 +194,144 @@ class RestShow extends React.Component {
 							</div>
 						</div>
 					</form>
+				</div>
+				<article className='delivery-box'>
+					<header className='sidebar-show-col-header'>
+						Order delivery or takeout
+					</header>
+					<div>
+						<a>
+							<span>
+								<img id="phone" src={`data:image/svg+xml;utf8,${icPhone}`}/>
+							</span>
+						{this.parsePhone(restaurant.phone)}
+						</a>
+						<a target='_blank.' href="https://www.ubereats.com/?utm_source=AdWords_Brand&utm_campaign=CM2029595-search-google-brand_1_5_US-New+York+City_e_web_acq_cpc_en_Generics_Exact_uber%20eats_kwd-125079392186_546346938130_106780962688_e_c&campaign_id=9983520619&adg_id=106780962688&fi_id=&match=e&net=g&dev=c&dev_m=&ad_id=546346938130&cre=546346938130&kwid=kwd-125079392186&kw=uber%20eats&placement=&tar=&gclid=CjwKCAjw7cGUBhA9EiwArBAvogTBSCuy82RlWDTKM3jE7oK5J3sYf0Ef5XzTLBWLJjaMBKItF7b7kRoC_iYQAvD_BwE&gclsrc=aw.ds">
+							<img src="/images/UberEats.png"></img>
+						</a>
+					</div>
+				</article>
+				<div className='additional-info'>
+					<h4>
+						Additional Information
+					</h4>
+					<div>
+						<ul>
+							<li>
+								<div className='additional-info-box'>
+									<span>
+										<img src={`data:image/svg+xml;utf8,${icNeighborhood}`}/>
+									</span>
+									<div className='additional-info-text'>
+										<span>
+											Neighborhood
+										</span>
+										<p>
+											{restaurant.neighborhood}
+										</p>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div className='additional-info-box'>
+									<span>
+										<img src={`data:image/svg+xml;utf8,${icPhone}`}/>
+									</span>
+									<div className='additional-info-text'>
+										<span>
+											Phone number
+										</span>
+										<p>
+											{this.parsePhone(restaurant.phone)}
+										</p>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div className='additional-info-box'>
+									<span>
+										<img src={`data:image/svg+xml;utf8,${icCuisine}`}/>
+									</span>
+									<div className='additional-info-text'>
+										<span>
+											Cuisines
+										</span>
+										<p>
+											{(restaurant.cuisines)}
+										</p>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div className='additional-info-box'>
+									<span>
+										<img src={`data:image/svg+xml;utf8,${icDiningStyle}`}/>
+									</span>
+									<div className='additional-info-text'>
+										<span>
+											Dining Style
+										</span>
+										<p>
+											Casual Elegant
+											{/* 1-2 casual dining, 3-4 casual elegant */}
+											{/* {(restaurant.cuisines)} */}
+										</p>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div className='additional-info-box'>
+									<span>
+										<img src={`data:image/svg+xml;utf8,${icDressCode}`}/>
+									</span>
+									<div className='additional-info-text'>
+										<span>
+											Dress Code 
+										</span>
+										<p>
+											Casual Dress
+											{/* casual, business casual, smart casual */}
+											{/* {(restaurant.cuisines)} */}
+										</p>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div className='additional-info-box'>
+									<span>
+										<img src={`data:image/svg+xml;utf8,${icPayment}`}/>
+									</span>
+									<div className='additional-info-text'>
+										<span>
+											Payment Options
+										</span>
+										<p>
+											AMEX, Discover, MasterCard, Visa
+											{/* casual, business casual, smart casual */}
+											{/* {(restaurant.cuisines)} */}
+										</p>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div className='additional-info-box'>
+									<span>
+										<img src={`data:image/svg+xml;utf8,${icClock}`}/>
+									</span>
+									<div className='additional-info-text'>
+										<span>
+											Hours of Operation
+										</span>
+										<p>
+											Mon–Thu 11:30 am–10:00 pm Fri, Sat 11:30 am–11:00 pm Sun 11:30 am–9:00 pm
+											{/* casual, business casual, smart casual */}
+											{/* {(restaurant.cuisines)} */}
+										</p>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>

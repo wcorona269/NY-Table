@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { DynamicStar } from 'react-dynamic-star';
-import { icReview } from 'otkit-icons/token.theme.common';
+import { icNoiseLevel } from 'otkit-icons/token.theme.common';
 import Review from './review';
 
 
@@ -87,7 +87,7 @@ const Reviews = (props) => {
 					<ul className='details-ratings-ul'>
 						<li>
 							<p className='list-rating'>
-								4
+								4.8
 							</p>
 							<p className='ratings-cat'>
 								Food
@@ -95,24 +95,90 @@ const Reviews = (props) => {
 						</li>	
 						<li>
 							<p className='list-rating'>
-								4
+								3.3
 							</p>
 							<p className='ratings-cat'>
-								Food
+								Service
 							</p>
 						</li>	
 						<li>
 							<p className='list-rating'>
-								4
+								4.4
 							</p>
 							<p className='ratings-cat'>
-								Food
+								Ambiance
 							</p>
 						</li>	
 					</ul>
+					<div className='noise-rating'>
+						<img src={`data:image/svg+xml;utf8,${icNoiseLevel}`}/>
+						<span>
+							Noise
+						</span>
+						<p>
+							Moderate
+						</p>
+					</div>
 				</article>
 				<article class="overall-graph">
-
+					<ol>
+						<li>
+							<label>
+								5
+							</label>
+							<meter 
+								id="meter-5"
+								// value="79.08653846153845" min="0" max="100"
+							>
+								<div style={{width:"78%"}}/>
+							</meter>
+						</li>
+						<li>
+							<label>
+								4
+							</label>
+							<meter 
+								id="meter-4"
+								// value="79.08653846153845" min="0" max="100"
+							>
+								<div style={{width:"10%"}}/>
+							</meter>
+						</li>
+						<li>
+							<label>
+								3
+							</label>
+							<meter 
+								id="meter-3"
+								// value="79.08653846153845" min="0" max="100"
+							>
+								<div style={{width:"2%"}}/>
+							</meter>
+						</li>
+						<li>
+							<label>
+								2
+							</label>
+							<meter 
+								id="meter-2"
+								// value="79.08653846153845" min="0" max="100"
+							>
+								<div style={{width:"3%"}}/>
+							</meter>
+						</li>
+						<li>
+							<label>
+								1
+							</label>
+							<meter 
+								id="meter-1"
+								// value="79.08653846153845" min="0" max="100"
+							>
+								<div style={{width:"7%"}}/>
+							</meter>
+						</li>
+					
+					</ol>
 				</article>
 			</section>
 			<ol>

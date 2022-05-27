@@ -15,7 +15,7 @@ module.exports = {
     // loaders: 'babel-loader',
     rules: [
       {
-        test: [/\.js?$/, /\.jsx?$/], 
+        test: [/\.js?$/, /\.jsx?$/, /\.(jpg|png|svg)$/], 
         exclude: /(node_modules)/,
         use: {
           loader: 'babel-loader',
@@ -37,7 +37,7 @@ module.exports = {
   //   hot: true,
   // },
   resolve: {
-    extensions: ['.js', '.jsx', '*'],
+    extensions: ['.js', '.jsx', '*', '.png'],
   },
 
   devServer: {
