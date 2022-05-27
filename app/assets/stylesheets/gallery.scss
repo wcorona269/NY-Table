@@ -1,17 +1,13 @@
 @import './variables.scss';
 
 .gallery-container {
-  width: 100%;
-  // height: 15rem;
-  margin-top: 64px;
-
+  @extend %rest-show-section;
 }
 
 .rest-show-photos {
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: 1rem;
   height: fit-content;
 }
 
@@ -31,9 +27,14 @@
   line-height: 2rem;
 }
 
+.gallery-nav-container {
+  height: 100%;
+  margin-bottom: 16px;
+}
+
 .gallery-container nav {
   box-shadow: inset 0 -0.1rem 0 0 $secondary-border;
-  // position: relative;
+  height: 100%;
 }
 
 .gallery-nav-container ol {
@@ -41,10 +42,33 @@
   flex-direction: row;
   list-style-type: none;
   margin: 0;
-  overflow-x: auto;
   padding: 0;
+  overflow-x: auto;
   scrollbar-width: none;
   white-space: nowrap;
+}
+
+.gallery-nav-container li {
+  display: inline-block;
+
+  appearance: none;
+  background-color: transparent;
+  height: 100%;
+  color: #6f737b;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  margin: 0 32px 16px 0;
+  padding: 0;
+
+  &:hover {
+    color: $red-text;
+  }
+
+  &:active, &:after, &:focus {
+    box-shadow: inset 0 -0.125rem 0 0 #da3743;
+  }
 }
 
 .photo-gallery {
@@ -52,7 +76,7 @@
   grid-template-columns: 2fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   grid-auto-columns: 1fr;
-  height: 15rem;
+  height: 18rem;
   gap: 4px 4px;
   grid-auto-flow: row;
   grid-template-areas:
@@ -63,6 +87,13 @@
 
 .photo-gallery button {
   background-color: transparent;
+  width: 100%;
+  height: 100%;
+  border: 1px solid $border-color;
+  border-radius: 4px;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .pic-1 { grid-area: pic-1; }

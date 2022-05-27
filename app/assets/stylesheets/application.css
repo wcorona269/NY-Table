@@ -17,9 +17,7 @@
  body {
 	font-family: BrandonText,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
 	height: 100vw;
-	
-	/* max-width: 80rem; */
- }
+}
 
  
  @import "./reset.scss";
@@ -33,5 +31,6 @@
  @import './categories.scss';
  @import './footer.scss';
  @import './rest_show.scss';
- @import './gallery.scss'
+ @import './gallery.scss';
+ @import './menu.scss';
  /* @import 'react-datepicker/dist/react-datepicker-cssmodules.css'; */

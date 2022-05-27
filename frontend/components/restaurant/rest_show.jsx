@@ -4,6 +4,8 @@ import { icPriceRange } from 'otkit-icons/token.theme.common';
 import { icReview } from 'otkit-icons/token.theme.common';
 import { DynamicStar } from 'react-dynamic-star';
 import Gallery from './gallery';
+import Menu from './menu';
+import Reviews from './reviews';
 
 class RestShow extends React.Component {
 	constructor(props) {
@@ -102,6 +104,8 @@ class RestShow extends React.Component {
 					</div>
 				</section>
 				<Gallery/>
+				<Menu/>
+				<Reviews/>
 			</div>
 			<div className="rest-show-res-col">
 				<div className="reservations-box">

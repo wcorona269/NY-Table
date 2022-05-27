@@ -22,6 +22,7 @@
 	display: flex;
 	flex-direction: column;
 	border: $border-color;
+	border-radius: 4px;
 	margin-top: -2rem;
 	z-index: 1;
 	background-color: $background-color;
@@ -32,12 +33,14 @@
 .rest-show-main-col {
 	grid-area: rest-show-main-col;
 	@extend %rest-show-col;
+	min-width: 500px;
 }
 
 .rest-show-res-col {
 	@extend %rest-show-col;
 	box-shadow: none !important;
 	padding: 0px !important;
+	min-width: 275px;
 }
 
 .main-show-col-details {
@@ -130,8 +133,10 @@
 		-webkit-font-smoothing: antialiased;
 		border-bottom: 0.0625rem solid $border-color;
 		border-top: 0.0625rem solid $border-color;
-		padding-bottom: 3rem;
-		padding-top: 3rem;
+		padding-bottom: 2rem;
+		padding-top: 2rem;
+		height: fit-content;
+		line-height: 1;
 	}
 	
 	.rest-show-description {

@@ -15,6 +15,32 @@ $turquoise: #007492;
 $roboto: 'Roboto', sans-serif;
 $manrope: 'Manrope', sans-serif;
 $gray-color: #a7a7a7;
-$dark-red: rgb(143, 0, 0);
-$red-text: #2d333f;
+$gray-text: #6f737b;
 $box-shadow: 0 0 5px $gray-color;
+
+
+$dark-red: #8f0000;
+$main-red: #da3743;
+$red-text: #2d333f;
+
+// restaurant profile page
+%rest-show-section {
+  width: 100%;
+  margin-top: 64px;
+  -webkit-font-smoothing: antialiased;
+}
+
+%rest-show-section-header {
+  border-bottom: 0.1rem solid $secondary-border;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 16px;
+  padding-bottom: 16px;
+}
+
+%rest-show-section-h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: $red-text;
+  line-height: 2rem;
+}

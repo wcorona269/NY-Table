@@ -1,0 +1,235 @@
+@import './variables.scss';
+// @import '~@material/react-button/index.scss';
+
+
+.reviews-container {
+	@extend %rest-show-section;
+}
+
+.reviews-header {
+	@extend %rest-show-section-header;
+}
+
+.reviews-header h2 {
+	@extend %rest-show-section-h2
+}
+
+.reviews-container ol {
+	display: flex;
+	flex-direction: column;
+	padding: 16px 0;
+	position: relative;
+	-webkit-font-smoothing: antialiased !important;
+}
+
+.review {  
+	padding: 16px 0;
+	border-bottom: 0.0625rem solid #d8d9db;
+	display: grid;
+	height: fit-content;
+  grid-template-columns: 1fr 4fr;
+  grid-template-rows: 1fr;
+  grid-auto-columns: 1fr;
+  gap: 0em .5rem;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "user-info review-data";
+
+}
+
+.user-info {
+	grid-area: user-info;
+	// border: 1px solid black; 
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	row-gap: 4px;
+}
+
+.user-info p {
+	color: $gray-text;
+	font-size: .8rem;
+	font-weight: 500;
+	line-height: 1.25rem;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.review-username {
+	color: $red-text !important;
+	// background-color: blue;
+}
+
+.user-info img {
+	display: inline;
+	height: 16px;
+	width: 16px;
+	filter: opacity(0.4) drop-shadow(0 0 0 $gray-text); 
+	padding-right: 4px;
+}
+
+.review-data { 
+	grid-area: review-data;
+	// border: 1px solid black;
+	display: flex;
+	flex-direction: column;
+	row-gap: .5rem;
+	font-weight: 600;
+	-webkit-font-styling: antialiased !important;
+}
+
+.review-data div {
+	display: flex;
+	flex-direction: row;
+	font-size: 14px;
+	font-smooth: always;
+
+}
+
+.review-data p {
+	padding-left: 1rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: 400;
+}
+
+.review-body {
+	font-size: 14.4px !important;
+	font-weight: 400 !important;
+	line-height: 1.5rem !important;
+	color: $red-text;
+	text-align: -webkit-match-parent;
+}
+
+.user-icon {
+	align-items: center;
+	border-radius: 50%;
+	color: #fff;
+	background-color: #bb6acd;
+	// margin: auto;
+	display: flex;
+	flex-shrink: 0;
+	font-weight: 500;
+	height: 3rem;
+	justify-content: center;
+	margin: 0 8px 8px;
+	width: 3rem;
+}
+
+.ratings-summary {
+	line-height: 24px;
+	max-height: 72px;
+	overflow: hidden;
+	-webkit-line-clamp: 3;
+}
+
+.ratings-summary  span {
+	padding-left: .5rem;
+	color: #da3743;
+	font-size: 14px;
+	font-weight: bolder;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: 600;
+	color: $main-red !important;
+
+	&:after {
+    content: "\B7";
+    padding: 0 4px;
+		color: black;
+		font-weight: bolder;
+	};
+
+	&:last-child {
+		&:after {
+			content: none;
+		}
+	}
+}
+
+.overall-section {  display: grid;
+  grid-template-columns: 3fr 2fr;
+  grid-template-rows: 1fr 6fr;
+  grid-auto-columns: 1fr;
+  gap: .5rem;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "overall-header overall-header"
+    "overall-details overall-graph";
+}
+
+.overall-header {
+	grid-area: overall-header; 
+	// border: 1px solid black;
+	font-size: 1rem;
+	font-weight: 700;
+	line-height: 1.5rem;
+}
+
+.overall-details {
+	grid-area: overall-details; 
+	border: 1px solid black;
+	display: flex;
+	flex-direction: column;
+	row-gap: .5rem;
+}
+
+.overall-graph {
+	grid-area: overall-graph;
+	border: 1px solid black;
+}
+
+
+.overall-details > div {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	font-size: 1rem;
+	color: $red-text !important;
+	font-weight: 400;
+	line-height: 1.5rem;
+	display: block;
+	margin-block-start: 1em;
+	margin-block-end: 1em;
+	margin-inline-start: 0px;
+	margin-inline-end: 0px;
+	margin: 0 0 16px;
+}
+
+.star-details {
+	font-size: .8rem !important;
+	font-weight: 700 !important;
+	color: $red-text !important;
+	line-height: 1.25rem;
+	display: flex !important;
+	flex-direction: row;
+	align-items: center;
+	margin-bottom: 16px;
+}
+
+
+.star-details div {
+	width: fit-content;
+	margin-right: 10px;
+}
+
+.overall-details ul {
+	display: flex;
+	margin-bottom: 16px;
+}
+
+.overall-details li {
+	display: flex;
+	flex-direction: column;
+	height: fit-content;
+	align-items: center;
+	justify-content: center;
+	display: block;
+  text-align: center;
+	padding: 0px 10px;
+  text-decoration: none;
+}

@@ -71,4 +71,11 @@ html {
 	grid-template-columns: auto;
 	grid-template-rows: auto fit-content 1fr;
 	height: fit-content;
+	-webkit-font-smoothing: antialiased !important;
+	-webkit-font-styling: antialiased !important;
+
+}
+
+.dynamic-star-container {
+	margin-right: -2px !important;
 }
