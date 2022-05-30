@@ -1,4 +1,5 @@
 import React from 'react';
+import Map from './map';
 import { icPhone, icDown } from 'otkit-icons/token.theme.common';
 import AdditionalInfo from './additional_info';
 import DatePicker from 'react-datepicker';
@@ -135,6 +136,7 @@ class RightColumn extends React.Component {
 						</a>
 					</div>
 				</article>
+				{/* <Map restaurant={restaurant}/> */}
 				<AdditionalInfo restaurant={restaurant}/>
 			</div>
 		)
