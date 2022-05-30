@@ -8,7 +8,7 @@ const Gallery = (props) => {
 
 
 	return (
-		<section className='gallery-container'>
+		<section className='gallery-container' id='photos-id'>
 			<div className='rest-show-photos'>
 				<header>
 					<h2>

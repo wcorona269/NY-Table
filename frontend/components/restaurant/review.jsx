@@ -9,8 +9,8 @@ const Review = ({reviews}) => {
 
 	return (
 		reviews.map((review, idx) => 
-				<li class="review">
-				<section class="user-info">
+				<li key={idx} className="review">
+				<section className="user-info">
 					<div className='user-icon'>
 						U
 					</div>
@@ -21,7 +21,7 @@ const Review = ({reviews}) => {
 						22 reviews
 					</p>
 				</section>
-				<section class="review-data">
+				<section className="review-data">
 					<div>
 						<DynamicStar
 							rating={review.overall}

@@ -51,7 +51,7 @@ const Reviews = (props) => {
 
 
 	return (
-		<section className='reviews-container'>
+		<section className='reviews-container' id='reviews-id'>
 			<header className='reviews-header'>
 				<div>
 					<h2>
@@ -59,11 +59,11 @@ const Reviews = (props) => {
 					</h2>
 				</div>
 			</header>
-			<section class="overall-section">
-				<h3 class="overall-header">
+			<section className="overall-section">
+				<h3 className="overall-header">
 					Overall ratings and reviews
 				</h3>
-				<article class="overall-details">
+				<article className="overall-details">
 					<div>
 						Reviews can only be made by diners who have eaten at this restaurant
 					</div>
@@ -120,7 +120,7 @@ const Reviews = (props) => {
 						</p>
 					</div>
 				</article>
-				<article class="overall-graph">
+				<article className="overall-graph">
 					<ol>
 						<li>
 							<label>

@@ -47,7 +47,7 @@ const Menu = (props) => {
 	}
 
 	return (
-		<section className='menu-container'>
+		<section className='menu-container' id='menu-id'>
 			<header className='menu-header'>
 				<div>
 					<h2>

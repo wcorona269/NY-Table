@@ -1,10 +1,19 @@
 import React from 'react';
-import { icPhone } from 'otkit-icons/token.theme.common';
+import { icPhone, icDown } from 'otkit-icons/token.theme.common';
 import AdditionalInfo from './additional_info';
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
+
 
 class RightColumn extends React.Component {
 	constructor(props) {
 		super(props);
+
+		this.state={
+			date: new Date(),
+			time: "12:00",
+			party: 2
+		}
 	}
 
 	componentDidMount() {
@@ -23,7 +32,7 @@ class RightColumn extends React.Component {
 
 		return (
 			<div className="rest-show-res-col">
-				<div className="reservations-box">
+				<div className="reservations-box" id='res-box'>
 					<header className="sidebar-show-col-header">
 						Make a reservation
 					</header>
@@ -60,9 +69,14 @@ class RightColumn extends React.Component {
 								<label id='res-label'>
 									Date
 								</label>
-								<select className='res-select'>
-									<option>Datepicker</option>
-								</select>
+									<DatePicker 
+										id='res-select-datepicker'
+										className="res-select"
+										dateFormat="MM-dd-yy"
+										minDate={new Date()}
+										selected={this.state.date} 
+										// onChange={this.updateDate}
+										/>
 							</div>
 							<div className="res-time">
 								<label id='res-label'>

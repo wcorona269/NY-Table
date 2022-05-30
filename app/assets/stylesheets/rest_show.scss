@@ -1,7 +1,5 @@
 @import "./variables.scss";
 
-
-
 .rest-show-container {  display: grid;
   grid-template-columns: 1fr 0.55fr;
   grid-template-rows: 1fr;
@@ -29,6 +27,7 @@
 	z-index: 1;
 	background-color: $background-color;
 	padding: 1rem;
+	padding-top: 0rem;
 	box-shadow: $box-shadow;
 }
 
@@ -45,12 +44,42 @@
 	min-width: 275px;
 }
 
+.rest-info-nav-buttons {
+  // height: 100%;
+  position: sticky;
+  top: 0;
+  background-color: $background-color;
+	z-index: 1;
+	width: 100%;
+  padding-top: 1rem;
+  border-bottom: 0.0625rem solid $border-color;
+
+	li {
+		margin: 0px !important;
+		display: inline-block;
+		margin-right: 32px !important;
+		font-size: 14px;
+		height: 40px;
+
+		&:hover {
+			box-shadow: inset 0 -0.125rem 0 0 $main-red;
+		}
+
+		&:active {
+			border: none !important;
+
+		}
+
+	}
+
+ }
+
 .main-show-col-details {
 	height: fit-content;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	margin-top: 30px;
+	// margin-top: 30px;
 	font-size: .875rem;
 	font-weight: 500;
 	line-height: 1.25rem;
@@ -134,7 +163,6 @@
 	font-weight: 700;
 	-webkit-font-smoothing: antialiased;
 	border-bottom: 0.0625rem solid $border-color;
-	border-top: 0.0625rem solid $border-color;
 	padding-bottom: 2rem;
 	padding-top: 2rem;
 	height: fit-content;
@@ -143,10 +171,17 @@
 
 .rest-show-description {
 	color: $red-text;
+
 	margin-top: 40px;
 	font-size: .9rem;
 	font-weight: 300;
 	line-height: 1.7;
+}
+
+#description {
+	height: 5rem;
+	overflow: hidden;
+	font-family: $main-font;
 }
 
 .sidebar-show-col-header {
@@ -177,6 +212,7 @@
 	border-bottom: 1px solid $border-color;
 	width: 100%;
 	height: 3rem;
+	z-index: 100;
 	color: $red-text;
 	// margin-top: 40px;
 	font-size: .9rem;
@@ -185,17 +221,29 @@
 	-webkit-font-smoothing: antialiased;
 }
 
+#res-select-datepicker {
+	height: 45px;
+}
+
 .reservations-box {
 	@extend %rest-show-col;
+	padding-top: 1rem;
 	margin-top: 0px !important;
 	position: sticky;
 	top: 0;
 	font-size: .8rem;
-	font-weight: 400;	
+	font-weight: 400;
 }
+
+#res-box {
+	z-index: 2;
+}
+
+
 
 #res-label {
 	padding-left: .3rem;
+	z-index: 1000;
 }
 
 
@@ -214,7 +262,15 @@
 
 .party-size { grid-area: party-size; }
 
-.res-date { grid-area: res-date; }
+.res-date {
+	grid-area: res-date;
+
+	// div {
+	// 	display: flex;
+	// 	flex-direction: row;
+	// 	align-items: center;
+	// }
+}
 
 .res-time { grid-area: res-time; }
 
@@ -232,6 +288,7 @@
 
 .delivery-box {
 	@extend %rest-show-col;
+	padding-top: 1rem;
 	position:sticky;
 	top: 320px;
 	margin: 16px 0 0;
@@ -368,6 +425,20 @@
 		// margin-left: 1rem;
 	}
 
-
-
 }
+
+#read-more {
+	font-family: $main-font;
+	border: none;
+	background-color: transparent;
+	width: fit-content;
+	color: $main-red;
+	font-size: 16px;;
+	margin-top: 4px;
+	font-weight: 100;
+
+	&:active {
+		border: 1px solid $main-red;
+	}
+}
+	

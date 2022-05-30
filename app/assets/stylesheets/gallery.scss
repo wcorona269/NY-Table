@@ -32,12 +32,16 @@
   margin-bottom: 16px;
 }
 
+.rest-info-nav-buttons nav {
+  height: 100%;
+}
+
 .gallery-container nav {
   box-shadow: inset 0 -0.1rem 0 0 $secondary-border;
   height: 100%;
 }
 
-.gallery-nav-container ol {
+.gallery-nav-container ol, .rest-info-nav-buttons ol {
   display: flex;
   flex-direction: row;
   list-style-type: none;
@@ -48,7 +52,7 @@
   white-space: nowrap;
 }
 
-.gallery-nav-container li {
+.gallery-nav-container li, .rest-info-nav-buttons li {
   display: inline-block;
 
   appearance: none;
@@ -61,7 +65,7 @@
   line-height: 24px;
   margin: 0 32px 16px 0;
   padding: 0;
-
+  
   &:hover {
     color: $red-text;
   }

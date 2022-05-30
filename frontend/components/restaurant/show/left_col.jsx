@@ -13,7 +13,13 @@ class LeftColumn extends React.Component {
 
 		this.priceRangeText = this.priceRangeText.bind(this);
 		this.reviewCount = this.reviewCount.bind(this);
-		this.rating = this.rating.bind(this)
+		this.rating = this.rating.bind(this);
+
+			this.state = {
+				readMore: false,
+		};
+
+		this.readMore = this.readMore.bind(this);
 	}
 
 	componentDidMount() {
@@ -38,6 +44,41 @@ class LeftColumn extends React.Component {
 		}
 	}
 
+	readMore() {
+		console.log(this.state);
+		let ele = document.getElementById("description");
+		let btn = document.getElementById('read-more');
+
+		if (this.state.readMore) {
+			ele.style.height = "5rem";
+			btn.value = "+ Read more";
+		 } else {
+			ele.style.height = "fit-content"
+			btn.value = "- Read less";
+		 }
+
+		 this.state.readMore = !this.state.readMore;
+	}
+
+	handleScroll(e) {
+		let key = e.target.id;
+		let selected = document.getElementById(`${key}-id`);
+		let yOffset = -75;
+
+		let y = selected.getBoundingClientRect().top + window.pageYOffset + yOffset;
+
+		console.log(y);
+		// console.log(selected);
+		window.scrollTo({
+			top: y,
+			behavior: "smooth"
+		})
+
+
+		// window.scrollIntoView
+
+	}
+
 	parsePhone(phone) {
 		let str = phone.toString();
 		return `(${str.slice(0, 3)}) ${str.slice(3,6)}-${str.slice(6,10)}`
@@ -59,11 +100,26 @@ class LeftColumn extends React.Component {
 		const rating = this.rating();
 		return (
 			<div className="rest-show-main-col">
-				<section className='rest-info-nav-buttons'>
-
+				<section className='rest-info-nav-buttons' id='nav'>
+					<nav>
+						<ol>
+							<li id='overview' className='current-section' onClick={this.handleScroll}>
+								Overview
+							</li>
+							<li id='photos' onClick={this.handleScroll} >
+								Photos
+							</li>
+							<li id='menu' onClick={this.handleScroll} >
+								Menu
+							</li>
+							<li id='reviews' onClick={this.handleScroll} >
+								Reviews
+							</li>
+						</ol>
+					</nav>
 				</section>
 				<section className='main-show-col-details'>
-					<header className="main-show-col-header">
+					<header className="main-show-col-header" id='overview-id'>
 						{restaurant.name}
 					</header>
 					<div className="main-col-info">
@@ -101,9 +157,11 @@ class LeftColumn extends React.Component {
 							{restaurant.cuisines}
 						</div>
 					</div>
-					<div className="rest-show-description">
+					<div id='description' className="rest-show-description">
 						{restaurant.description}
+						<br></br>
 					</div>
+						<input value="+ Read more" type="button" id='read-more' onClick={this.readMore}/>
 				</section>
 				<Gallery/>
 				<Menu/>
