@@ -179,7 +179,7 @@
 }
 
 #description {
-	height: 5rem;
+	height: 4.9rem;
 	overflow: hidden;
 	font-family: $main-font;
 }
@@ -214,7 +214,6 @@
 	height: 3rem;
 	z-index: 100;
 	color: $red-text;
-	// margin-top: 40px;
 	font-size: .9rem;
 	font-weight: 300;
 	line-height: 1.7;
@@ -434,13 +433,22 @@
 	background-color: transparent;
 	width: fit-content;
 	color: $main-red;
-	font-size: 16px;;
+	font-size: 14px;;
 	margin-top: 4px;
+	margin-left: 0px !important;
+	padding-left: 0px !important;
+	padding: 4px;
+	border-radius: 4px;
 	font-weight: 100;
 
-	&:active {
+	&:hover {
+		cursor: pointer;
+	}
+
+	&:active, &:focus {
 		border: 1px solid $main-red;
 	}
+
 }
 	
 

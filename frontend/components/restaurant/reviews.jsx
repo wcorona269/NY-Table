@@ -6,20 +6,23 @@ import { icNoiseLevel } from 'otkit-icons/token.theme.common';
 import { fetchReviews } from '../../actions/review_actions';
 import Review from './review';
 
-
 class Reviews extends React.Component {
 	constructor(props) {
 		super(props)
 	}
-
 	
 	returnReviews(revs) {
 		revs.map((review, idx) =>
 		console.log(review)
 		)
 	}
-	
+
+	componentDidMount() {
+		this.props.fetchReviews({["restId"]: this.props.match.params.restId})
+	}
+
 	render() {
+		console.log(this.props)
 		let reviews = [
 			{
 				username: 'veronica',

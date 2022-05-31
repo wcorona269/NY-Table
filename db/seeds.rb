@@ -10,15 +10,23 @@
 #destroy all data before seeding
 User.destroy_all
 Restaurant.destroy_all
+Review.destroy_all
 
-# create stock users
-User.create(fname: "Food", lname: "Enjoyer", dname: "foodenjoyer", password: "ilovefood", email: "foodenjoyer@foodnetwork.com", phone: 2032550021)
+# users
+user1 = User.create(fname: "Food", lname: "Enjoyer", dname: "foodenjoyer", password: "ilovefood", email: "foodenjoyer@foodnetwork.com", phone: 2032550021)
+user2 = User.create(fname: "Guest", lname: "User", dname: "guest", password: "guest", email: "guest@mytable.com", phone: 1234567890)
+user3 = User.create(fname: "Will", lname: "Corona", dname: "willcorona", password: "willyc", email: "wcorona269@gmail.com", phone: 2039138354)
+user4 = User.create(fname: "Veronica", lname: "Theobald", dname: "ronigirl99", password: "randolph", email: "veronica@ron.com", phone: 4444444444)
+user5 = User.create(fname: "Kyle", lname: "Ginzburg", dname: "kylekyle", password: "iamkyle", email: "kyle@kyle.com", phone: 5555555555)
+user6 = User.create(fname: "Amin", lname: "Babar", dname: "aminbabar", password: "iamamin", email: "amin@amin.com", phone: 6666666666)
+user7 = User.create(fname: "Jim", lname: "Nardi", dname: "jimnardi", password: "iamjimmy", email: "jim@jim.com", phone: 7777777777)
 
-User.create(fname: "Guest", lname: "User", dname: "guest", password: "guest", email: "guest@mytable.com", phone: 1234567890)
 
 
-# NY restaurants
-Restaurant.create!(
+
+
+# restaurants
+rest1 = Restaurant.create!(
 	name: "Hearth",
 	description: "Hearth is everything the name implies, a warm, comfortable place where nourishment is savored, and hospitality is served up with love. Chef Marco Canora's cuisine employs seasonal, locally-sourced ingredients prepared with an Italian influence. Hearth serves REAL food that tastes, looks, and smells delicious. And most importantly, food that makes you feel good!",
 	cuisines: "Italian Comfort",
@@ -28,7 +36,7 @@ Restaurant.create!(
 	phone: 6466021300
 )
 
-Restaurant.create!(
+rest2 = Restaurant.create!(
 	name: "Carmine's - 91st Street - NYC",
 	description: "Carmine's is a family style restaurant offering exceptional value to its guests through the many dishes of Southern Italian cuisine. Restaurateur Artie Cutler crafted Carmine's with a singular vision; bringing his guests abundant portions and making any meal feel like an Italian American wedding feast.
 
@@ -42,8 +50,7 @@ Restaurant.create!(
 	phone: 2123622200
 )
 
-
-Restaurant.create!(
+rest3 = Restaurant.create!(
 	name: "Bill's Bar and Burger",
 	description: "In 2010, Bill's Bar & Burger Rockefeller Center opened with 400 seats, making it the biggest standalone burger joint in the country. Every burger, shake, and fry, in dozens of varieties and counting, at Bill's is made fresh daily. Bill's now has two locations across NYC.",
 	cuisines: "American",
@@ -54,7 +61,7 @@ Restaurant.create!(
 )
 
 
-Restaurant.create!(
+rest4 = Restaurant.create!(
 	name: "Central Park Boathouse",
 	description: "With their 1858 landscaping plan under construction, Frederick Law Olmsted and Calvert Vaux began adding architectural features to their Park design. Around 1874, Vaux designed a two-story boathouse at the eastern end of the Lake. Here visitors could purchase refreshments, take boat rides, and watch other boats. After this wooden Victorian structure with sloping mansard roof burned down, the current Loeb Boathouse took its place in the 1950s. Today at the New York Boathouse visitors can enjoy a meal in any season, with overhead heating helping to extend as long as possible the pleasure of dining on the deck overlooking the Lake. Come visit a New York legend!",
 	cuisines: "American",
@@ -64,8 +71,7 @@ Restaurant.create!(
 	phone: 2125172233
 )
 
-
-Restaurant.create!(
+rest5 = Restaurant.create!(
 	name: "Peter Luger Steak House",
 	description: "Dig into a delicious steak at Peter Luger. With a history that stretches across three centuries, this landmark chophouse offers a classic 'no-frill' menu that includes mouthwatering grilled dishes served with delicious old fashioned sauce. Voted NYC's No. 1 steakhouse, Peter Luger is popular with many residents who rave about the burgers and steaks. Its casual decor and hall-type atmosphere provide the ideal setting for fun outings with friends or celebrating birthdays. This restaurant also provides catering services on request. Note that Peter Lugar accepts cash, checks and debit cards only.",
 	cuisines: "Steakhouse",
@@ -75,8 +81,7 @@ Restaurant.create!(
 	phone: 7183877400
 )
 
-
-Restaurant.create!(
+rest6 = Restaurant.create!(
 	name: "Patsy's Pizzeria",
 	description: "The original Patsy's in Harlem, unaffiliated with the rest of the Patsy's around the city, is a real piece of New York pizza history. Open since 1933, it was not only one of the first pizzerias in the city, it's also the one that supposedly pioneered selling pies by the slice. It still uses the original coal oven, which gives the thin, crisp crust a hint of smoky char that your average corner slice joint can't pull off with its gas ovens.",
 	cuisines: "Pizza",
@@ -86,8 +91,7 @@ Restaurant.create!(
 	phone: 2125349783
 )
 
-
-Restaurant.create!(
+rest7 = Restaurant.create!(
 	name: "Katz's Delicatessen",
 	description: "This cavernous cafeteria is a repository of New York history—glossies of celebs spanning the past century crowd the walls, and the classic Jewish deli offerings are nonpareil. Start with a crisp-skinned, all-beef hot dog for less than a fiver. Then flag down a meat cutter and order one of the legendary sandwiches. The brisket sings with horseradish, and the thick-cut pastrami stacked high between slices of rye is the stuff of dreams. Everything tastes better with a glass of the hoppy house lager; if you're on the wagon, make it a Dr. Brown's.",
 	cuisines: "Delicatessen",
@@ -98,7 +102,7 @@ Restaurant.create!(
 )
 
 
-Restaurant.create!(
+rest8 = Restaurant.create!(
 	name: "Lombardi's",
 	description: "Gennario Lombardi opened his shop in Soho in 1905—the first pizzeria in the U.S. It's hard to vouch for how the pizzas tasted a century ago, but there's more elbow room now after a renovation, if not the charm of the old joint. Still, Lombardi's continues to bake a hot contender for best pie.",
 	cuisines: "Pizza",
@@ -108,7 +112,7 @@ Restaurant.create!(
 	phone: 2129417994
 )
 
-Restaurant.create!(
+rest9 = Restaurant.create!(
 	name: "Tavern on the Green",
 	description: "Magical is a word thrown around a lot when discussing Tavern On The Green and one can't help but feel magic in the air. Jim and David, architect Richard Lewis and landscape architect Robin Key, preserved the Victorian/ Gothic elegance of the semi-circular building; it is authentic, natural, elegant and sexy. It has been re-built to spectacular precision and the décor is of a grand farmhouse one might find on the property of an Italian Villa or a historic Hudson River Valley mansion.",
 	cuisines: "American",
@@ -118,7 +122,7 @@ Restaurant.create!(
 	phone: 2126325000
 )
 
-Restaurant.create!(
+rest10 = Restaurant.create!(
 	name: "Rainbow Room",
 	description: "The historic lounge atop 30 Rock serves breathtaking skyline views alongside old-world-meets-modern American fare from its perch 65 stories high. Dress to the nines (jackets are required) for a haute night of dinner and dancing at the center of the iconic crystal ballroom to the musings of a live band. Or upgrade your weekend with a decadent Sunday Brunch. Reservations for both are accepted up to six weeks in advance.",
 	cuisines: "American",
@@ -128,17 +132,17 @@ Restaurant.create!(
 	phone: 2129417994
 )
 
-Restaurant.create!(
+rest11 = Restaurant.create!(
 	name: "Rao's",
 	description: "If you thought getting a table at Per Se was tough, try getting into Rao's. On second thought, don't. Rao's (pronounced “RAY-ohs”) is really a private club without the dues. To eat here, you'll need a personal invite from one of the heavy hitters who “owns” a table. These CEOs, actors, politicians, news personalities and neighborhood old-timers established a long-standing arrangement with the late, legendary owner Frankie “No” Pellegrino, and that's what ensures a seat at one of the ten tables at the Italian-American icon. In fact, reading this review is probably the closest you'll get to Rao's.",
 	cuisines: "Italian",
 	price_range: 4,
-	neighborhood: "Midtown West",
+	neighborhood: "East Harlem",
 	address: "455 E 114th St, New York, NY 10029",
 	phone: 2127226709
 )
 
-Restaurant.create!(
+rest12 = Restaurant.create!(
 	name: "Grand Central Oyster Bar",
 	description: "If you thought getting a table at Per Se was tough, try getting into Rao's. On second thought, don't. Rao's (pronounced “RAY-ohs”) is really a private club without the dues. To eat here, you'll need a personal invite from one of the heavy hitters who “owns” a table. These CEOs, actors, politicians, news personalities and neighborhood old-timers established a long-standing arrangement with the late, legendary owner Frankie “No” Pellegrino, and that's what ensures a seat at one of the ten tables at the Italian-American icon. In fact, reading this review is probably the closest you'll get to Rao's.",
 	cuisines: "Seafood",
@@ -148,7 +152,7 @@ Restaurant.create!(
 	phone: 2124906650
 )
 
-Restaurant.create!(
+rest13 = Restaurant.create!(
 	name: "Brooklyn Farmacy & Soda Fountain",
 	description: "Did you know there aren't any eggs in an egg cream? The classic drink contains seltzer, milk, and chocolate syrup. For decades Brooklyn was known for its classic egg cream, which you could find at the local soda fountain or pharmacy. As these mom and pop stores shuttered, the egg cream almost became extinct. Luckily the egg cream has been reborn. Stop in at the Brooklyn Farmacy, a family owned soda fountain where you can sip egg creams and malts at the counter. Located in a restored 1920's corner pharmacy in Carroll Gardens, the charming ice cream parlor also serves comfort food.",
 	cuisines: "Sweets",
@@ -158,7 +162,7 @@ Restaurant.create!(
 	phone: 7185226260
 )
 
-Restaurant.create!(
+rest14 = Restaurant.create!(
 	name: "Nathan's Famous",
 	description: "The famous frank joint's Surf-and-Stillwell flagship—opened in 1916—grills sizzling hot dogs daily and hosts its iconic, crowd-amassing eating contest every July 4. The original subway tiles and iconic signage are still intact, as are menu staples like crinkle-cut fries and thick-battered corn dogs, but there's one shiny “new” addition: a curbside clam bar, a revival of the restaurant's raw bar from the '50s. East Coast oysters and littlenecks are shucked per order over a mountain of ice, served with chowder crackers, lemon wedges, sinus-clearing horseradish and cocktail sauce.",
 	cuisines: "American",
@@ -168,7 +172,7 @@ Restaurant.create!(
 	phone: 7183332202
 )
 
-Restaurant.create!(
+rest15 = Restaurant.create!(
 	name: "Junior's",
 	description: "Our landmark location restaurant is located on Cheesecake Corner and Harry Rosen Way--aka Flatbush Avenue EXT and DeKalb in Downtown Brooklyn.  Since 1950, the original Junior's features a fun and friendly atmosphere with Brooklyn memorabilia, a full service bar, and extensive menus for breakfast, lunch, and dinner. Our famous bakery is still in operation with fresh baked rolls and danish all day long.
 	
@@ -180,7 +184,7 @@ Restaurant.create!(
 	phone: 7188525257
 )
 
-Restaurant.create!(
+rest16 = Restaurant.create!(
 	name: "Benihana",
 	description: "Welcome to Benihana New York City, a dining experience unlike any other! Our restaurant is in the heart of Manhattan, on the same street as our original restaurant, opened in 1964! Our guests are seated at communal tables in groups, where your personal chef will perform the ancient art of Teppanyaki. Watch as we slice and dice, preparing a meal that will dazzle your eyes as well as your taste buds, whether you choose mouth-watering steak, tender chicken or succulent seafood. You can also enjoy sushi prepared by a talented sushi chef and indulge in a specialty cocktail. The restaurant includes a full bar with sushi lounge, great for after-work drinks, and meeting friends. Guests looking to celebrate a special occasion can dine in our elegant private dining rooms.
 	
@@ -192,7 +196,7 @@ Restaurant.create!(
 	phone: 2125810930
 )
 
-Restaurant.create!(
+rest17 = Restaurant.create!(
 	name: "Casa Limone",
 	description: "Casa Limone offers all weekdays an Executive Lunch Menu for $35 and a Pre-Theatre Dinner menu for $45.
 	Casa Limone, located in Midtown Manhattan, near The Rink at Rockefeller Center, MOMA, Radio City Music Hall, Saks Fifth Avenue, The Rockefeller Center Christmas Tree, Winter Village at Bryant Park and Times Square, is the first U.S. restaurant of the Monte Carlo Hospitality Group (MCHG), that also operates the famed Rampoldi Restaurant in Monte Carlo, its sister restaurant, the Michelin-starred La Table d'Antonio Salvatore, and the iconic Atlantic Grill in New York's Lincoln Square.
@@ -207,5 +211,64 @@ Restaurant.create!(
 	phone: 16463706282
 )
 
+# rest1 reviews
+Review.create!(
+	body: "The food was great but the serving sizes were tiny! If I'm going out for Italian food I want a feast! Overall a great restaurant but a little too 'hip' for me", 
+	author_id: user1.id, 
+	rest_id: rest1.id, 
+	food: 4, 
+	service: 5, 
+	ambience: 4,
+	overall: 4 
+)
 
+Review.create!(
+	body: "The best restaurant in NY. Food is amazing, the service, and the price. They are all astonishing. I loved it.", 
+	author_id: user2.id, 
+	rest_id: rest1.id, 
+	food: 5, 
+	service: 5, 
+	ambience: 5,
+	overall: 5 
+)
 
+Review.create!(
+	body: "I went here for an anniversary date and it was spectacular. The staff was extremely professional. Try the cacao bars for dessert!", 
+	author_id: user3.id,
+	rest_id: rest1.id, 
+	food: 5, 
+	service: 5, 
+	ambience: 5,
+	overall: 5 
+)
+
+# rest2 reviews
+Review.create!(
+	body: "This place is a New York institution for a reason. The Gnocchi bolognese will change your life.", 
+	author_id: user4.id, 
+	rest_id: rest2.id, 
+	food: 5, 
+	service: 5, 
+	ambience: 5,
+	overall: 5 
+)
+
+Review.create!(
+	body: "The best restaurant in NY. The food, the service, and the prices are all amazing. They are all astonishing. I loved it.", 
+	author_id: user5.id, 
+	rest_id: rest2.id, 
+	food: 5, 
+	service: 5, 
+	ambience: 5,
+	overall: 5 
+)
+
+Review.create!(
+	body: "This restaurant is a shadow of its former self. Now just a tourist trap. Oh well, there's plenty of other great spots for NY Italian.", 
+	author_id: user6.id,
+	rest_id: rest2.id, 
+	food: 3, 
+	service: 2,
+	ambience: 4,
+	overall: 3 
+)

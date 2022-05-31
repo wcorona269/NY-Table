@@ -34,7 +34,7 @@ class ScrollBar extends React.Component {
 	
 	componentDidMount() {
 		this.props.fetchRests();
-		console.log(this.props)
+		// console.log(this.props)
 	}
 
 	// Fisher-Yates shuffle 
@@ -58,7 +58,7 @@ class ScrollBar extends React.Component {
 
 	scroll(distance, id){
 		let bar = document.getElementById(id)
-		console.log(bar.scrollTop)
+		// console.log(bar.scrollTop)
 		bar.scrollLeft += distance
 	}
 

@@ -1,6 +1,4 @@
-
-
-const fetchReviews = data => {
+export const fetchReviews = data => {
 	return (
 		$.ajax({
 			url: '/api/reviews',

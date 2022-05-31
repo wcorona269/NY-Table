@@ -5,7 +5,7 @@ import { icClock, icReview, icPhone, icNeighborhood, icDiningStyle, icDressCode,
 import { DynamicStar } from 'react-dynamic-star';
 import Gallery from '../show/gallery';
 import Menu from '../show/menu';
-import Reviews from '../reviews';
+import ReviewsContainer from '../reviews_container';
 
 class LeftColumn extends React.Component {
 	constructor(props) {
@@ -45,12 +45,12 @@ class LeftColumn extends React.Component {
 	}
 
 	readMore() {
-		console.log(this.state);
+		// console.log(this.state);
 		let ele = document.getElementById("description");
 		let btn = document.getElementById('read-more');
 
 		if (this.state.readMore) {
-			ele.style.height = "5rem";
+			ele.style.height = "4.9rem";
 			btn.value = "+ Read more";
 		 } else {
 			ele.style.height = "fit-content"
@@ -165,7 +165,7 @@ class LeftColumn extends React.Component {
 				</section>
 				<Gallery/>
 				<Menu/>
-				<Reviews/>
+				<ReviewsContainer/>
 			</div>
 		)
 	}

@@ -23,8 +23,8 @@ const Map = ({restaurant}) => {
 	const getData = (data) => {
 		setLat(data.results[0].geometry.location.lat)
 		setLng(data.results[0].geometry.location.lng)
-		console.log(lat)
-		console.log(lng)
+		// console.log(lat)
+		// console.log(lng)
 	}
 
 	return (
