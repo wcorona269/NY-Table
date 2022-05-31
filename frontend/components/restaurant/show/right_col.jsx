@@ -136,7 +136,7 @@ class RightColumn extends React.Component {
 						</a>
 					</div>
 				</article>
-				{/* <Map restaurant={restaurant}/> */}
+				<Map restaurant={restaurant}/>
 				<AdditionalInfo restaurant={restaurant}/>
 			</div>
 		)

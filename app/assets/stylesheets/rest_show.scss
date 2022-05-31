@@ -236,7 +236,7 @@
 }
 
 #res-box {
-	z-index: 2;
+	z-index: 3;
 }
 
 
@@ -288,6 +288,7 @@
 
 .delivery-box {
 	@extend %rest-show-col;
+	z-index: 2;
 	padding-top: 1rem;
 	position:sticky;
 	top: 320px;
@@ -444,8 +445,41 @@
 	
 
 .map-container {
-	height: 100px;
-	width: 100px;
+	@extend %rest-show-col;
 	display: flex;
 	flex-direction: column;
+	padding-top: 1rem;
+	margin: 16px 0 0;
+	background-color: $background-color;
+	box-shadow: $box-shadow;
+	// height: 120px;
+	
+
+	img {
+		height:9rem;
+		width: 100%;
+	}
+
+	span {
+		display: flex;
+		flex-direction: row;
+		justify-content: left;
+		align-items: center;
+		margin-top: 10px;
+	}
+
+	p, a:link, a:visited {
+
+		color: #da3743;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 20px;
+    margin: 0 0 0 4px;
+		text-decoration: none !important;
+	}
+}
+
+#location {
+	height: 23px;
+	width: 23px;
 }
