@@ -5,6 +5,7 @@ import { withRouter } from "react-router-dom";
 
 const mSTP = (state, ownProps) => ({
 	restaurant: state.entities.rests[ownProps.match.params.restId],
+	reviews: state.entities.rests[ownProps.match.params.restId].reviews
 })
 
 const mDTP = dispatch => ({

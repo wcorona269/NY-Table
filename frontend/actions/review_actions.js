@@ -39,9 +39,11 @@ export const createReview = review => dispatch => (
 	reviewApiUtil.createReview(review).then(review => dispatch(receiveReview(review)), errors => dispatch(receiveReviewErrors(errors.responseJSON)))
 )
 
-export const fetchReviews = reviews => dispatch => (
-	reviewApiUtil.fetchReviews(reviews).then(reviews => dispatch(receiveReviews(reviews)))
+export const fetchRestReviews = (restId) => dispatch => (
+	console.log(restId),
+	reviewApiUtil.fetchRestReviews(restId).then(reviews => dispatch(receiveReviews(reviews)))
 )
+
 
 export const updateReview = review => dispatch => (
 	reviewApiUtil.updateReview(review).then(review => dispatch(receiveReview(review)), error => dispatch(receiveReviewErrors(error.responseJSON)))

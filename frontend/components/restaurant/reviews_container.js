@@ -1,6 +1,5 @@
-import React from 'react';
 import {connect} from 'react-redux';
-import { fetchReviews } from '../../actions/review_actions';
+import { fetchRestReviews, clearReviews } from '../../actions/review_actions';
 import Reviews from './reviews';
 
 const mapStateToProps = state => {
@@ -12,7 +11,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-    fetchReviews: data => dispatch(fetchReviews(data)),
+		clearReviews: () => dispatch(clearReviews())
 	}
 }
 

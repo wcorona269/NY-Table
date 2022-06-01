@@ -1,8 +1,16 @@
-export const fetchReviews = data => {
+export const fetchAllReviews = () => {
+	$.ajax({
+		method: "GET",
+		url: '/api/reviews'
+	})
+}
+
+export const fetchRestReviews = (restId) => {
 	return (
 		$.ajax({
+			method: 'GET',
 			url: '/api/reviews',
-			data
+			data: { restId }
 		})
 	)
 }
@@ -10,6 +18,7 @@ export const fetchReviews = data => {
 export const fetchReview = id => {
 	return (
 		$.ajax({
+			method: 'GET',
 			url: `/api/reviews/${id}`
 		})
 	)

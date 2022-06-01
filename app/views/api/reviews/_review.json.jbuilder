@@ -1,2 +1,2 @@
-json.extract! review, :id,:author_id, :rest_id, :body, :overall, :food, :service, :ambience
+json.extract! review, :id, :body, :overall, :food, :service, :ambience, :rest_id
 

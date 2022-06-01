@@ -31,6 +31,7 @@ gem 'annotate'
 gem 'jquery-rails'
 gem 'aws-sdk-s3'
 gem "figaro"
+gem 'faker'
 
 
 # Use ActiveStorage variant

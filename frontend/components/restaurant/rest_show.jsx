@@ -8,7 +8,6 @@ class RestShow extends React.Component {
 	}
 
 	componentDidMount() {
-		// debugger;
 		this.props.fetchRest(this.props.match.params.restId)
 		window.scrollTo(0,0);
 	}

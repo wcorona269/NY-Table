@@ -1,17 +1,9 @@
-class ReviewsController < ApplicationController
-	
-	def index
-	# debugger
-	if author_id 
-			reviews = Review.where("author_id = ?", author_id)
-			reviews.includes(:author, :restaurant)
-	elsif rest_id
-			reviews = Review.where("rest_id = ?", rest_id)
-			reviews.includes(:author, :restaurant)
-	else
-			render {}
-	end
+class Api::ReviewsController < ApplicationController
 
+	def index
+		@reviews = Review.all
+		render :index
+	end
 
 	def create
 		@review = Review.create!
@@ -32,7 +24,7 @@ class ReviewsController < ApplicationController
 	def update
 		@review = Review.find(params[:id])
 		if @review.update(review_params)
-				render :show
+				render json: @review
 		else
 				render json: @review.errors.full_messages, status: 422
 		end
@@ -43,12 +35,11 @@ class ReviewsController < ApplicationController
 		@review = review.find(params[:id])
 
 		@review.destroy
-		render :show
+		render json: @review
 	end
-	
 
 	private
 	def review_params
-		params.require(:review).permit(:author_id, :rest_id, :body, :overall, :food, :ambiance, :service)
+		params.require(:review).permit(:author_id, :rest_id, :body, :overall, :food, :ambience, :service)
 	end
 end

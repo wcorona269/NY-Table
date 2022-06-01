@@ -1,6 +1,6 @@
 @index.each do |rest|
 	json.set! rest.id do
-		json.partial! "rest", rest: rest
+		json.partial! "/api/restaurants/restaurant", restaurant: rest
 		# json.reviewIds rest.reviews.pluck(:id)
 		# json.avg_rating rest.reviews.average(:overall).floor
 		# json.photos rest.photos do |photo|
@@ -9,4 +9,3 @@
 		# end
 	end
 end
-

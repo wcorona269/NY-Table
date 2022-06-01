@@ -6,6 +6,8 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+require 'faker'
+
 
 #destroy all data before seeding
 User.destroy_all
@@ -20,7 +22,222 @@ user4 = User.create(fname: "Veronica", lname: "Theobald", dname: "ronigirl99", p
 user5 = User.create(fname: "Kyle", lname: "Ginzburg", dname: "kylekyle", password: "iamkyle", email: "kyle@kyle.com", phone: 5555555555)
 user6 = User.create(fname: "Amin", lname: "Babar", dname: "aminbabar", password: "iamamin", email: "amin@amin.com", phone: 6666666666)
 user7 = User.create(fname: "Jim", lname: "Nardi", dname: "jimnardi", password: "iamjimmy", email: "jim@jim.com", phone: 7777777777)
+User.create(
+	fname: Faker::Name.unique.first_name,
+	lname: Faker::Name.unique.last_name,
+	dname: Faker::Internet.unique.username(specifier: 6),
+	password: "fakeuser",
+	email: Faker::Internet.unique.email,
+	phone: rand(9999999999)
+)
+User.create(
+	fname: Faker::Name.unique.first_name,
+	lname: Faker::Name.unique.last_name,
+	dname: Faker::Internet.unique.username(specifier: 6),
+	password: "fakeuser",
+	email: Faker::Internet.unique.email,
+	phone: rand(9999999999)
+)
+User.create(
+	fname: Faker::Name.unique.first_name,
+	lname: Faker::Name.unique.last_name,
+	dname: Faker::Internet.unique.username(specifier: 6),
+	password: "fakeuser",
+	email: Faker::Internet.unique.email,
+	phone: rand(9999999999)
+)
+User.create(
+	fname: Faker::Name.unique.first_name,
+	lname: Faker::Name.unique.last_name,
+	dname: Faker::Internet.unique.username(specifier: 6),
+	password: "fakeuser",
+	email: Faker::Internet.unique.email,
+	phone: rand(9999999999)
+)
+User.create(
+	fname: Faker::Name.unique.first_name,
+	lname: Faker::Name.unique.last_name,
+	dname: Faker::Internet.unique.username(specifier: 6),
+	password: "fakeuser",
+	email: Faker::Internet.unique.email,
+	phone: rand(9999999999)
+)
+User.create(
+	fname: Faker::Name.unique.first_name,
+	lname: Faker::Name.unique.last_name,
+	dname: Faker::Internet.unique.username(specifier: 6),
+	password: "fakeuser",
+	email: Faker::Internet.unique.email,
+	phone: rand(9999999999)
+)
 
+User.create(
+	fname: Faker::Name.unique.first_name,
+	lname: Faker::Name.unique.last_name,
+	dname: Faker::Internet.unique.username(specifier: 6),
+	password: "fakeuser",
+	email: Faker::Internet.unique.email,
+	phone: rand(9999999999)
+)
+
+User.create(
+	fname: Faker::Name.unique.first_name,
+	lname: Faker::Name.unique.last_name,
+	dname: Faker::Internet.unique.username(specifier: 6),
+	password: "fakeuser",
+	email: Faker::Internet.unique.email,
+	phone: rand(9999999999)
+)
+
+User.create(
+	fname: Faker::Name.unique.first_name,
+	lname: Faker::Name.unique.last_name,
+	dname: Faker::Internet.unique.username(specifier: 6),
+	password: "fakeuser",
+	email: Faker::Internet.unique.email,
+	phone: rand(9999999999)
+)
+
+User.create(
+	fname: Faker::Name.unique.first_name,
+	lname: Faker::Name.unique.last_name,
+	dname: Faker::Internet.unique.username(specifier: 6),
+	password: "fakeuser",
+	email: Faker::Internet.unique.email,
+	phone: rand(9999999999)
+)
+
+User.create(
+	fname: Faker::Name.unique.first_name,
+	lname: Faker::Name.unique.last_name,
+	dname: Faker::Internet.unique.username(specifier: 6),
+	password: "fakeuser",
+	email: Faker::Internet.unique.email,
+	phone: rand(9999999999)
+)
+
+User.create(
+	fname: Faker::Name.unique.first_name,
+	lname: Faker::Name.unique.last_name,
+	dname: Faker::Internet.unique.username(specifier: 6),
+	password: "fakeuser",
+	email: Faker::Internet.unique.email,
+	phone: rand(9999999999)
+)
+
+User.create(
+	fname: Faker::Name.unique.first_name,
+	lname: Faker::Name.unique.last_name,
+	dname: Faker::Internet.unique.username(specifier: 6),
+	password: "fakeuser",
+	email: Faker::Internet.unique.email,
+	phone: rand(9999999999)
+)
+User.create(
+	fname: Faker::Name.unique.first_name,
+	lname: Faker::Name.unique.last_name,
+	dname: Faker::Internet.unique.username(specifier: 6),
+	password: "fakeuser",
+	email: Faker::Internet.unique.email,
+	phone: rand(9999999999)
+)
+User.create(
+	fname: Faker::Name.unique.first_name,
+	lname: Faker::Name.unique.last_name,
+	dname: Faker::Internet.unique.username(specifier: 6),
+	password: "fakeuser",
+	email: Faker::Internet.unique.email,
+	phone: rand(9999999999)
+)
+User.create(
+	fname: Faker::Name.unique.first_name,
+	lname: Faker::Name.unique.last_name,
+	dname: Faker::Internet.unique.username(specifier: 6),
+	password: "fakeuser",
+	email: Faker::Internet.unique.email,
+	phone: rand(9999999999)
+)
+User.create(
+	fname: Faker::Name.unique.first_name,
+	lname: Faker::Name.unique.last_name,
+	dname: Faker::Internet.unique.username(specifier: 6),
+	password: "fakeuser",
+	email: Faker::Internet.unique.email,
+	phone: rand(9999999999)
+)
+User.create(
+	fname: Faker::Name.unique.first_name,
+	lname: Faker::Name.unique.last_name,
+	dname: Faker::Internet.unique.username(specifier: 6),
+	password: "fakeuser",
+	email: Faker::Internet.unique.email,
+	phone: rand(9999999999)
+)
+User.create(
+	fname: Faker::Name.unique.first_name,
+	lname: Faker::Name.unique.last_name,
+	dname: Faker::Internet.unique.username(specifier: 6),
+	password: "fakeuser",
+	email: Faker::Internet.unique.email,
+	phone: rand(9999999999)
+)
+User.create(
+	fname: Faker::Name.unique.first_name,
+	lname: Faker::Name.unique.last_name,
+	dname: Faker::Internet.unique.username(specifier: 6),
+	password: "fakeuser",
+	email: Faker::Internet.unique.email,
+	phone: rand(9999999999)
+)
+User.create(
+	fname: Faker::Name.unique.first_name,
+	lname: Faker::Name.unique.last_name,
+	dname: Faker::Internet.unique.username(specifier: 6),
+	password: "fakeuser",
+	email: Faker::Internet.unique.email,
+	phone: rand(9999999999)
+)
+User.create(
+	fname: Faker::Name.unique.first_name,
+	lname: Faker::Name.unique.last_name,
+	dname: Faker::Internet.unique.username(specifier: 6),
+	password: "fakeuser",
+	email: Faker::Internet.unique.email,
+	phone: rand(9999999999)
+)
+User.create(
+	fname: Faker::Name.unique.first_name,
+	lname: Faker::Name.unique.last_name,
+	dname: Faker::Internet.unique.username(specifier: 6),
+	password: "fakeuser",
+	email: Faker::Internet.unique.email,
+	phone: rand(9999999999)
+)
+User.create(
+	fname: Faker::Name.unique.first_name,
+	lname: Faker::Name.unique.last_name,
+	dname: Faker::Internet.unique.username(specifier: 6),
+	password: "fakeuser",
+	email: Faker::Internet.unique.email,
+	phone: rand(9999999999)
+)
+User.create(
+	fname: Faker::Name.unique.first_name,
+	lname: Faker::Name.unique.last_name,
+	dname: Faker::Internet.unique.username(specifier: 6),
+	password: "fakeuser",
+	email: Faker::Internet.unique.email,
+	phone: rand(9999999999)
+)
+
+User.create(
+	fname: Faker::Name.unique.first_name,
+	lname: Faker::Name.unique.last_name,
+	dname: Faker::Internet.unique.username(specifier: 6),
+	password: "fakeuser",
+	email: Faker::Internet.unique.email,
+	phone: rand(9999999999)
+)
 
 
 
@@ -56,7 +273,7 @@ rest3 = Restaurant.create!(
 	cuisines: "American",
 	price_range: 3,
 	neighborhood: "Upper West Side",
-	address: "2450 Broadway New York, NY 10024",
+	address: "16 W 51st St, New York, NY 10019",
 	phone: 2127058510
 )
 
@@ -272,3 +489,71 @@ Review.create!(
 	ambience: 4,
 	overall: 3 
 )
+
+bad_reviews = [
+	'There was a bug in my food. Yuck.',
+	'The bathroom was disgusting, what kind of place are they running here?',
+	"The waiter couldn't keep his eyes off my date. Very unprofessional.",
+	"I've been to a lot of restaurants but this one takes the cake as the worst experience i've had. Unprofessional staff and food was cold.",
+	"Waited an hour to be seated, and the food was cold!",
+	"Waitress was rude, and gave us a dirty look when we asked to split the bill.",
+	"Terrible!  We waited over an hour for our food",
+	"I would not eat here. Service is horrible.",
+	"Horrible...did not get water for over 15 minutes...finally got drinks after 20 minutes.  "
+]
+
+good_reviews = [
+	"We walked in, and immediately got a table.",
+	"We had an amazing server, which unfortunately I do not remember his name. He was a training a new waitress who was also very lovely.",
+	"The food was plentiful, the kids portion was a great size, my daughter barely finished.",
+	"The drinks (alcoholic and non alcoholic) were delicious.",
+	"Great playlist, great last minute find. 100% recommend.",
+	"I had a great time, there's a reason this place has been open for so long",
+	"I took my family out here and everyone had a great time! Can't wait to come back",
+	"This place is my favorite!! If you haven't been here make plans to come ASAP!!!",
+	"WOW I love this place so much !! I'll always bring friends here when they visit just because I need another excuse to go! LOL",
+	"Amazing wait staff. Food comes quick. Very impressed! Also well priced. :)",
+	"Amazing ambiance, amazing service, and amazing food.",
+	"We ate here twice and both times had great service and fantastic food! This place is top notch!",
+	"Energetic atmosphere. Awesome waiter with a fantastic personality. Dinner was fun and lively. It was Saturday night and crowded. Make sure to give yourself plenty of time if your dining on a weekend. It will be  well worth it.",
+	"Amazing service. Johnatan was wonderful. Friendly, knowledgeable and thorough. Went above and beyond."
+]
+
+200.times do
+	Review.create!(
+		body: good_reviews.sample,
+		author_id: rand(1..30),
+		rest_id: rand(1..17), 
+		food: rand(4..5),
+		service: rand(4..5),
+		ambience: rand(4..5),
+		overall: 5 
+	)
+end
+
+
+132.times do
+	Review.create!(
+		body: good_reviews.sample,
+		author_id: rand(1..30),
+		rest_id: rand(1..17), 
+		food: rand(4..5),
+		service: rand(4..5),
+		ambience: rand(4..5),
+		overall: rand(4..5) 
+	)
+	
+end
+
+70.times do
+	Review.create!(
+		body: bad_reviews.sample,
+		author_id: rand(1..30),
+		rest_id: rand(1..17), 
+		food: rand(1..3),
+		service: rand(1..3),
+		ambience: rand(1..3),
+		overall: rand(1..3) 
+	)
+end
+

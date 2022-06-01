@@ -6,6 +6,7 @@ import { icReview } from 'otkit-icons/token.theme.common';
 
 
 const Review = ({reviews}) => {
+	console.log(reviews)
 
 	return (
 		reviews.map((review, idx) => 
@@ -14,7 +15,7 @@ const Review = ({reviews}) => {
 					<div className='user-icon'>
 						U
 					</div>
-					<p className='review-username'>{review.username}</p>
+					<p className='review-username'>{review.author.dname}</p>
 					<p>New York Area</p>
 					<p>
 						<img src={`data:image/svg+xml;utf8,${icReview}`}/>
@@ -41,7 +42,7 @@ const Review = ({reviews}) => {
 						Overall <span>{review.overall}</span> 
 						Food <span>{review.food}</span> 
 						Service <span>{review.service}</span> 
-						Ambiance <span>{review.ambiance}</span> 
+						Ambience <span>{review.Ambience}</span> 
 					</div>
 					<div className='review-body'>
 						{review.body}

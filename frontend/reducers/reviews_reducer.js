@@ -1,6 +1,7 @@
 
 import { RECEIVE_REVIEW, REMOVE_REVIEW, RECEIVE_REVIEWS, CLEAR_REVIEWS } from '../actions/review_actions';
-
+import { RECEIVE_REST } from '../actions/rest_actions'
+    
 const reviewsReducer = (oldState = {}, action) => {
     Object.freeze(oldState);
     const nextState = Object.assign({}, oldState);
@@ -15,6 +16,8 @@ const reviewsReducer = (oldState = {}, action) => {
             return nextState;
         case CLEAR_REVIEWS:
             return {};
+        case RECEIVE_REST:
+            return Object.assign({}, oldState, action.rest.reviews)
         default:
             return oldState;
     }

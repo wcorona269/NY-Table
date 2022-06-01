@@ -20,6 +20,7 @@ class LeftColumn extends React.Component {
 		};
 
 		this.readMore = this.readMore.bind(this);
+		this.rating = this.rating.bind(this);
 	}
 
 	componentDidMount() {
@@ -64,19 +65,12 @@ class LeftColumn extends React.Component {
 		let key = e.target.id;
 		let selected = document.getElementById(`${key}-id`);
 		let yOffset = -75;
-
 		let y = selected.getBoundingClientRect().top + window.pageYOffset + yOffset;
 
-		console.log(y);
-		// console.log(selected);
 		window.scrollTo({
 			top: y,
 			behavior: "smooth"
 		})
-
-
-		// window.scrollIntoView
-
 	}
 
 	parsePhone(phone) {
@@ -85,17 +79,19 @@ class LeftColumn extends React.Component {
 	}
 
 	rating() {
-		let rating = Math.random() * (5 - 2) + 2
-		return parseFloat(Number.parseFloat(rating).toFixed(1))
+		let sum = 0
+		let length = this.props.reviews.length
+
+		this.props.reviews.map(review => sum += review.overall);
+		return (sum / (length * 1.0)).toFixed(1)
 	}
 
 	reviewCount() {
-		return Math.floor(Math.random() * 5000)
+		return this.props.reviews.length
 	}
 
 	render() {
 		if (!this.props.restaurant) return null;
-
 		const {restaurant} = this.props;
 		const rating = this.rating();
 		return (

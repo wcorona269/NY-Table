@@ -1,10 +1,29 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id              :bigint           not null, primary key
+#  dname           :string           not null
+#  fname           :string           not null
+#  lname           :string           not null
+#  email           :string           not null
+#  phone           :bigint           not null
+#  session_token   :string           not null
+#  password_digest :string           not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
 class User < ApplicationRecord
     validates :email, :password_digest, :phone, :fname, :lname, presence: true
     validates_length_of :phone, is: 10,  message: "Number must be 10 digits"  
     after_initialize :ensure_session_token
     attr_reader :password
 
-    has_many :reviews
+    has_many :reviews,
+        primary_key: :id,
+        foreign_key: :author_id,
+        class_name: :Review
+    
     has_many :reservations
     has_many :saved
 

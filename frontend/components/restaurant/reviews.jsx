@@ -1,69 +1,95 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import { DynamicStar } from 'react-dynamic-star';
 import { icNoiseLevel } from 'otkit-icons/token.theme.common';
-import { fetchReviews } from '../../actions/review_actions';
 import Review from './review';
 
 class Reviews extends React.Component {
 	constructor(props) {
 		super(props)
+
+		this.getAverageReviews = this.getAverageReviews.bind(this)
+		this.overallScoreCounts = this.overallScoreCounts.bind(this)
 	}
 	
-	returnReviews(revs) {
-		revs.map((review, idx) =>
-		console.log(review)
-		)
+	
+	componentWillUnmount() {
+		this.props.clearReviews()
 	}
 
-	componentDidMount() {
-		this.props.fetchReviews({["restId"]: this.props.match.params.restId})
+	getAverageReviews(reviews) {
+		let averages = {
+			"overall": [],
+			"food": [],
+			"service": [],
+			"ambience": []
+		}
+
+		reviews.forEach(review => {
+			averages.overall.push(review.overall)
+			averages.food.push(review.food)
+			averages.service.push(review.service)
+			averages.ambience.push(review.ambience)
+		})
+
+		let num = averages.overall.length
+
+		return {
+			"overall": (averages.overall.reduce((a, b) => a + b, 0) / num).toFixed(1),
+			"food": (averages.food.reduce((a, b) => a + b, 0) / num).toFixed(1),
+			"service": (averages.service.reduce((a, b) => a + b, 0) / num).toFixed(1),
+			"ambience": (averages.ambience.reduce((a, b) => a + b, 0) / num).toFixed(1),
+		}
+	}
+
+	overallScoreCounts(reviews) {
+		let overallScoreCounts = {
+			"one": 0,
+			"two": 0,
+			"three": 0,
+			"four": 0,
+			"five": 0,
+		}
+
+		reviews.forEach((review) => {
+			if (review.overall == 1) {
+				overallScoreCounts.one += 1
+			} 
+			else if (review.overall == 2) {
+				overallScoreCounts.two += 1
+			}
+			else if (review.overall == 3) {
+				overallScoreCounts.three += 1
+			}
+			else if (review.overall == 4) {
+				overallScoreCounts.four += 1
+			}
+			else if (review.overall == 5) {
+				overallScoreCounts.five += 1
+			}
+		})
+
+		return {
+			"one" : (100 * overallScoreCounts.one) / (reviews.length * 1.0),
+			"two" : (100 * overallScoreCounts.two) / (reviews.length * 1.0),
+			"three" : (100 * overallScoreCounts.three) / (reviews.length * 1.0),
+			"four" : (100 * overallScoreCounts.four) / (reviews.length * 1.0),
+			"five" : (100 * overallScoreCounts.five) / (reviews.length * 1.0),
+		}
 	}
 
 	render() {
-		console.log(this.props)
-		let reviews = [
-			{
-				username: 'veronica',
-				overall: 5,
-				food: 5,
-				service: 4,
-				ambiance: 3,
-				body: "Wow, i loved the food here! I brought my entire family and we ate so much my stomach hurt after. I'm going to be sure to tell all of my friends about this place!"
-			},
-			{
-				username: 'will',
-				overall: 3,
-				food: 2,
-				service: 3,
-				ambiance: 4,
-				body: "The service was good but the food was terrible! I loved the music. I had the hot dog and it was cold and dry. I am going to come back soon to give them a second chance. Hopefully then it will be alright."
-			},
-			{
-				username: 'joe',
-				overall: 5,
-				food: 2,
-				service: 3,
-				ambiance: 1,
-				body: "It was too loud inside! I loved the food and the people, but had to shout to talk to anyone at my table. Turn the music down! Otherwise, it was great"
-			},
-			{
-				username: 'patrick',
-				overall: 1,
-				food: 2,
-				service: 3,
-				ambiance: 4,
-				body: "I don't want to spend my money here... it was too loud inside! I loved the food and the people, but had to shout to talk to anyone at my table. Turn the music down! Otherwise, it was great"
-			}
-		]
+		let reviews = this.props.reviews.filter(review => review.rest_id == this.props.match.params.restId);
+		let averages = this.getAverageReviews(reviews);
+		let overalls = this.overallScoreCounts(reviews);
+		// console.log(overalls);
 
-		return (
+		return (this.props.reviews.length) ? (
 			<section className='reviews-container' id='reviews-id'>
 				<header className='reviews-header'>
 					<div>
 						<h2>
-							What people are saying
+							What {this.props.reviews.length} people are saying
 						</h2>
 					</div>
 				</header>
@@ -78,7 +104,7 @@ class Reviews extends React.Component {
 						<div className='star-details' >
 							<div>
 								<DynamicStar
-										rating={2.5}
+										rating={averages.overall}
 										width={20}
 										height={20}
 										outlined={false}
@@ -89,13 +115,13 @@ class Reviews extends React.Component {
 									/>
 							</div>
 								<span>
-									Based on recent reviews
+									{averages.overall} Based on recent reviews
 								</span>
 						</div>
 						<ul className='details-ratings-ul'>
 							<li>
 								<p className='list-rating'>
-									4.8
+									{averages.food}
 								</p>
 								<p className='ratings-cat'>
 									Food
@@ -103,7 +129,7 @@ class Reviews extends React.Component {
 							</li>	
 							<li>
 								<p className='list-rating'>
-									3.3
+									{averages.service}
 								</p>
 								<p className='ratings-cat'>
 									Service
@@ -111,10 +137,10 @@ class Reviews extends React.Component {
 							</li>	
 							<li>
 								<p className='list-rating'>
-									4.4
+									{averages.ambience}
 								</p>
 								<p className='ratings-cat'>
-									Ambiance
+									Ambience
 								</p>
 							</li>	
 						</ul>
@@ -136,9 +162,8 @@ class Reviews extends React.Component {
 								</label>
 								<meter 
 									id="meter-5"
-									// value="79.08653846153845" min="0" max="100"
 								>
-									<div style={{width:"78%"}}/>
+									<div style={{width: `${overalls.five}%`}}/>
 								</meter>
 							</li>
 							<li>
@@ -147,9 +172,8 @@ class Reviews extends React.Component {
 								</label>
 								<meter 
 									id="meter-4"
-									// value="79.08653846153845" min="0" max="100"
 								>
-									<div style={{width:"10%"}}/>
+									<div style={{width: `${overalls.four}%`}}/>
 								</meter>
 							</li>
 							<li>
@@ -160,7 +184,7 @@ class Reviews extends React.Component {
 									id="meter-3"
 									// value="79.08653846153845" min="0" max="100"
 								>
-									<div style={{width:"2%"}}/>
+									<div style={{width: `${overalls.three}%`}}/>
 								</meter>
 							</li>
 							<li>
@@ -169,9 +193,8 @@ class Reviews extends React.Component {
 								</label>
 								<meter 
 									id="meter-2"
-									// value="79.08653846153845" min="0" max="100"
 								>
-									<div style={{width:"3%"}}/>
+									<div style={{width: `${overalls.two}%`}}/>
 								</meter>
 							</li>
 							<li>
@@ -180,9 +203,8 @@ class Reviews extends React.Component {
 								</label>
 								<meter 
 									id="meter-1"
-									// value="79.08653846153845" min="0" max="100"
 								>
-									<div style={{width:"7%"}}/>
+									<div style={{width: `${overalls.one}%`}}/>
 								</meter>
 							</li>
 						
@@ -193,7 +215,7 @@ class Reviews extends React.Component {
 					<Review reviews={reviews}/>
 				</ol>
 			</section>
-		)
+		) : (null)
 	}
 }
 

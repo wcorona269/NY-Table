@@ -7,7 +7,7 @@ const restsReducer = (oldState = {}, action) => {
 		case RECEIVE_RESTS:
 			return action.rests
 		case RECEIVE_REST:
-			return Object.assign({}, oldState, { [action.rest.id]: action.rest })
+			return Object.assign({}, oldState, { [action.rest.restaurant.id]: action.rest.restaurant })
 		default:
 			return oldState;
 	}
