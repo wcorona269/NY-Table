@@ -46,7 +46,6 @@ html {
 	-webkit-text-size-adjust: 100%;
 	line-height: 1.15;
 	height: fit-content;
-	// height: 100vw;
 }
 
 @import "./variables.scss";
@@ -56,7 +55,6 @@ html {
 	grid-template-columns: auto 85vw auto;
 	grid-template-rows: 16px 100vw 300px;
 	height: fit-content;
-	// height: 100%;
 	background-color: $background-color;
 }
 

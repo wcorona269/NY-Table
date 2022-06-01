@@ -1,8 +1,4 @@
-import React, {useEffect} from 'react';
-import { withRouter } from 'react-router-dom';
-import { icSocialProof } from 'otkit-icons/token.theme.common';
-import { DynamicStar } from 'react-dynamic-star';
-import { Link } from 'react-router-dom';
+import React from 'react';
 
 const Gallery = (props) => {
 

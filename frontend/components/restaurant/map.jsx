@@ -1,8 +1,4 @@
-import { withRouter } from 'react-router-dom';
-import { $CombinedState } from 'redux';
-import React, { useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import React, { useState } from 'react';
 import { icLocation } from 'otkit-icons/token.theme.common';
 
 
@@ -23,8 +19,6 @@ const Map = ({restaurant}) => {
 	const getData = (data) => {
 		setLat(data.results[0].geometry.location.lat)
 		setLng(data.results[0].geometry.location.lng)
-		// console.log(lat)
-		// console.log(lng)
 	}
 
 	return (

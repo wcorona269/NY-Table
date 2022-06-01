@@ -22,13 +22,13 @@ class Restaurant < ApplicationRecord
 		foreign_key: :rest_id,
 		class_name: :Review
 
-	# has_one :menu,
-	# 	primary_key: :id,
-	# 	foreign_key: :rest_id,
-	# 	class_name: Menu
+	has_many :menu_items,
+		primary_key: :id,
+		foreign_key: :rest_id,
+		class_name: :MenuItem
 
 	# has_many :reservations,
-	# 	primary_key: :id,
+	# 	primary_key: :id
 	# 	foreign_key: :rest_id,
 	# 	class_name: Reservation
 end

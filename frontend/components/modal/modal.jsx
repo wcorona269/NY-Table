@@ -35,6 +35,8 @@ class Modal extends React.Component {
 			case "login":
 				component = <LoginFormContainer/>
 				break;
+			// case "review":
+			// 	component = <
 			default:
 				return null;
 		}

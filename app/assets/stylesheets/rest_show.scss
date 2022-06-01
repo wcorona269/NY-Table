@@ -12,7 +12,6 @@
 	margin-top: -4rem;
 	z-index: 1;
 	background-color: $background-color;
-	// padding-top: -1vw !important;
   grid-auto-flow: row;
   grid-template-areas:
     "rest-show-main-col rest-show-res-col";
@@ -45,7 +44,6 @@
 }
 
 .rest-info-nav-buttons {
-  // height: 100%;
   position: sticky;
   top: 0;
   background-color: $background-color;
@@ -69,9 +67,7 @@
 			border: none !important;
 
 		}
-
 	}
-
  }
 
 .main-show-col-details {
@@ -79,14 +75,12 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	// margin-top: 30px;
 	font-size: .875rem;
 	font-weight: 500;
 	line-height: 1.25rem;
 	display: flex;
 	
 }
-
 
 .rest-header-container {
 	box-sizing: border-box;
@@ -126,19 +120,8 @@
 .main-col-info p {
 	margin-left: .5rem;
 }
-
-// .main-show-col {
-	// 	display: block;
-	// 	background-color: #fff;
-	// 	border-radius: 4px;
-	// 	box-sizing: border-box;
-	// 	margin-right: 32px;
-	// 	padding: 0 16px calc(128px - 0.25rem);
-	// 	width: 40rem;
-	// }
 	
 .main-col-info {
-	// height: 300px;
 	margin-top: 1rem;
 	font-size: .8rem;
 	font-weight: 400;
@@ -146,8 +129,6 @@
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	// justify-content: space-between;
-	// border: 1px solid $border-color;
 }
 
 .info-item {
@@ -263,12 +244,6 @@
 
 .res-date {
 	grid-area: res-date;
-
-	// div {
-	// 	display: flex;
-	// 	flex-direction: row;
-	// 	align-items: center;
-	// }
 }
 
 .res-time { grid-area: res-time; }
@@ -276,7 +251,6 @@
 .res-submit { grid-area: res-submit; }
 
 .res-submit button {
-	// @extend %auth-buttons;
 	width: 100%;
 	border-radius: 5px;
 	border: none;
@@ -317,8 +291,6 @@
     border-radius: 4px;
     color: $main-red;
     cursor: pointer;
-    // display: inline-block;
-		// margin: auto;
     min-width: -webkit-fit-content;
     min-width: -moz-fit-content;
     min-width: fit-content;
@@ -358,7 +330,6 @@
     font-weight: bold;
 		font-size: 1rem;
     font-weight: 500;
-    // line-height: 9.5rem;
 		margin: 0 0 8px;
 	}
 
@@ -396,7 +367,6 @@
 		.additional-info-text {
 			height: fit-content;
 			display: flex;
-			// align-items: center;
 			justify-content: space-around;
 
 			span {
@@ -460,9 +430,7 @@
 	margin: 16px 0 0;
 	background-color: $background-color;
 	box-shadow: $box-shadow;
-	// height: 120px;
 	
-
 	img {
 		height:9rem;
 		width: 100%;

@@ -1,6 +1,6 @@
 import React from 'react';
-import LeftColumnContainer from './show/left_col_container';
-import RightColumnContainer from './show/right_col_container';
+import LeftColumnContainer from './left_col_container';
+import RightColumnContainer from './right_col_container';
 
 class RestShow extends React.Component {
 	constructor(props) {

@@ -4,7 +4,4 @@ json.author do
 end
 json.restaurant do
 	json.extract! @review.restaurant, :name, :neighborhood, :cuisine, :id
-	json.author do
-		json.extract! @review.author, :dname
-	end
 end

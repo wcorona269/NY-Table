@@ -10,10 +10,6 @@
 	@extend %rest-show-section-header;
 }
 
-// .menu-header div {
-
-// }
-
 .menu-header h2 {
 	@extend %rest-show-section-h2;
 }
@@ -35,7 +31,6 @@
 
 .menu li {
 	display: flex;
-	// border: 1px solid black;
 	flex-direction: column;
 	height: fit-content;
 	margin-bottom: 16px;

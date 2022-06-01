@@ -13,6 +13,11 @@ json.reviews do
 	end
 end
 
+# json.menu do 
+# 	json.set! :menu.id do
+# 		json.extract! menu, :items
+# 	end
+# end
 
 # json.avg_rating @rest.reviews.average(:overall).floor
 # json.photos @rest.photos do |photo|

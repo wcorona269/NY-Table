@@ -4,6 +4,8 @@
 
 .reviews-container {
 	@extend %rest-show-section;
+	padding-bottom: 0px;
+	margin-bottom: 0px;
 }
 
 .reviews-header {

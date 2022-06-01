@@ -40,7 +40,6 @@ export const createReview = review => dispatch => (
 )
 
 export const fetchRestReviews = (restId) => dispatch => (
-	console.log(restId),
 	reviewApiUtil.fetchRestReviews(restId).then(reviews => dispatch(receiveReviews(reviews)))
 )
 

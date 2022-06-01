@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import RightColumn from "./right_col";
-import { fetchRest } from "../../../actions/rest_actions";
+import { fetchRest } from "../../actions/rest_actions";
 import { withRouter } from "react-router-dom";
 
 const mSTP = (state, ownProps) => ({

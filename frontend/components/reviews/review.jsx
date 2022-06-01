@@ -4,9 +4,7 @@ import { Link } from 'react-router-dom';
 import { DynamicStar } from 'react-dynamic-star';
 import { icReview } from 'otkit-icons/token.theme.common';
 
-
 const Review = ({reviews}) => {
-	console.log(reviews)
 
 	return (
 		reviews.map((review, idx) => 
