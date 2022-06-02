@@ -24,7 +24,6 @@ class LeftColumn extends React.Component {
 	}
 	
 	render() {
-		console.log(this.props.menu_items)
 		if (!this.props.restaurant) return null;
 		return (
 			<div className="rest-show-main-col">

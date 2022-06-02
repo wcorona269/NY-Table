@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2022-06-02
+  time: 2022-06-02 03:45:31
+  rest_id: 1
+  user_id: 1
+  party_size: 1
+  special_request: MyString
+  occasion: MyString
+
+two:
+  date: 2022-06-02
+  time: 2022-06-02 03:45:31
+  rest_id: 1
+  user_id: 1
+  party_size: 1
+  special_request: MyString
+  occasion: MyString

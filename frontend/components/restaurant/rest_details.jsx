@@ -13,7 +13,6 @@ const RestDetails = ({restaurant, rating, reviews}) => {
 
 		let ele = document.getElementById("description");
 		let btn = document.getElementById('read-more');
-		console.log(btn);
 
 		if (ReadMore) {
 			ele.style.height = "4.9rem";

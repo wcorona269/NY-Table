@@ -13,6 +13,7 @@
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #
+
 class Restaurant < ApplicationRecord
 	validates :name, :description, :cuisines, :price_range, :neighborhood, :address, :phone, presence: true
 	validates :name, :address, uniqueness: true
@@ -27,8 +28,8 @@ class Restaurant < ApplicationRecord
 		foreign_key: :rest_id,
 		class_name: :MenuItem
 
-	# has_many :reservations,
-	# 	primary_key: :id
-	# 	foreign_key: :rest_id,
-	# 	class_name: Reservation
+	has_many :bookings,
+		primary_key: :id,
+		foreign_key: :rest_id,
+		class_name: :Booking
 end

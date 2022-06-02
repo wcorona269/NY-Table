@@ -2,7 +2,6 @@ import { connect } from "react-redux";
 import LeftColumn from "./left_col";
 import { fetchRest } from "../../actions/rest_actions";
 import { withRouter } from "react-router-dom";
-import { clearMenuItems } from "../../actions/menu_item_actions";
 
 const mSTP = (state, ownProps) => ({
 	restaurant: state.entities.rests[ownProps.match.params.restId],
@@ -13,7 +12,6 @@ const mSTP = (state, ownProps) => ({
 const mDTP = dispatch => {
 	return {
 		fetchRest: id => dispatch(fetchRest(id)),
-		clearMenuItems: () => dispatch(clearMenuItems())
 	}
 }
 

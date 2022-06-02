@@ -8,7 +8,6 @@
 
 require 'faker'
 
-
 #destroy all data before seeding
 User.destroy_all
 Restaurant.destroy_all
@@ -22,6 +21,8 @@ user4 = User.create(fname: "Veronica", lname: "Theobald", dname: "ronigirl99", p
 user5 = User.create(fname: "Kyle", lname: "Ginzburg", dname: "kylekyle", password: "iamkyle", email: "kyle@kyle.com", phone: 5555555555)
 user6 = User.create(fname: "Amin", lname: "Babar", dname: "aminbabar", password: "iamamin", email: "amin@amin.com", phone: 6666666666)
 user7 = User.create(fname: "Jim", lname: "Nardi", dname: "jimnardi", password: "iamjimmy", email: "jim@jim.com", phone: 7777777777)
+
+
 User.create(
 	fname: Faker::Name.unique.first_name,
 	lname: Faker::Name.unique.last_name,
@@ -238,8 +239,6 @@ User.create(
 	email: Faker::Internet.unique.email,
 	phone: rand(9999999999)
 )
-
-
 
 
 # restaurants
@@ -531,7 +530,6 @@ good_reviews = [
 	)
 end
 
-
 132.times do
 	Review.create!(
 		body: good_reviews.sample,
@@ -569,3 +567,31 @@ end
 		)
 	end
 end
+
+dates = [
+	"2022-08-20",
+	"2022-09-01",
+	"2022-10-15",
+	"2022-11-05"
+]
+
+times = [
+	"08:00",
+	"15:00",
+	"13:30",
+	"12:00",
+	"17:15"
+]
+
+(1..5).each do |idx|
+	3.times do
+		Booking.create!(
+			date: dates.sample,
+			time: times.sample,
+			rest_id: rand(1..17),
+			user_id: idx,
+			party_size: rand(1..20)
+		)
+	end
+end
+
