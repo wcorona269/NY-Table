@@ -557,9 +557,15 @@ end
 	)
 end
 
-# MenuItem.create!(
-# 	rest_id: 1,
-# 	items: {
-	
-# 	}
-# )
+(1..17).each do |idx|
+	6.times do
+		MenuItem.create!(
+			rest_id: idx,
+			item: [
+				Faker::Food.dish,
+				Faker::Food.description,
+				rand(1..35).to_s
+			]
+		)
+	end
+end

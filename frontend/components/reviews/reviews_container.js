@@ -11,6 +11,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
+		fetchRest: id => dispatch(fetchRest(id)),
 		clearReviews: () => dispatch(clearReviews())
 	}
 }

@@ -13,6 +13,13 @@ json.reviews do
 	end
 end
 
+json.menu_items do
+	@restaurant.menu_items.each do |item|
+		json.set! item.id do
+			json.extract! item, :item
+		end
+	end
+end
 # json.menu do 
 # 	json.set! :menu.id do
 # 		json.extract! menu, :items

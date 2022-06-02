@@ -11,10 +11,9 @@ class Reviews extends React.Component {
 		this.getAverageReviews = this.getAverageReviews.bind(this)
 		this.overallScoreCounts = this.overallScoreCounts.bind(this)
 	}
-	
-	
+
 	componentWillUnmount() {
-		this.props.clearReviews()
+		this.props.clearReviews();
 	}
 
 	getAverageReviews(reviews) {

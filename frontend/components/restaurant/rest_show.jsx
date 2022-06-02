@@ -12,6 +12,10 @@ class RestShow extends React.Component {
 		window.scrollTo(0,0);
 	}
 
+	componentWillUnmount() {
+		this.props.clearMenuItems()
+	}
+
 	render() {
 		if (!this.props.restaurant) return null;
 		const {restaurant} = this.props;

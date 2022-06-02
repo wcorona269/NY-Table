@@ -1,47 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { clearMenuItems } from '../../actions/menu_item_actions';
 
-const Menu = (props) => {
+const Menu = ({menuItems}) => {
+	const dispatch = useDispatch();
 
-	const food = [
-		{
-			title: "glizzyyyy",
-			price: 100.09,
-			details: "glicked up"
-		},
-		{
-			title: "Coke",
-			price: 1.00,
-			details: "The famous soda is a favorite at our restaurant. Make sure to have it with the burger!"
-		},
-		{
-			title: "Burger",
-			price: 10.99,
-			details: "the best burger ever. and in New York, that's saying a lot"
-		},
-		{
-			title: "Hot Dog",
-			price: 8.00,
-			details: "the best dog ever. This delicious dirty water dog is a new york classic!"
-		},
-		{
-			title: "Fries",
-			price: 3.00,
-			details: "Better than McDonalds! And i really love it there. I mean they have the best fries ever"
+	useEffect(() => {
+		return () => {
+			dispatch(clearMenuItems())
 		}
-	]
+	}, [menuItems])
 
-	const menuList = (stuff) => {
-		return stuff.map((item, idx) => 
+	const menuList = (items) => {
+		return items.map((item, idx) => 
 			<li key={idx}>
-					<h4>
-						<span>{item.title}</span>
-						<span>${item.price}</span>
-					</h4>
-					<p>
-						{item.details}
-					</p>
-				</li>
+				<h4>
+					<span>{item.item[0]}</span>
+					<span>${item.item[2]}</span>
+				</h4>
+				<p>
+					{item.item[1]}
+				</p>
+			</li>
 		)
 	}
 
@@ -56,7 +37,7 @@ const Menu = (props) => {
 			</header>
 			<article className='menu'>
 				<ul>
-					{menuList(food)}
+					{menuList(menuItems)}
 				</ul>
 			</article>
 		</section>
