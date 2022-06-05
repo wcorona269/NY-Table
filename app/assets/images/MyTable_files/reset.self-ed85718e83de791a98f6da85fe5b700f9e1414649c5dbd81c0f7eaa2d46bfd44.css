@@ -70,7 +70,11 @@ html {
 .outer-body {
   display: grid;
   grid-template-columns: auto 85vw auto;
-  grid-template-rows: 16px 100vw auto;
+  grid-template-rows: 16px auto auto;
+  grid-template-areas:
+  ". header ."
+  ". inner-body ."
+  ". footer .";
   height: fit-content;
   background-color: #f6f6f6;
 }
@@ -86,7 +90,10 @@ html {
 /* line 68, /Users/Will2/Desktop/myTable/app/assets/stylesheets/reset.scss */
 .inner-body {
   display: grid;
-  grid-template-columns: auto;
-  grid-template-rows: auto fit-content 1fr;
+  grid-template-columns: 1fr;
+  grid-template-rows: fit-content auto;
+  grid-template-areas:
+  "nav-bar"
+  "main-content";
   height: fit-content;
 }

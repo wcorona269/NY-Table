@@ -7,7 +7,7 @@ import NavBarContainer from "./nav_bar/nav_bar_container";
 import ModalContainer from "./modal/modal_container";
 import Footer from './footer/footer';
 import RestShowContainer from "./restaurant/rest_show_container";
-// import UserShowContainer from './user/user_show_container';
+import UserShowContainer from './user/user_show_container';
 
 
 const App = () => (

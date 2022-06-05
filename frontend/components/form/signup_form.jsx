@@ -24,14 +24,11 @@ class SignupForm extends React.Component {
     }
 
     handleSubmit(e) {
-        e.preventDefault();
-        this.props.signup(this.state)
-
-					// user not bootstrapping on sign-up
-					// .then(this.props.login(this.state))
-					
-					.then(() => dispatch(closeModal()))
-    }
+			e.preventDefault();
+			this.props.signup(this.state)
+			.then(this.props.login(this.state))
+			.then(dispatch(closeModal()))
+		}
 
     render() {
 			return (

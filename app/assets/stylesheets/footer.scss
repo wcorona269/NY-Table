@@ -1,7 +1,7 @@
 @import './variables.scss';
 
 #footer {
-	grid-column: 2;
+	grid-area: footer;
 	background-color: #2d333f;
 	border: 1px solid black;
 	border-top: 0.0625rem solid rgba(0,0,0,.12);
@@ -10,7 +10,7 @@
 	bottom: 0;
 	display: flex;
 	justify-content: center;
-	margin-top: 100px;
+	// margin-top: 100px;
 	color: #fff;
 }
 

@@ -49,14 +49,16 @@ export const removeUserErrors = () => ({
 
 export const login = formUser => dispatch => (
     SessionUtils.login(formUser)
-    .then(user => dispatch(receiveCurrentUser(user)))
+        .then(user => dispatch(receiveCurrentUser(user)))
 );
 
 export const logout = () => dispatch => (
     SessionUtils.logout()
-    .then(() => dispatch(logoutCurrentUser()))
+        .then(() => dispatch(logoutCurrentUser()))
 );
 
 export const signup = formUser => dispatch => (
-	SessionUtils.signup(formUser).then(user => dispatch(receiveCurrentUser(user)))
+	SessionUtils.signup(formUser)
+        .then(user => dispatch(receiveCurrentUser(user)))
 );
+

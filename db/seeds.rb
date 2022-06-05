@@ -590,7 +590,8 @@ times = [
 			time: times.sample,
 			rest_id: rand(1..17),
 			user_id: idx,
-			party_size: rand(1..20)
+			party_size: rand(1..20),
+			cancelled: false
 		)
 	end
 end

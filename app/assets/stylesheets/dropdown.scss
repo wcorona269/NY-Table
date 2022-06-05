@@ -43,7 +43,7 @@
 .dropdown-title {
 	font-size: 16px;
 	font-weight: 500;
-	margin-bottom: 15px;
+	padding-bottom: 15px;
 	padding-left: 16px;
 }
 
@@ -60,10 +60,18 @@
 	bottom: 0;
 	position:absolute;
 	right: 13.75%;
+
+	&:first-child {
+		border-top: 1.5px solid rgba(211, 211, 211, 0.6);
+	}
+	
+	a, a:hover {
+		text-decoration: none;
+	}
 }
 
-.user-dropdown-ul > ul {
-	border-top: 1.5px solid rgba(211, 211, 211, 0.6);
+.user-dropdown-ul li {
+
 	list-style: none;
 	color: #2d333f;
 	font-size: 16px;
@@ -73,7 +81,7 @@
 	margin: 0;
 }
 
-.user-dropdown-ul > ul:hover {
+.user-dropdown-ul li:hover {
 	cursor: pointer;
 	background-color: $background-color;
 

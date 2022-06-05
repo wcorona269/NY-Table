@@ -1,15 +1,6 @@
 import React, { useState } from 'react';
 import { icLocation } from 'otkit-icons/token.theme.common';
 
-// t.date "date", null: false
-// t.time "time", null: false
-// t.integer "party_size", null: false
-// t.integer "user_id", null: false
-// t.integer "rest_id", null: false
-// t.datetime "created_at", precision: 6, null: false
-// t.datetime "updated_at", precision: 6, null: false
-
-
 const Map = ({restaurant}) => {
 	var [lat, setLat] = useState()
 	var [lng, setLng] = useState()

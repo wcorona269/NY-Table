@@ -7,7 +7,7 @@ class UserShow extends React.Component {
 
 	render () {
 		return (
-			<div>
+			<div className='user-show-container'>
 				User show page
 			</div>
 		)

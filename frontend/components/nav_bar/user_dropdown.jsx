@@ -11,8 +11,12 @@ const UserDropdown = ({userDropdown, logout, currentUser}) => {
 			<div className="dropdown-title">Hello, {currentUser.fname}!</div>
 			<ul>
 				<li className="dropdown-list-item" onClick={logout}>Sign Out</li>
+				<Link to="/my/profile">
+					<li className="dropdown-list-item">My profile</li>
+				</Link>
 			</ul>
 		</div>
 	)
 }
+
 export default withRouter(UserDropdown)
