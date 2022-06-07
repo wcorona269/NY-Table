@@ -8,7 +8,9 @@ import ModalContainer from "./modal/modal_container";
 import Footer from './footer/footer';
 import RestShowContainer from "./restaurant/rest_show_container";
 import UserShowContainer from './user/user_show_container';
-
+import BookingForm from "./form/booking_form";
+import BookingShow from './booking/show';
+import { Switch } from "react-router-dom";
 
 const App = () => (
     <>
@@ -17,10 +19,13 @@ const App = () => (
             <Route path='/' component={Header}/>
                 <div className="inner-body">
                     <Route path='/' component={NavBarContainer}/>
-                    <Route exact path='/' component={HomeContainer}/>
-                    <Route exact path={"/restaurants/:restId"} component={RestShowContainer} />
-                    <ProtectedRoute path="/my/profile" component={UserShowContainer} />
-                    {/* <ProtectedRoute exact path={"/booking"} component={BookingFormContainer} /> */}
+                    <Switch>
+                        <Route exact path='/' component={HomeContainer}/>
+                        <Route exact path={"/restaurants/:restId"} component={RestShowContainer} />
+                        <ProtectedRoute path="/my/profile" component={UserShowContainer} />
+                        <ProtectedRoute path='/booking/show/:bookingId' component={BookingShow}/>
+                        <ProtectedRoute path="/booking" component={BookingForm} />
+                    </Switch>
                 </div>
             <Route path='/' component={Footer}/>
         </div>

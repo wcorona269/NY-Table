@@ -43,7 +43,7 @@ export const updateBooking = booking => {
 	)
 }
 
-export const removeBooking = bookingId => {
+export const deleteBooking = bookingId => {
 	return (
 		$.ajax({
 			method: 'DELETE',

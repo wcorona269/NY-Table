@@ -1,0 +1,221 @@
+@import './variables.scss';
+
+.booking-form-container {
+	-webkit-font-smoothing: antialiased !important;
+	width: 100%;
+	height: 30vw;
+	display: flex; 
+	flex-direction: row;
+	align-items: flex-start;
+	justify-content: center;
+	margin: 32px auto 5rem;
+	max-width: 61rem;
+}
+
+.booking-form-left {
+	display: flex;
+	flex-direction: column;
+	width: 40rem;
+}
+
+.booking-form-left > h2 {
+	flex: 1 100%;
+	font-size: 18px;
+	font-weight: 700;
+	line-height: 24px;
+	margin: 0 0 16px;
+	min-height: 24px;
+}
+
+.booking-form-right {
+	-webkit-font-smoothing: antialiased;
+	width: 20rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	margin-left: 2.375rem;
+
+	aside {
+		display: block;
+		height: 100%;
+	}
+
+	h1 {
+		font-weight: 700;
+    margin: 16px 0;
+	}
+
+	section {
+		margin: 16px 0 0;
+    white-space: pre-line;
+	}
+
+	p {
+		display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+		font-size: .875rem;
+    font-weight: 300;
+    line-height: 1.25rem;
+	}
+}
+
+#dining-info {
+	font-size: .875rem;
+	font-weight: 500;
+	line-height: 1.25rem;
+}
+
+.booking-info-bar {
+	display: flex;
+	flex-direction: row;
+	margin-bottom: 16px;
+
+	h2 {
+		font-size: 24px;
+    font-weight: 700;
+    line-height: 28px;
+    margin-bottom: 4px;
+	}
+
+	span {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+    width: 100%;
+	}
+}
+
+.booking-info-bar > img {
+	border-radius: 4px;
+	height: 64px;
+	width: 64px;
+	margin-right: 16px;
+}
+
+#info-bar-right {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
+	justify-content: flex-end;
+	position: relative;
+	
+	h2 {
+		justify-content: flex-start;
+	}
+
+	div {
+		display: flex;
+		flex-direction: row !important;
+		align-items: flex-end;
+		flex-wrap: wrap;
+    margin-right: 24px;
+		position: relative;
+		bottom: 0;
+	}
+}
+
+#res-info {
+	display: flex;
+	font-size: 16px;
+	font-weight: 500;
+	justify-content: center;
+	line-height: 24px;
+	margin: 0 0.5rem;
+}
+
+#res-info-img {
+	height: 1.5rem;
+	width: 1.5rem;
+	margin-right: none !important;
+}
+
+.booking-info-form {
+	display: block;
+	margin-top: 0em;
+
+	button {
+		// @extend %form-button;
+		// margin: 16px 0;
+    // width: 100%;
+		// font-weight: 500;
+		width: 100%;
+    border-radius: 5px;
+    border: none;
+    font-family: inherit;
+    -webkit-font-smoothing: antialiased;
+    font-weight: 700 !important;
+	}
+}
+
+.booking-input-row {
+	display: flex;
+	justify-content: space-between;
+	flex-direction: row;
+
+	div {
+		flex: 1;
+    padding-bottom: 16px;
+    padding-right: 16px;
+	}
+
+	input, textarea {
+		font-family: $auth-font;
+		@extend %form-input;
+		border: 0.0625rem solid $border-color;
+    box-sizing: border-box;
+    min-height: 48px;
+		height: 48px;
+    padding: 12px 8px !important;
+	}
+
+	textarea {
+		resize: vertical;
+	}
+
+	span {
+		display: none;
+	}
+	
+	select {
+		@extend %form-input;
+		// color: #6f737b;
+		min-height: 48px;
+	}
+}
+
+#diner-details {
+	flex: 1 100%;
+	font-size: 16px;
+	font-weight: 500;
+	line-height: 24px;
+	margin: 16px 0;
+}
+
+#email {
+	background: #f1f2f4;
+	color: inherit;
+}
+
+#default {
+	color: #f1f2f4
+}
+
+.countdown {
+	-webkit-font-smoothing: antialiased;
+	background: #eef8fb;
+	border-radius: 4px;
+	display: block;
+	color: #2d333f;
+	font-size: 14px;
+	line-height: 20px;
+	margin: 0;
+	padding: 0.625rem 16px;
+}
+
+#time-span {
+	font-weight: 700;
+}

@@ -26,6 +26,42 @@ $turquoise: #007492;
 $box-shadow: 0 0 5px $gray-color;
 
 
+// FORM TEMPLATES
+%form-button {
+	font-size: 16px;
+	font-family: $auth-font;
+	background-color: var(--red-1);
+	color: #fff;
+	-webkit-transition: background-color .3s ease-out;
+  -moz-transition: background-color .3s ease-out;
+  -o-transition: background-color .3s ease-out;
+  transition: background-color .3s ease-out;
+	line-height: 1.15;
+	height: 3rem;
+  border-radius: 4px;
+	font-weight: 400;
+
+  &:hover {
+    border: none;
+    background-color: var(--hover-red);
+    cursor: pointer; 
+  }
+}
+
+%form-input {
+  background: #fff;
+	border: 0.0625rem solid #d8d9db;
+	border-radius: 4px;
+	color: #2d333f;
+	font-size: 16px;
+	line-height: 24px;
+	padding: 10px;
+  width: 100%;
+
+  &:hover {
+    border: 0.0625rem solid #2d333f;
+  }
+}
 
 // restaurant profile templates
 %rest-show-section {

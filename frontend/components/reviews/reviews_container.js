@@ -18,3 +18,4 @@ const mapDispatchToProps = dispatch => {
 
 const ReviewsContainer = connect(mapStateToProps, mapDispatchToProps)(Reviews);
 export default ReviewsContainer;
+

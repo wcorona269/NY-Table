@@ -1,11 +1,13 @@
 class Api::BookingsController < ApplicationController
+
+
 	def index
 		@bookings = Booking.all
 		render :index
 	end
 
 	def create 
-		@booking = Booking.create!
+		@booking = Booking.new(booking_params)
 
 		if @booking.save!
 			render :show
@@ -37,6 +39,6 @@ class Api::BookingsController < ApplicationController
 	
 	private
 	def booking_params
-		params.require(:booking).permit(:date, :time, :rest_id, :user_id, :party_size )
+		params.require(:booking).permit(:date, :time, :rest_id, :user_id, :party_size, :special_request, :occasion )
 	end
 end

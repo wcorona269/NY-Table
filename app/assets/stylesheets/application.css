@@ -18,7 +18,6 @@
 	font-family: BrandonText,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
 }
 
- 
  @import "./reset.scss";
  @import "./scrollbar.scss";
  @import "./home.scss";
@@ -32,5 +31,6 @@
  @import './rest_show.scss';
  @import './gallery.scss';
  @import './menu.scss';
- @import './user_show.scss'
+ @import './user_show.scss';
+ @import './booking_form.scss';
  /* @import 'react-datepicker/dist/react-datepicker-cssmodules.css'; */

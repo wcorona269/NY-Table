@@ -8,7 +8,6 @@ const menuItemsReducer = (oldState = {}, action) => {
 		case RECEIVE_REST:
 			return Object.assign({}, oldState, action.rest.menu_items)
 		case CLEAR_MENU_ITEMS:
-			debugger;
 			return {};
 		default:
 			return oldState

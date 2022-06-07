@@ -3,8 +3,8 @@ import Map from './map';
 import { icPhone, icDown } from 'otkit-icons/token.theme.common';
 import AdditionalInfo from './additional_info';
 import DatePicker from 'react-datepicker';
+import { Link } from 'react-router-dom';
 import "react-datepicker/dist/react-datepicker.css";
-
 
 class RightColumn extends React.Component {
 	constructor(props) {
@@ -15,6 +15,11 @@ class RightColumn extends React.Component {
 			time: "12:00",
 			party: 2
 		}
+
+		this.handleSubmit = this.handleSubmit.bind(this);
+		this.updateTime = this.updateTime.bind(this);
+		this.updateDate = this.updateDate.bind(this);
+		this.updateParty = this.updateParty.bind(this);
 	}
 
 	componentDidMount() {
@@ -22,9 +27,39 @@ class RightColumn extends React.Component {
 		window.scrollTo(0,0);
 	}
 
+	updateDate(d) {
+		this.setState({date: d});
+		console.log(this.state.date)
+	}
+
+	updateTime(e) {
+		e.preventDefault();
+		this.setState({time: e.target.value})
+		// console.log(e.target.value)
+	}
+	
+	updateParty(e) {
+		e.preventDefault();
+		this.setState({party: e.target.value})
+	}
+
 	parsePhone(phone) {
 		let str = phone.toString();
 		return `(${str.slice(0, 3)}) ${str.slice(3,6)}-${str.slice(6,10)}`
+	}
+
+	handleSubmit(e) {
+		e.preventDefault();
+		this.props.history.push({
+			pathname: `/booking/`,
+			state: {
+				restaurant: this.props.restaurant,
+				date: this.state.date,
+				time: this.state.time,
+				party: this.state.party,
+				currentUser: this.props.currentUser
+			}
+		})
 	}
 
 	render() {
@@ -43,7 +78,7 @@ class RightColumn extends React.Component {
 								<label id='res-label'>
 									Party Size
 								</label>
-									<select className='res-select' placeholder='2 people'>
+									<select className='res-select' placeholder='2 people' onChange={this.updateParty}>
 										<option value='1'>1 person</option>
 										<option value='2'>2 people</option>
 										<option value='3'>3 people</option>
@@ -76,46 +111,46 @@ class RightColumn extends React.Component {
 										dateFormat="MM-dd-yy"
 										minDate={new Date()}
 										selected={this.state.date} 
-										// onChange={this.updateDate}
+										onChange={this.updateDate}
 										/>
 							</div>
 							<div className="res-time">
 								<label id='res-label'>
 									Time
 								</label>
-								<select className='res-select'>
-									<option>11:00 AM</option>
-									<option>11:30 AM</option>
-									<option>12:00 PM</option>
-									<option>12:30 PM</option>
-									<option>1:00 PM</option>
-									<option>1:30 PM</option>
-									<option>2:00 PM</option>
-									<option>2:30 PM</option>
-									<option>3:00 PM</option>
-									<option>3:30 PM</option>
-									<option>4:00 PM</option>
-									<option>4:30 PM</option>
-									<option>5:00 PM</option>
-									<option>5:30 PM</option>
-									<option>6:00 PM</option>
-									<option>6:30 PM</option>
-									<option>7:00 PM</option>
-									<option>7:30 PM</option>
-									<option>8:00 PM</option>
-									<option>8:30 PM</option>
-									<option>9:00 PM</option>
-									<option>9:30 PM</option>
-									<option>10:00 PM</option>
-									<option>10:30 PM</option>
-									<option>11:00 PM</option>
+								<select className='res-select' onChange={this.updateTime}>
+									<option value='11;00'>11:00 AM</option>
+									<option value='11:30'>11:30 AM</option>
+									<option selected defaultValue value='12:00'>12:00 PM</option>
+									<option value='12:30'>12:30 PM</option>
+									<option value='13:00'>1:00 PM</option>
+									<option value='13:30'>1:30 PM</option>
+									<option value='14:00'>2:00 PM</option>
+									<option value='14:30'>2:30 PM</option>
+									<option value='15:00'>3:00 PM</option>
+									<option value='15:30'>3:30 PM</option>
+									<option value='16:00'>4:00 PM</option>
+									<option value='16:30'>4:30 PM</option>
+									<option value='17:00'>5:00 PM</option>
+									<option value='17:30'>5:30 PM</option>
+									<option value='18:00'>6:00 PM</option>
+									<option value='18:30'>6:30 PM</option>
+									<option value='19:00'>7:00 PM</option>
+									<option value='19:30'>7:30 PM</option>
+									<option value='20:00'>8:00 PM</option>
+									<option value='20:30'>8:30 PM</option>
+									<option value='21:00'>9:00 PM</option>
+									<option value='21:30'>9:30 PM</option>
+									<option value='22:00'>10:00 PM</option>
+									<option value='22:30'>10:30 PM</option>
+									<option value='23:00'>11:00 PM</option>
 								</select>
-
 							</div>
 							<div className="res-submit">
-								<button id='auth-button'>
-									Find a time
-								</button>
+									<button id='auth-button' onClick={this.handleSubmit}>
+										Find a time
+									</button>
+								{/* </Link > */}
 							</div>
 						</div>
 					</form>

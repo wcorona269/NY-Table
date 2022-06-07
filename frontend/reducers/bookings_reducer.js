@@ -18,7 +18,7 @@ const bookingsReducer = (oldState = {}, action) => {
 			return action.booking;
 		case REMOVE_BOOKING:
 			delete nextState[action.booking.id];
-			return nextState;:
+			return nextState;
 		case CLEAR_BOOKINGS:
 			return {};
 		default:
