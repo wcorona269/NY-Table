@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { withRouter, useLocation, useHistory } from 'react-router-dom';
 import { icCalendar, icClock, icPerson } from 'otkit-icons/token.theme.common';
-import {createBooking } from '../../actions/booking_actions'
+import { createBooking } from '../../actions/booking_actions'
 import { useDispatch } from 'react-redux';
 
 const BookingForm = (props) => {
@@ -17,27 +17,32 @@ const BookingForm = (props) => {
 	}
 
 	const restaurant = props.location.state.restaurant;
+	const restId = props.location.state.restaurant.id;
 	const party = props.location.state.party;
 	const resTime = props.location.state.time;
-	const date = props.location.state.date.toDateString();
+	const date = props.location.state.date;
 	const userId = props.location.state.currentUser.id;
 	const userEmail = props.location.state.currentUser.email;
 	const userPhone = props.location.state.currentUser.phone;
 	const [booking, setBooking] = useState({
-		date: new Date(date).toString(),
+		date: new Date(date.toDateString()).toString(),
 		time: resTime,
-		rest_id: restaurant.id,
+		rest_id: restId,
 		user_id: userId,
 		party_size: party,
 		special_request: '',
 		occasion: '',
 		cancelled: false
-	})
+	});
 	
 	const [time, setTimer] = useState(300);
 	const [mins, setMins] = useState('');
 	const [secs, setSecs] = useState('');
 	const [formatted, setFormatted] = useState('5:00');
+
+		useEffect(() => {
+		window.scrollTo(0, 0)
+	}, [])
 
 	useEffect(() => {
         
@@ -86,21 +91,30 @@ const BookingForm = (props) => {
 	}
 
 	const parseDate = (date) => {
-		return date.split(' ').slice(0,3).join(' ');
+		date = date.toDateString();
+		let split = date.split(' ');
+		return `${split[0]}, ${split[1]} ${split[2]}`
 	}
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		dispatch(createBooking(booking)).then(res =>
-				// console.log(res.booking)
+				// {console.log(date)}
 				history.push({
-					pathname: `/booking/show/${res.booking.id}`
+					pathname: `/booking/show/${res.booking.id}`,
+					state: {
+						time: parseTime(resTime),
+						date: parseDate(date),
+						restaurant: restaurant,
+						user: props.location.state.currentUser
+					}
 				})
 			)
 		}
 
 	return (
 		<div className='booking-form-container'>
+			{console.log(date)}
 			<section className='booking-form-left'>
 				<h2>
 					You're almost done!
@@ -127,7 +141,7 @@ const BookingForm = (props) => {
 							<div>
 								<img id="res-info-img" src={`data:image/svg+xml;utf8,${icPerson}`}/>
 								<p id='res-info'>
-									{party}
+									{party} people
 								</p>
 							</div>
 						</div>

@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 // import { useSelector, useDispatch } from 'react-redux';
 import SignupFormContainer from "../form/signup_form_container";
 import LoginFormContainer from '../form/login_form_container';
+import CancelBookingModal from '../booking/delete';
 import { closeModal } from '../../actions/modal_actions';
 import { icClose } from 'otkit-icons/token.theme.common';
 
@@ -34,6 +35,9 @@ class Modal extends React.Component {
 				break;
 			case "login":
 				component = <LoginFormContainer/>
+				break;
+			case "cancel":
+				component = <CancelBookingModal/>
 				break;
 			// case "review":
 			// 	component = <

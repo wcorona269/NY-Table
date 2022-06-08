@@ -5,11 +5,11 @@ const Map = ({restaurant}) => {
 	var [lat, setLat] = useState()
 	var [lng, setLng] = useState()
 
-	var src=`https://maps.googleapis.com/maps/api/staticmap?zoom=15&size=310x155&maptype=roadmap&markers=color:red%7C${lat},${lng}&key=AIzaSyBfvAZNhS5qgDPMbmRphkPOPnxI-HtNsOE` // maps api key
+	var src=`https://maps.googleapis.com/maps/api/staticmap?zoom=15&size=310x155&maptype=roadmap&markers=color:red%7C${lat},${lng}&key=` // maps api key
 
 	const geocode = (rest) => {
 		$.ajax({
-			url: `https://maps.googleapis.com/maps/api/geocode/json?address=${rest.address}&key=AIzaSyCC7vGu0XHZ_nflfdNpCak4nw6FbaNJf-Q`,
+			url: `https://maps.googleapis.com/maps/api/geocode/json?address=${rest.address}&key=`,
 			dataType: 'json',
 		}
 		).done(json => getData(json))

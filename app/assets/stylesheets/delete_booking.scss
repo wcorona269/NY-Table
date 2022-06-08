@@ -1,0 +1,110 @@
+@import './variables.scss';
+
+.cancel-booking-container {
+	position: absolute;
+	width: 488px;
+	height: fit-content;
+	-webkit-font-smoothing: antialiased;
+	background-color: #fff;
+	margin: auto;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	min-height: 100%;
+	padding: 16px;
+	text-align: center;
+}
+
+.cancel-info {
+	margin: 48px 16px 16px;
+	text-align: left!important;
+	font-size: 1rem;
+	font-weight: 500;
+	line-height: 1.5rem;
+
+	p {
+		line-height: 28px;
+    margin-bottom: 32px;
+    margin-top: 0;
+    text-align: initial;
+		font-size: 1.3rem;
+    font-weight: 700;
+    line-height: 2rem;
+	}
+
+	div {
+		font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.5rem;
+	}
+
+	h2 {
+		font-size: 24px;
+    font-weight: 700;
+    line-height: 28px;
+    margin: 0 0 4px;
+    text-align: initial;
+	}
+
+	span {
+		align-items: center;
+		display: flex;
+		justify-content: center;
+		margin-top: 8px;
+	}
+
+	img {
+		margin-right: 4px;
+	}
+}
+
+#res-cancel-info {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	font-size: 1rem;
+}
+
+#res-info-date {
+	margin-left: 10px;
+}
+
+#page-cancel-bar {
+	border-right: none !important;
+}
+
+#cancel-bar {
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 32px;
+
+		a {
+			background-color: #fff;
+			color: #da3743;
+			font-size: 14px;
+			line-height: 20px;
+			margin: 0 16px 0 0;
+			padding: 0;
+			width: auto;
+			font-weight: 700;
+		}
+
+		button {
+			font-size: 14px;
+			line-height: 20px;
+			min-width: 10.3125rem;
+			padding: 0 16px;
+			width: fit-content;
+			background-color: $main-red;
+			color: #fff;
+			height: 2rem;
+			font-weight: 700;
+			border-radius: 4px;
+			border: none;
+			cursor: pointer;
+			font-size: 16px;
+			outline: none;
+			transition: all .3s ease-out;
+		}
+}

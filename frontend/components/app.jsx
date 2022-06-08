@@ -10,6 +10,7 @@ import RestShowContainer from "./restaurant/rest_show_container";
 import UserShowContainer from './user/user_show_container';
 import BookingForm from "./form/booking_form";
 import BookingShow from './booking/show';
+import UpdateBooking from './booking/update';
 import { Switch } from "react-router-dom";
 
 const App = () => (
@@ -23,6 +24,7 @@ const App = () => (
                         <Route exact path='/' component={HomeContainer}/>
                         <Route exact path={"/restaurants/:restId"} component={RestShowContainer} />
                         <ProtectedRoute path="/my/profile" component={UserShowContainer} />
+                        <ProtectedRoute path='/booking/:bookingId/modify' component={UpdateBooking}/>
                         <ProtectedRoute path='/booking/show/:bookingId' component={BookingShow}/>
                         <ProtectedRoute path="/booking" component={BookingForm} />
                     </Switch>

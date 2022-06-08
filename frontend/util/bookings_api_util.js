@@ -37,7 +37,7 @@ export const updateBooking = booking => {
 	return(
 		$.ajax({
 			method: 'PATCH',
-			url: `/api/reviews/${booking.id}`,
+			url: `/api/bookings/${booking.id}`,
 			data: { booking }
 		})
 	)
