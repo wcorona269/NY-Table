@@ -48,6 +48,16 @@ export const removeBookingErrors = () => {
 	}
 }
 
+export const fetchAllBookings = () => dispatch => {
+	return bookingApiUtil.fetchAllBookings()
+			.then(bookings => dispatch(receiveBookings(bookings)))
+};
+
+export const fetchBookings = data => dispatch => (
+	bookingApiUtil.fetchBookings(data)
+		.then(bookings => dispatch(receiveBookings(bookings)))
+);
+
 export const createBooking = booking => dispatch => (
 	bookingApiUtil.createBooking(booking)
 		.then(booking => dispatch(receiveBooking(booking)),

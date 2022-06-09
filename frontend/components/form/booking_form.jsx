@@ -99,7 +99,6 @@ const BookingForm = (props) => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		dispatch(createBooking(booking)).then(res =>
-				// {console.log(date)}
 				history.push({
 					pathname: `/booking/show/${res.booking.id}`,
 					state: {
@@ -114,7 +113,6 @@ const BookingForm = (props) => {
 
 	return (
 		<div className='booking-form-container'>
-			{console.log(date)}
 			<section className='booking-form-left'>
 				<h2>
 					You're almost done!

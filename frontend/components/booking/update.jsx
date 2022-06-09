@@ -55,7 +55,6 @@ const UpdateBooking = (props) => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		dispatch(updateBooking(newBooking)).then(res =>
-				// {console.log(date)}
 				history.push({
 					pathname: `/booking/show/${res.booking.id}`,
 					state: {
@@ -70,7 +69,6 @@ const UpdateBooking = (props) => {
 
 	return (
 		<div className='booking-edit-container'>
-			{console.log(date)}
 			<div className='booking-box'>
 				<main>
 					<h2 id='current-res'>

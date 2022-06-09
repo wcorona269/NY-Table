@@ -5,6 +5,14 @@ export const fetchAllBookings = () => {
 	})
 }
 
+export const fetchBookings = data => (
+	$.ajax({
+			method: 'GET',
+			url: '/api/bookings',
+			data
+	})
+);
+
 export const fetchUserBookings = (userId) => {
 	return (
 		$.ajax({

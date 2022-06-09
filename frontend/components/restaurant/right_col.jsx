@@ -29,13 +29,11 @@ class RightColumn extends React.Component {
 
 	updateDate(d) {
 		this.setState({date: d});
-		console.log(this.state.date)
 	}
 
 	updateTime(e) {
 		e.preventDefault();
 		this.setState({time: e.target.value})
-		// console.log(e.target.value)
 	}
 	
 	updateParty(e) {

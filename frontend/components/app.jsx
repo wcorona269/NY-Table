@@ -7,7 +7,7 @@ import NavBarContainer from "./nav_bar/nav_bar_container";
 import ModalContainer from "./modal/modal_container";
 import Footer from './footer/footer';
 import RestShowContainer from "./restaurant/rest_show_container";
-import UserShowContainer from './user/user_show_container';
+import UserShow from './user/show';
 import BookingForm from "./form/booking_form";
 import BookingShow from './booking/show';
 import UpdateBooking from './booking/update';
@@ -23,7 +23,7 @@ const App = () => (
                     <Switch>
                         <Route exact path='/' component={HomeContainer}/>
                         <Route exact path={"/restaurants/:restId"} component={RestShowContainer} />
-                        <ProtectedRoute path="/my/profile" component={UserShowContainer} />
+                        <ProtectedRoute path="/my/profile" component={UserShow} />
                         <ProtectedRoute path='/booking/:bookingId/modify' component={UpdateBooking}/>
                         <ProtectedRoute path='/booking/show/:bookingId' component={BookingShow}/>
                         <ProtectedRoute path="/booking" component={BookingForm} />

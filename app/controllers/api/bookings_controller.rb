@@ -1,8 +1,14 @@
 class Api::BookingsController < ApplicationController
 
-
 	def index
-		@bookings = Booking.all
+		if user_id 
+			bookings = Booking.where("user_id = ?", user_id)
+			bookings.includes(:restaurant)
+		else
+			bookings = Booking.all
+		end
+
+		@bookings = bookings
 		render :index
 	end
 
@@ -40,5 +46,9 @@ class Api::BookingsController < ApplicationController
 	private
 	def booking_params
 		params.require(:booking).permit(:date, :time, :rest_id, :user_id, :party_size, :special_request, :occasion, :cancelled )
+	end
+
+	def user_id
+		params[:userId]
 	end
 end
