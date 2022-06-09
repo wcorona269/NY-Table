@@ -62,3 +62,7 @@ export const signup = formUser => dispatch => (
         .then(user => dispatch(receiveCurrentUser(user)))
 );
 
+export const updateUser = user => dispatch => (
+    SessionUtils.updateUser(user)
+        .then(user => dispatch(receiveCurrentUser(user)))
+)

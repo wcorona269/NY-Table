@@ -7,13 +7,12 @@ import { icCalendar, icPerson, icClose, icReservation } from 'otkit-icons/token.
 
 const BookingListItem = ({booking, completed}) => {
 	const dispatch = useDispatch();
+	const rests = Object.values(useSelector(state => state.entities.rests));
+	let restName;
 
 	useEffect(() => {
 		dispatch(fetchRest(booking.rest_id));
 	}, [])
-
-	const rests = Object.values(useSelector(state => state.entities.rests));
-	let restName;
 
 	rests.map((rest, idx) => {
 		if (rest.id == booking.rest_id) {
@@ -77,7 +76,7 @@ const BookingListItem = ({booking, completed}) => {
 			</>
 		)
 	}
-	
+
 	return (
 		<Link to={`/restaurants/${booking.rest_id}`} id='res-list-box'>
 			<img></img>
