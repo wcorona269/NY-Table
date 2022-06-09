@@ -65,7 +65,8 @@ const BookingShow = (props) => {
 							date: date,
 							time: time,
 							restaurant: restaurant,
-							booking: booking
+							booking: booking,
+							user: user
 						}
 					}}
 					>Modify
