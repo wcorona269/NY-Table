@@ -25,20 +25,6 @@
 	color: blue;
 }
 
-.user-dropdown-ul {
-	font-family: $main_font;
-	box-sizing: border-box;
-	display: block;
-	width: 19.75rem;
-	height: 300x;
-	background-color: white;
-	border: 1px solid $border-color;
-	border-radius: 3px;
-	top: 86px;
-	right: 215px;
-	position: absolute;
-	z-index: 100;
-}
 
 .dropdown-title {
 	font-size: 16px;
@@ -48,20 +34,26 @@
 }
 
 .user-dropdown-ul {
+	z-index: 100;
+	display: block;
 	box-sizing: border-box;
 	height: 200px;
 	padding-top: 10px;
 	font-family: $auth-font;
 	font-weight: 300;
+	width: 19.75rem;
 	font-size: 13px;
 	text-decoration: none;
 	color:rgb(59, 59, 59);
 	line-height: 30px;
-	bottom: 0;
 	position:absolute;
-	right: 13.75%;
+	top: 8.5%;
+	right: 16.25%;
+	background-color: #fff;
+	border: 1px solid $border-color;
+	border-radius: 3px;
 
-	&:first-child {
+	ul {
 		border-top: 1.5px solid rgba(211, 211, 211, 0.6);
 	}
 	
@@ -95,13 +87,13 @@
 
 #res-drop {
 	@extend %user-drops;
-	right: 11.75%;
-	height: 95px;
+	right: 14.5%;
+	height: fit-content;
 }
 
 #abt-drop {
 	@extend %user-drops;
-	right: 9.75%;
+	right: 12%;
 	box-sizing: border-box;
 	height: fit-content;
 }

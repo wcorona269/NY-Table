@@ -58,20 +58,19 @@ class ScrollBar extends React.Component {
 	scroll(distance, id){
 		let bar = document.getElementById(id)
 		bar.scrollLeft += distance
+		console.log(bar.scrollLeft);
 	}
-
 
 	render () {
 		const id = Math.floor(Math.random() * 100000000)
-		
 		const {rests} = this.props;
 		// debugger;
 
 		const display = rests.length ? (
 			<>
-				<button className='left-scroll-button' onClick={() => this.scroll(-983, id)}>
-				<i className="fa-solid fa-angle-left"></i>
-				</button>
+					<button className='left-scroll-button' onClick={() => this.scroll(-983, id)}>
+					<i className="fa-solid fa-angle-left"></i>
+					</button>
 					<ul className="scrollbar-ul" id={id}>
 						{this.shuffle(rests).map((rest, idx) =>
 							<ListIcon

@@ -61,12 +61,13 @@ const UpdateBooking = (props) => {
 						time: parseTime(newBooking.time),
 						date: parseDate(newBooking.date),
 						restaurant: restaurant,
-						user: user
+						user: user,
+						booking: res.booking
 					}
 				})
 			)
 		}
-
+		
 	return (
 		<div className='booking-edit-container'>
 			<div className='booking-box'>

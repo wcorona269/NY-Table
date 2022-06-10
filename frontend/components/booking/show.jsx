@@ -5,13 +5,14 @@ import  { withRouter, useLocation, useHistory, Link } from 'react-router-dom';
 import { icCalendar, icPerson, icLocation, icReview } from 'otkit-icons/token.theme.common';
 import { showModal } from '../../actions/modal_actions';
 import user_dropdown from '../nav_bar/user_dropdown';
+import { fetchBooking } from '../../actions/booking_actions';
 
 const BookingShow = (props) => {
-
 	const location = useLocation();
 	const dispatch = useDispatch();
 	const history = useHistory();
-	const booking = useSelector(state => state.entities.bookings)
+	const booking = props.location.state.booking;
+	// const booking = useSelector(state => state.entities.bookings)
 	const currentUser = useSelector(state => state.entities.users)
 	const time = props.location.state.time;
 	const date = props.location.state.date;

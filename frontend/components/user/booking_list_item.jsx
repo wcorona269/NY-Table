@@ -8,7 +8,10 @@ import { icCalendar, icPerson, icClose, icReservation } from 'otkit-icons/token.
 const BookingListItem = ({booking, completed}) => {
 	const dispatch = useDispatch();
 	const rests = Object.values(useSelector(state => state.entities.rests));
+	const user = Object.values(useSelector(state => state.entities.users));
+	const currentUser = user[0];
 	let restName;
+	let restaurant;
 
 	useEffect(() => {
 		dispatch(fetchRest(booking.rest_id));
@@ -17,6 +20,7 @@ const BookingListItem = ({booking, completed}) => {
 	rests.map((rest, idx) => {
 		if (rest.id == booking.rest_id) {
 			restName = rest.name
+			restaurant = rest;
 		}
 	})
 
@@ -78,7 +82,18 @@ const BookingListItem = ({booking, completed}) => {
 	}
 
 	return (
-		<Link to={`/restaurants/${booking.rest_id}`} id='res-list-box'>
+		<Link to={{
+			pathname:`/booking/show/${booking.id}`,
+			state: {
+				booking: booking,
+				time: parseTime(booking.time),
+				date: parseDate(booking.date),
+				user: currentUser,
+				restaurant: restaurant
+			}
+			
+		}}
+			id='res-list-box'>
 			<img></img>
 			<div>
 				<h3>
@@ -95,7 +110,6 @@ const BookingListItem = ({booking, completed}) => {
 					<span>
 					<img src={`data:image/svg+xml;utf8,${icCalendar}`}/>
 						{DateDetails(booking.date, booking.time)}
-						{/* {parseDate(booking.date)} at {parseTime(booking.time)} */}
 					</span>
 				</span>
 			</div>

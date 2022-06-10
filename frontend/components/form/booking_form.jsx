@@ -105,7 +105,8 @@ const BookingForm = (props) => {
 						time: parseTime(resTime),
 						date: parseDate(date),
 						restaurant: restaurant,
-						user: props.location.state.currentUser
+						user: props.location.state.currentUser,
+						booking: res.booking
 					}
 				})
 			)
