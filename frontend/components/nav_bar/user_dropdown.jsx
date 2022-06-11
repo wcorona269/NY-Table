@@ -33,6 +33,9 @@ const UserDropdown = ({logout, currentUser}) => {
 						<Link to={`/my/profile/${currentUser.id}/dining-dashboard`}>
 							<li className="dropdown-list-item">My Dining History</li>
 						</Link>
+						<Link to={`/my/profile/${currentUser.id}/favorites`}>
+							<li className="dropdown-list-item">My Saved Restaurants</li>
+						</Link>
 						<li className="dropdown-list-item" onClick={logout}>Sign Out</li>
 						{/* <Link to="/my/profile">
 							<li className="dropdown-list-item"></li>

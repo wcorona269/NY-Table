@@ -35,3 +35,6 @@ bundle.js.map
 npm-debug.log
 # Ignore application configuration
 /config/application.yml
+
+# ignore rest photo files
+/app/assets/images/rest_pics

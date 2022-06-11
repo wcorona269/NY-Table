@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_03_141502) do
+ActiveRecord::Schema.define(version: 2022_06_10_054859) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,16 @@ ActiveRecord::Schema.define(version: 2022_06_03_141502) do
     t.boolean "cancelled", default: false, null: false
     t.index ["rest_id"], name: "index_bookings_on_rest_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
+  end
+
+  create_table "favorites", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "rest_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["rest_id"], name: "index_favorites_on_rest_id"
+    t.index ["user_id", "rest_id"], name: "index_favorites_on_user_id_and_rest_id", unique: true
+    t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
   create_table "menu_items", force: :cascade do |t|

@@ -37,7 +37,8 @@
 	z-index: 100;
 	display: block;
 	box-sizing: border-box;
-	height: 200px;
+	height: fit-content;
+	padding-bottom: 10px;
 	padding-top: 10px;
 	font-family: $auth-font;
 	font-weight: 300;

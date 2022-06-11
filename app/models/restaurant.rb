@@ -17,6 +17,9 @@
 class Restaurant < ApplicationRecord
 	validates :name, :description, :cuisines, :price_range, :neighborhood, :address, :phone, presence: true
 	validates :name, :address, uniqueness: true
+	has_many_attached :photos
+	has_one_attached :icon
+	has_one_attached :banner
 
 	has_many :reviews,
 		primary_key: :id,
@@ -32,4 +35,9 @@ class Restaurant < ApplicationRecord
 		primary_key: :id,
 		foreign_key: :rest_id,
 		class_name: :Booking
+
+	has_many :favorites,
+		primary_key: :id,
+		foreign_key: :rest_id,
+		class_name: :Favorite
 end

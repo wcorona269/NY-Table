@@ -27,7 +27,11 @@ class ScrollBar extends React.Component {
 				"Nathan's Famous": "https://upload.wikimedia.org/wikipedia/commons/4/4a/NathansHotDog-3_%2848034232387%29.jpg",
 				"Junior's": "https://brooklyneagle.com/wp-content/uploads/2014/09/juniors-downtown-brooklyn.jpg",
 				"Benihana": "https://www.benihana.com/wp-content/themes/benihana/images/video_slide.png",
-				"Casa Limone": "https://resizer.otstatic.com/v2/photos/wide-huge/2/37697633.jpg"
+				"Casa Limone": "https://resizer.otstatic.com/v2/photos/wide-huge/2/37697633.jpg",
+				"Nom Wah Tea Parlor": "https://ediblemanhattan.com/wp-content/uploads/2020/07/nomwah.jpg",
+				"Sylvia's": "https://c8.alamy.com/comp/EB7Y4D/new-york-city-sylvias-restaurant-harlem-uptown-manhattan-EB7Y4D.jpg",
+				"Punjabi Grocery & Deli": "https://i1.wp.com/roadsandkingdoms.com/uploads/2019/01/20190107-DSC_9704-1300x868.jpg?w=2400&quality=95&strip=color&ssl=1",
+				"Le Bernardin": "https://www.le-bernardin.com/content/slides/lb-gallery-main.jpg"
 			}
 		}
 	}
