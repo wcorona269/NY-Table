@@ -29,7 +29,7 @@ class LeftColumn extends React.Component {
 			<div className="rest-show-main-col">
 				<RestNavButtons/>
 				<RestDetails restaurant={this.props.restaurant} rating={this.rating()} reviews={this.props.reviews}/>
-				<Gallery/>
+				<Gallery photos={this.props.restaurant.photoUrls}/>
 				<Menu menuItems={this.props.menu_items}/>
 				<ReviewsContainer/>
 			</div>

@@ -62,13 +62,11 @@ class ScrollBar extends React.Component {
 	scroll(distance, id){
 		let bar = document.getElementById(id)
 		bar.scrollLeft += distance
-		console.log(bar.scrollLeft);
 	}
 
 	render () {
 		const id = Math.floor(Math.random() * 100000000)
 		const {rests} = this.props;
-		// debugger;
 
 		const display = rests.length ? (
 			<>
@@ -84,12 +82,8 @@ class ScrollBar extends React.Component {
 							neighborhood={rest.neighborhood}
 							price_range={rest.price_range}
 							key={idx}
-							icon={this.state.photos[rest.name]}
-							rating={(Math.random() * (5 - 2) + 2).toFixed(1)}
-							// rating={this.avgRating(rest.name)}
-							// alternatively do this in mSTP
-							// function for this in model/controller?
-							// 99 cats reservation model -- custom methods
+							icon={rest.iconUrl}
+							rating={rest.avg_rating}
 							/>)}
 						</ul>
 				<button className='right-scroll-button' onClick={() => this.scroll(983, id)}>
@@ -119,4 +113,3 @@ class ScrollBar extends React.Component {
 	// fetch restaurants & map them to an array
 	// Grab random restaurants from array & feed data to a new ListIcon, 10x per scrollbar
 	// const dumbRests = ["peter luger", "patsy's pizza", "chipotle", "sweetgreen", "mcdonalds"]
-	// debugger;

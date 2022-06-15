@@ -23,6 +23,7 @@ class RestShow extends React.Component {
 						{restaurant.neighborhood}
 					</div>
 					<div className="rest-header-banner-photo">
+						<img src={restaurant.banner}/>
 					</div>
 				</div>
 				<div className="rest-show-container">

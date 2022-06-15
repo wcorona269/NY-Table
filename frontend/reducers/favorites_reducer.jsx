@@ -2,7 +2,8 @@ import {
 	RECEIVE_ALL_FAVORITES,
 	RECEIVE_FAVORITE,
 	REMOVE_FAVORITE,
-	RECEIVE_ERRORS
+	RECEIVE_ERRORS,
+	CLEAR_FAVORITES
 } from '../actions/favorite_actions';
 
 const initialState = {
@@ -24,6 +25,8 @@ const favoritesReducer = (oldState = initialState, action) => {
 			return nextState;
 		case RECEIVE_ERRORS:
 				return {...oldState, errors: action.errors.responseJSON };
+		case CLEAR_FAVORITES:
+			return initialState;
 		default:
 				return oldState;
 	}

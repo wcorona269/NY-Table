@@ -4,9 +4,9 @@ import { render } from 'react-dom';
 import SignupFormContainer from "../form/signup_form_container";
 import LoginFormContainer from '../form/login_form_container';
 import CancelBookingModal from '../booking/delete';
+import GalleryModal from '../restaurant/gallery_modal';
 import { closeModal } from '../../actions/modal_actions';
 import { icClose } from 'otkit-icons/token.theme.common';
-
 
 class Modal extends React.Component {
 	constructor(props) {
@@ -29,15 +29,20 @@ class Modal extends React.Component {
 		let component;
 
 		// check which modal type to render
-		switch (modal) {
+		switch (modal.modal) {
 			case "signup":
 				component = <SignupFormContainer/>
 				break;
-			case "login":
+				case "login":
 				component = <LoginFormContainer/>
 				break;
 			case "cancel":
 				component = <CancelBookingModal/>
+				break;
+			case "gallery":
+				const photos = modal.photos
+				const idx = modal.idx
+				component = <GalleryModal photos={photos} idx={idx}/>
 				break;
 			// case "review":
 			// 	component = <

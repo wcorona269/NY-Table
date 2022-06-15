@@ -314,3 +314,153 @@
 	padding-bottom: 20px;
 	-webkit-font-smoothing: antialiased;
 }
+
+
+.user-favorites-container {
+	background-color: #fff;
+	width: 100%;
+	margin: 0 auto;
+	max-width: 80rem;
+	position: relative;
+	padding-left: 1rem;
+	padding-right: 1rem;
+	float: left;
+	// margin-top: 2rem;
+}
+
+#saved-header {
+	-webkit-font-smoothing: antialiased;
+	display: block;
+	font-size: 1.5rem;
+	font-weight: bold;
+	border-bottom: 1px solid rgba(0,0,0,.08);
+	padding: 1.5rem;
+	position: relative;
+}
+
+.favorite-list-item-container {
+	padding-bottom: 1rem;
+	min-height: 10.9375rem;
+}
+
+.favorite-list-item-container > div {
+	position: relative;
+	line-height: 1.5rem;
+	z-index: 0;
+	padding: 1rem 0;
+}
+
+#rest-row-info {
+	min-height: 5rem;
+	position: relative;
+	line-height: 1.5rem;
+	z-index: 0;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+
+	a {
+		// max-height: 5rem;
+    width: 5rem;
+		border-radius: 5px;
+    display: block;
+    width: fit-content;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    z-index: 1;
+		background-color: transparent;
+	}
+
+	button {
+		@extend %form-button;
+		padding: 0.75rem 1.5rem 0.8125rem;
+    font-size: .8125rem;
+		margin-bottom: 1rem;
+		display: inline-block;
+		cursor: pointer;
+		border: none;
+    font-family: BrandonText,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: 500;
+    text-decoration: none;
+    outline: 0;
+    border-color: #b8222d;
+		border-radius: 3px;
+	}
+}
+
+#rest-row-info > div {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 2;
+
+	a {
+		text-decoration: none;
+    margin-right: 4rem;
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    clear: both;
+    font-size: 1rem;
+    color: #333333;
+    line-height: 1.5rem;
+	}
+
+	div {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		// justify-content: center;
+		font-size: 13px;
+    clear: both;
+		text-decoration: none;
+    line-height: inherit;
+	}
+
+
+	.fa-bookmark {
+		height: 15px;
+		width: 15px;
+		color: $favorites-text;
+		padding: none;
+		margin-right: 4px;
+		text-align: center;
+	}
+}
+
+#rest-row-info-img {
+	border-radius: 5px;
+	border: none;
+	width: 90px;
+	height: 90px;
+	object-fit: cover;
+	-ms-interpolation-mode: bicubic;
+	display: inline-block;
+	vertical-align: middle;
+	justify-content: center;
+	align-items: center;
+	align-self: center;
+	margin-right: 1rem;
+	// margin-bottom: 1rem;
+}
+
+#fav-info {
+	color: #666666;
+	font-size: 13px;
+	clear: both;
+	font-family: BrandonText,"Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-weight: 500;
+	font-style: normal;
+	-webkit-font-smoothing: antialiased;
+}
+
+#fav-rest-name {
+	margin-bottom: 4px;
+	font-weight: 600;
+}
+
+#remove-row:hover {
+	cursor: pointer;
+}
+

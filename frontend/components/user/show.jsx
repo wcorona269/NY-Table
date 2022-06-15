@@ -4,6 +4,7 @@ import UserEdit from './edit';
 import UserDiningDashboard from './dining-dashboard';
 import {useDispatch, useSelector} from 'react-redux';
 import { useHistory, useLocation, NavLink, Route } from 'react-router-dom';
+import { fetchAllFavs } from '../../actions/favorite_actions';
 
 
 const UserShow = (props) => {
@@ -14,6 +15,10 @@ const UserShow = (props) => {
 
 	const user = Object.values(useSelector(state => state.entities.users));
 
+	useEffect(() => {
+		dispatch(fetchAllFavs())
+	})
+	
 	return (
 		<div className='user-show-container'>
 			<header className='user-show-header'>

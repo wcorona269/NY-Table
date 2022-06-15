@@ -1,13 +1,15 @@
-import {SHOW_MODAL, CLOSE_MODAL} from '../actions/modal_actions';
+import {SHOW_MODAL, CLOSE_MODAL, SHOW_GALLERY} from '../actions/modal_actions';
 
 const modalReducer = (oldState = {}, action) => {
 	Object.freeze(oldState);
 
 	switch(action.type) {
 		case SHOW_MODAL:
-			return action.modal;
+			return {...oldState, modal: action.modal }
+		case SHOW_GALLERY:
+			return {...oldState, modal: action.modal, photos: action.photos, idx: action.idx }
 		case CLOSE_MODAL:
-			return null;
+			return {};
 		default:
 			return oldState;
 	}

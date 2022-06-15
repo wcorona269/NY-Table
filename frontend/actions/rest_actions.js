@@ -2,6 +2,7 @@ import * as RestUtils from "../util/restaurants.api.util"
 
 export const RECEIVE_RESTS = "RECEIVE_RESTS";
 export const RECEIVE_REST = "RECEIVE_REST";
+export const CLEAR_RESTS = 'CLEAR_RESTS';
 
 // action creators
 export const receiveRests = rests => ({
@@ -14,6 +15,10 @@ export const receiveRest = rest => ({
 	rest
 })
 
+export const clearRests = () => ({
+	type: CLEAR_RESTS
+})
+
 // thunk action creators
 export const fetchRests = () => dispatch => (
 	RestUtils.fetchRests()
@@ -22,5 +27,6 @@ export const fetchRests = () => dispatch => (
 
 export const fetchRest = restId => dispatch => (
 	RestUtils.fetchRest(restId)
-	.then(rest => dispatch(receiveRest(rest)))
+	.then(rest => {dispatch(receiveRest(rest))
+	console.log(rest)})
 )

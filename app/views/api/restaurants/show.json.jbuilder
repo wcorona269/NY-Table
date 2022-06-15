@@ -1,5 +1,7 @@
 json.restaurant do
 	json.partial! "restaurant", restaurant: @restaurant
+	json.banner url_for(@restaurant.banner)
+	json.photoUrls @restaurant.photos.map { |photo| url_for(photo)}
 end
 
 json.reviews do
@@ -20,14 +22,4 @@ json.menu_items do
 		end
 	end
 end
-# json.menu do 
-# 	json.set! :menu.id do
-# 		json.extract! menu, :items
-# 	end
-# end
 
-# json.avg_rating @rest.reviews.average(:overall).floor
-# json.photos @rest.photos do |photo|
-#     json.filename photo.filename 
-#     json.url url_for(photo)
-# end

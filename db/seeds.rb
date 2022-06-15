@@ -65,7 +65,7 @@ hearthpics = [
 
 hearthpics.each do |path, i|
 		file = File.open(path)
-		rest1.photos.attach(io: file, filename: "hearth_#{i}.jpeg")
+		rest1.photos.attach(io: file, filename:"hearth_#{i}.jpeg")
 end
 
 rest2 = Restaurant.create!(
@@ -109,7 +109,11 @@ end
 
 rest3 = Restaurant.create!(
 	name: "Bill's Bar and Burger",
-	description: "In 2010, Bill's Bar & Burger Rockefeller Center opened with 400 seats, making it the biggest standalone burger joint in the country. Every burger, shake, and fry, in dozens of varieties and counting, at Bill's is made fresh daily. Bill's now has two locations across NYC.",
+	description: "Bill’s began in New York City back in 2009, becoming an instant hit with both burger junkies and locals alike. Bill’s burgers have evolved from countless tastings, recipe tweaking and lots of burger love — it's no wonder we've sold over 2.3 MILLION BURGERS!
+
+	To our burger enthusiasts, you can never go wrong with classics like our Ultimate Cheeseburger, our signature triple-decker burger with the burger works and our special sauce... but if you're feeling adventurous, one of our crazy burger concoctions are sure to make your taste buds go crazy. 
+	
+	With 400 seats, Bill's Bar & Burger Rockefeller Center is the biggest standalone burger joint in the country — and trust us, our flavors are as big as our space (and our ego). And let's not forget that every burger, shake, and fry at Bill’s restaurants are made fresh daily, just for you!",
 	cuisines: "American",
 	price_range: 3,
 	neighborhood: "Upper West Side",
@@ -446,7 +450,7 @@ rest12.icon.attach(
 )
 
 rest12.banner.attach(
-	io: File.open('/Users/Will2/Desktop/myTable/app/assets/images/rest_pics/oyster/banner1.jpeg'),
+	io: File.open('/Users/Will2/Desktop/myTable/app/assets/images/rest_pics/oyster/real_banner.jpeg'),
 	filename: 'oyster_banner.jpg'
 )
 
@@ -455,16 +459,16 @@ oyster = [
 	'/Users/Will2/Desktop/myTable/app/assets/images/rest_pics/oyster/banner.jpeg',
 	'/Users/Will2/Desktop/myTable/app/assets/images/rest_pics/oyster/Coleman-Elegy-for-the-Grand-Central-Oyster-Bars-Caviar-Sandwich.jpeg',
 	'/Users/Will2/Desktop/myTable/app/assets/images/rest_pics/oyster/Grand-Central-Oyster-Bar-NYC_6_171020120021007-1600x800.jpeg',
-	'/Users/Will2/Desktop/myTable/app/assets/images/rest_pics/oyster/OYSTER_BAR_COUNTERS_BEST.jpeg'
+	'/Users/Will2/Desktop/myTable/app/assets/images/rest_pics/oyster/OYSTER_BAR_COUNTERS_BEST.jpeg',
+	'/Users/Will2/Desktop/myTable/app/assets/images/rest_pics/oyster/barold.jpeg',
+	'/Users/Will2/Desktop/myTable/app/assets/images/rest_pics/oyster/banner1.jpeg',
+	'/Users/Will2/Desktop/myTable/app/assets/images/rest_pics/oyster/real_banner.jpeg'
 ]
 
 oyster.each do |path, i|
 		file = File.open(path)
 		rest12.photos.attach(io: file, filename: "oyster_#{i}.jpeg")
 end
-
-
-
 
 rest13 = Restaurant.create!(
 	name: "Brooklyn Farmacy & Soda Fountain",
@@ -713,9 +717,9 @@ rest19 = Restaurant.create!(
 	description: "Sylvia's Restaurant, the “The Queen of Soul Food”, was founded by Sylvia Woods, in 1962. Established in the historic village of Harlem, Sylvia's is a community favorite, known as the world's kitchen. Serving authentic soul food for over 55 years, this icon remains a culinary must-visit for foodies. Gospel brunch Sundays, Live Music Wednesdays, and Daily Specials scream home-style cooking, within an at-home environment. Come visit for yourself, and experience why Presidents, celebrities, and Harlemites alike call Sylvia's home.
 
 	Owned & Operated by The Woods Family.",
-	cuisines: "Dim Sum",
+	cuisines: "Soul Food",
 	price_range: 2,
-	neighborhood: "Chinatown",
+	neighborhood: "Harlem",
 	address: "328 Malcolm X Blvd New York, NY 10027",
 	phone: 2129960660
 )
@@ -1015,11 +1019,18 @@ times = [
 	end
 end
 
-
 (1..10).each do |idx|
 	Favorite.create!(
 		user_id: idx,
-		rest_id: rand(1..21)
+		rest_id: rand(1..7)
+	)
+	Favorite.create!(
+		user_id: idx,
+		rest_id: rand(8..14)
+	)
+	Favorite.create!(
+		user_id: idx,
+		rest_id: rand(15..21)
 	)
 end
 

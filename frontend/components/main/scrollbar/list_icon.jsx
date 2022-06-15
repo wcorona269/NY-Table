@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom';
 const ListIcon = ({id, name, cuisines, neighborhood, price_range, icon, rating}) => {
 	
 	const priceRange = (num) => {
-		// debugger;
 		if (num === 1) {
 			return	<span><span className="red-dollar">$</span><span className="gray-dollar">$$$</span></span>
 		} else if (num === 2) {
@@ -20,8 +19,14 @@ const ListIcon = ({id, name, cuisines, neighborhood, price_range, icon, rating})
 		}
 	}
 
+	const parseRating = () => {
+		rating = +rating
+		return rating.toFixed(1);
+	}
+
 	return (
 		<li className="scrollbar-li">
+			{console.log(+rating)}
 			<Link to={`restaurants/${id}`}>
 				<button className="li-button">
 				<div className="li-button-div">
@@ -35,7 +40,7 @@ const ListIcon = ({id, name, cuisines, neighborhood, price_range, icon, rating})
 						</h3>
 						<div className="li-button-ratings-div">
 						<DynamicStar
-							rating={rating}
+							rating={parseRating()}
 							width={20}
 							height={20}
 							outlined={false}
