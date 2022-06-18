@@ -27,6 +27,5 @@ export const fetchRests = () => dispatch => (
 
 export const fetchRest = restId => dispatch => (
 	RestUtils.fetchRest(restId)
-	.then(rest => {dispatch(receiveRest(rest))
-	console.log(rest)})
+	.then(rest => dispatch(receiveRest(rest)))
 )

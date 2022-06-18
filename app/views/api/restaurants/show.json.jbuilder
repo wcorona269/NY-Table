@@ -1,5 +1,6 @@
 json.restaurant do
 	json.partial! "restaurant", restaurant: @restaurant
+	json.icon url_for(@restaurant.icon)
 	json.banner url_for(@restaurant.banner)
 	json.photoUrls @restaurant.photos.map { |photo| url_for(photo)}
 end

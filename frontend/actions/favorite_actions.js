@@ -43,8 +43,10 @@ export const fetchFav = (favId) => dispatch => {
 }
 
 export const createFav = favorite => dispatch => {
-	ApiUtil.createFavorite(favorite)
-		.then(favorite => dispatch(receiveFav(favorite)))
+	return (
+		ApiUtil.createFavorite(favorite)
+			.then(favorite => dispatch(receiveFav(favorite)))
+	)
 }
 
 export const deleteFav = favId => dispatch => {

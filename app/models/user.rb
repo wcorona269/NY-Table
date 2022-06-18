@@ -14,8 +14,13 @@
 #  updated_at      :datetime         not null
 #
 class User < ApplicationRecord
-    validates :email, :password_digest, :phone, :fname, :lname, presence: true
-    validates_length_of :phone, is: 10,  message: "Number must be 10 digits"  
+    validates :dname, :email, :password_digest, :phone, :fname, :lname, presence: true
+    validates :email, :phone, uniqueness: true
+    validates :password, length: {minimum: 6 }, allow_nil: true
+    validates :session_token, presence: true, uniqueness: true
+    validates_length_of :phone, is: 10,  message: "Number must be 10 digits"
+    validate :valid_email  
+
     after_initialize :ensure_session_token
     attr_reader :password
 
@@ -70,7 +75,7 @@ class User < ApplicationRecord
     private
     def valid_email
         if !email.include?("@")
-            errors.add(:email, "please enter a valid email")
+            errors.add(:email, "Please enter a valid email")
         end
     end
 end

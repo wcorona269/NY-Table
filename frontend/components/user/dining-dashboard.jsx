@@ -15,6 +15,11 @@ const UserDiningDashboard = (props) => {
 	let upcoming = [];
 	let past = [];
 
+
+	useEffect(() => {
+		window.scrollTo(0, 0)
+	}, [])
+
 	bookings.map((booking, idx) => {
 		let parts = booking.date.split('-');
 		let today = new Date();

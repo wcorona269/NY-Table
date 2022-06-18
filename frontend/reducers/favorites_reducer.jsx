@@ -17,11 +17,11 @@ const favoritesReducer = (oldState = initialState, action) => {
 	switch(action.type) {
 		case RECEIVE_ALL_FAVORITES:
 			return  {...oldState, favoritesAll: action.favorites };
-		case RECEIVE_FAVORITE:
-			return {...oldState, favorite: action.favorite};
+			case RECEIVE_FAVORITE:
+			return {...oldState, favoritesAll: [action.favorite]};
 		case REMOVE_FAVORITE:
 			const nextState = {...oldState};
-			delete nextState.favoritesAll[action.favoriteId];
+			delete nextState.favoritesAll[action.favId];
 			return nextState;
 		case RECEIVE_ERRORS:
 				return {...oldState, errors: action.errors.responseJSON };

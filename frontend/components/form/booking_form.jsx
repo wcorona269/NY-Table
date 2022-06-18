@@ -42,7 +42,7 @@ const BookingForm = (props) => {
 
 		useEffect(() => {
 		window.scrollTo(0, 0)
-	}, [])
+		}, [])
 
 	useEffect(() => {
         
@@ -119,7 +119,7 @@ const BookingForm = (props) => {
 					You're almost done!
 				</h2>
 				<div className='booking-info-bar'>
-					<img></img>
+					<img src={restaurant.icon}/>
 					<div id='info-bar-right'>
 						<h2>
 							{restaurant.name}

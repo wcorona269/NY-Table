@@ -76,7 +76,7 @@ const UpdateBooking = (props) => {
 						Your Current Reservation 
 					</h2>
 					<div id='booking-info-bar' className='booking-info-bar'>
-					<img></img>
+					<img src={restaurant.icon}/>
 					<div id='info-bar-right'>
 						<h2 id='rest-name'>
 							{restaurant.name}

@@ -81,7 +81,7 @@ const BookingListItem = ({booking, completed}) => {
 		)
 	}
 
-	return (
+	return !restaurant ? (null) : (
 		<Link to={{
 			pathname:`/booking/show/${booking.id}`,
 			state: {
@@ -94,7 +94,7 @@ const BookingListItem = ({booking, completed}) => {
 			
 		}}
 			id='res-list-box'>
-			<img></img>
+			<img src={restaurant.icon}/>
 			<div>
 				<h3>
 					{restName}

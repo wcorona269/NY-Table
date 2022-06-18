@@ -27,7 +27,7 @@ export const createFavorite = favorite => {
 	) 
 }
 
-export const deleteFavorite = favId => {
+export const deleteFavorite = (favId) => {
 	return (
 		$.ajax({
 			method: 'DELETE',

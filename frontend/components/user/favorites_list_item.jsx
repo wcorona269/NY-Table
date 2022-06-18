@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import { DynamicStar } from 'react-dynamic-star';
-import { deleteFav } from '../../actions/favorite_actions';
+import { deleteFav, fetchAllFavs } from '../../actions/favorite_actions';
 
 const FavoritesListItem = ({fav}) => {
 	const dispatch = useDispatch()
@@ -11,6 +11,7 @@ const FavoritesListItem = ({fav}) => {
 	const handleRemoveFav = (e) => {
 		e.preventDefault();
 		dispatch(deleteFav(fav.id))
+		window.location.reload()
 	}
 
 	return (

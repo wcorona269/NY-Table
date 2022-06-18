@@ -20,8 +20,13 @@ const UpcomingReservations = ({upcoming}) => {
 	) : (
 		<div className='reservations-list'>
 			<h2>
-				You have no upcoming reservations
+				Upcoming Reservations
 			</h2>
+			<div id='no-content-message'>
+				<span>
+				You have no upcoming reservations to show on this list.
+				</span>
+			</div>
 		</div>
 	)
 }

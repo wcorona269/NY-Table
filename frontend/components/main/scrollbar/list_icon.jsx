@@ -26,7 +26,6 @@ const ListIcon = ({id, name, cuisines, neighborhood, price_range, icon, rating})
 
 	return (
 		<li className="scrollbar-li">
-			{console.log(+rating)}
 			<Link to={`restaurants/${id}`}>
 				<button className="li-button">
 				<div className="li-button-div">

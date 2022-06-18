@@ -20,8 +20,13 @@ const PastReservations = ({past}) => {
 	) : (
 		<div className='reservations-list'>
 			<h2>
-				You have no past reservations
+				Past Reservations
 			</h2>
+			<div id='no-content-message'>
+				<span>
+					You have no past reservations to show on this list.
+				</span>
+			</div>
 		</div>
 	)
 }

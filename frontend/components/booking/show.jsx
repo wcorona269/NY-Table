@@ -82,7 +82,7 @@ const BookingShow = (props) => {
 			<section className='res-confirm-left'>
 				<div>
 					<div>
-						<img id='rest-icon'>
+						<img id='rest-icon' src={restaurant.icon}>
 						</img>
 					</div>
 					<div id='rest-info'>

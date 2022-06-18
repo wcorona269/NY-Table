@@ -13,7 +13,6 @@ const Gallery = ({photos}) => {
 	}, [photos])
 
 	const handleClick = (e) => {
-		console.log(e.target.name)
 		dispatch(showGallery('gallery', photos, e.target.name))
 	}
  
