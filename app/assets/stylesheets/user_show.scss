@@ -494,24 +494,3 @@ font-weight: 700;
     -webkit-font-smoothing: antialiased;
 	}
 }
-
-.guest-button {
-	margin-top: 10px;
-}
-
-.guest-login-message {
-	// text-align: center;
-	font-size: 14px;
-	color: $gray-text;
-	margin-top: 10px;
-
-	span {
-		color: $main-red;
-		font-weight: 700;
-
-		&:hover {
-			text-decoration: underline;
-			cursor: pointer;
-		}
-	}
-}
