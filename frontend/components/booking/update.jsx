@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { withRouter, useHistory, useLocation, Link } from 'react-router-dom';
+import { withRouter, useHistory, useLocation, Link, useParams} from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { icCalendar, icClock, icPerson } from 'otkit-icons/token.theme.common';
+import { icCalendar, icPerson, icClock, icDown, icSearch } from 'otkit-icons/token.theme.common';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import { updateBooking } from '../../actions/booking_actions';
@@ -10,6 +10,11 @@ const UpdateBooking = (props) => {
 	const history = useHistory();
 	const dispatch = useDispatch();
 	const location = useLocation();
+
+	if (!props.location.state) {
+		history.push(`/`)
+		window.location.reload()
+	}
 
 	const {date, time, restaurant, booking, user} = props.location.state;
 	const size = booking.party_size;
@@ -56,14 +61,14 @@ const UpdateBooking = (props) => {
 		e.preventDefault();
 		dispatch(updateBooking(newBooking)).then(res =>
 				history.push({
-					pathname: `/booking/show/${res.booking.id}`,
-					state: {
-						time: parseTime(newBooking.time),
-						date: parseDate(newBooking.date),
-						restaurant: restaurant,
-						user: user,
-						booking: res.booking
-					}
+					pathname: `/booking/show/${res.booking.id}/${parseTime(newBooking.time)}/${parseDate(newBooking.date)}`,
+					// state: {
+					// 	time: parseTime(newBooking.time),
+					// 	date: parseDate(newBooking.date),
+						// restaurant: restaurant,
+						// user: user,
+						// booking: res.booking
+					// }
 				})
 			)
 		}
@@ -109,6 +114,7 @@ const UpdateBooking = (props) => {
 					</h3>
 					<div id='mod-left'>
 						<div>
+							<img src={`data:image/svg+xml;utf8,${icCalendar}`}/>
 							<DatePicker
 								id='date'
 								className="res-update-select"
@@ -117,10 +123,12 @@ const UpdateBooking = (props) => {
 								selected={newDate}
 								onChange={setNewDate}
 							/>
+							<img id='dropdown-img' src={`data:image/svg+xml;utf8,${icDown}`}/>
 						</div>
 						<div>
+							<img src={`data:image/svg+xml;utf8,${icClock}`}/>
 							<select id='time' className='res-update-select' onChange={updateInfo}>
-								<option selected defaultValue value={time}>{time}</option>
+								<option defaultValue value={time}>{time}</option>
 								<option value='11:00'>11:00 AM</option>
 								<option value='11:30'>11:30 AM</option>
 								<option value='12:30'>12:30 PM</option>
@@ -146,10 +154,12 @@ const UpdateBooking = (props) => {
 								<option value='22:30'>10:30 PM</option>
 								<option value='23:00'>11:00 PM</option>
 							</select>
+							<img id='dropdown-img' src={`data:image/svg+xml;utf8,${icDown}`}/>
 						</div>
 						<div>
+							<img src={`data:image/svg+xml;utf8,${icPerson}`}/>
 							<select id='party_size' className='res-update-select' onChange={updateInfo}>
-								<option selected defaultValue value={party}>{party} people</option>
+								<option defaultValue value={party}>{party} people</option>
 								<option value='1'>1 person</option>
 								<option value='2'>2 people</option>
 								<option value='3'>3 people</option>
@@ -171,6 +181,7 @@ const UpdateBooking = (props) => {
 								<option value='19'>19 people</option>
 								<option value='20'>20 people</option>
 							</select>
+							<img id='dropdown-img' src={`data:image/svg+xml;utf8,${icDown}`}/>
 						</div>
 					<button onClick={handleSubmit} id='update-button'>
 						Find a new table

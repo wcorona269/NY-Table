@@ -9,7 +9,7 @@ class LeftColumn extends React.Component {
 	constructor(props) {
 		super(props);
 	}
-
+	
 	componentDidMount() {
 		this.props.fetchRest(this.props.match.params.restId)
 		window.scrollTo(0,0);

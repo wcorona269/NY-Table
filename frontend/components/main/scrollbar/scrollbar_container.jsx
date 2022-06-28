@@ -38,6 +38,7 @@ const ScrollbarContainer = ({rests, key}) => {
 				<ul className="scrollbar-ul" id={id} onScroll={onScroll}>
 					{rests.map((rest, idx) =>
 						<ListIcon
+						bookings={rest.bookings_count}
 						id={rest.id}
 						name={rest.name}
 						cuisines={rest.cuisines}

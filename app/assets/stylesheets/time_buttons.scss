@@ -1,0 +1,40 @@
+@import './variables.scss';
+
+.buttons-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+
+	ul {
+		margin-top: 4px;
+	}
+
+	li {
+		display: inline-block;
+    margin: 0 8px 8px 0;
+    vertical-align: top;
+	}
+
+	button {
+		// background: #da3743;
+		// border-radius: 4px;
+		// color: #fff;
+		// cursor: pointer;
+		height: 2rem;
+		min-width: 5rem;
+		display: block;
+		font-size: 14px;
+		font-weight: 700;
+		// justify-content: center;
+		// line-height: 32px !important;
+		// margin-bottom: 4px;
+		// position: relative;
+		// text-align: center;
+		// text-decoration: none;
+		margin-right: none !important;
+		@extend %form-button;
+		transition: none;
+		border: none;
+
+	}
+}

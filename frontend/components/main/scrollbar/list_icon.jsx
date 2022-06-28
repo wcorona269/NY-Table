@@ -5,8 +5,8 @@ import { DynamicStar } from 'react-dynamic-star';
 import { Link } from 'react-router-dom';
 
 
-const ListIcon = ({id, name, cuisines, neighborhood, price_range, icon, rating}) => {
-	
+const ListIcon = ({bookings, id, name, cuisines, neighborhood, price_range, icon, rating}) => {
+	// debugger;
 	const priceRange = (num) => {
 		if (num === 1) {
 			return	<span><span className="red-dollar">$</span><span className="gray-dollar">$$$</span></span>
@@ -61,7 +61,7 @@ const ListIcon = ({id, name, cuisines, neighborhood, price_range, icon, rating})
 								className="scrollbar-booking-count"
 								src={`data:image/svg+xml;utf8,${icSocialProof}`}
 							/>
-							Booked {Math.floor(Math.random() * (199 - 50) + 50)} times today
+							Booked {bookings} times today
 						</div>
 						<div className="li-button-reserve-div">Reserve</div>
 					</div>

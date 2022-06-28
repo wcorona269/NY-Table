@@ -11,7 +11,7 @@ const CancelBookingModal = (props) => {
 	const history = useHistory();
 	const booking = useSelector(state => state.entities.bookings);
 	const rests = Object.values(useSelector(state => state.entities.rests));
-	const rest = rests[booking.rest_id - 1];
+	const rest = rests[0];
 	const [updated, setUpdated] = useState({
 		id: booking.id,
 		date: booking.date,
@@ -27,6 +27,7 @@ const CancelBookingModal = (props) => {
 	const handleClick = () => {
 		dispatch(updateBooking(updated));
 		dispatch(closeModal())
+		window.location.reload()
 	}
 
 	const parseTime = (time) => {

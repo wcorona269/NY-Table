@@ -1,27 +1,49 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import  { withRouter, useLocation, useHistory, Link } from 'react-router-dom';
-import { icCalendar, icPerson, icLocation, icReview } from 'otkit-icons/token.theme.common';
+import  { withRouter, useLocation, useHistory, useParams, Link } from 'react-router-dom';
+import { icCalendar, icPerson, icLocation, icReview, icReservation } from 'otkit-icons/token.theme.common';
 import { showModal } from '../../actions/modal_actions';
-import user_dropdown from '../nav_bar/user_dropdown';
 import { fetchBooking } from '../../actions/booking_actions';
+import { clearRests, fetchRest } from '../../actions/rest_actions';
+import user_dropdown from '../nav_bar/user_dropdown';
+// import { fetchBooking } from '../../util/bookings_api_util';
 
 const BookingShow = (props) => {
+
+	const {bookingId, time, date} = useParams();
 	const location = useLocation();
 	const dispatch = useDispatch();
 	const history = useHistory();
-	const booking = props.location.state.booking;
-	// const booking = useSelector(state => state.entities.bookings)
-	const currentUser = useSelector(state => state.entities.users)
-	const time = props.location.state.time;
-	const date = props.location.state.date;
-	const restaurant = props.location.state.restaurant;
-	const user = props.location.state.user;
+	let booking = useSelector(state => state.entities.bookings)
+	let currentUser = useSelector(state => state.entities.users)
+	let restaurant = Object.values(useSelector(state => state.entities.rests))
+	restaurant = restaurant[0]
+	let user = Object.values(useSelector(state => state.entities.users))
+	user = user[0]
+	// const [completed, setCompleted] = useState(false)
+	const today = new Date()
+	today.setHours(23, 59, 59, 998);
+	const tentativeDate = new Date(date)
+	tentativeDate.setFullYear(2022)
+	const completed = (today > tentativeDate)
+	console.log(`date = ${tentativeDate}`)
+	console.log(`today = ${today}`)
+	console.log(today > tentativeDate)
 
+	// debugger;
 	useEffect(() => {
 		window.scrollTo(0, 0)
+	})
+
+	useEffect(() => {
+		dispatch(clearRests())
+		dispatch(fetchBooking(bookingId)).then(res => dispatch(fetchRest(res.booking.rest_id)))
 	}, [])
+
+	useEffect(() => {
+
+	}, [booking, restaurant])
 
 	const cancelModal = () => {
 		dispatch(showModal("cancel"));
@@ -36,49 +58,68 @@ const BookingShow = (props) => {
 	let statusBar;
 	let cancelBar;
 
-	if (isCancelled) {
-		statusBar = [
-			<div>
-				<i class="fa-solid fa-circle-xmark"></i>
-				Reservation Cancelled
-			</div>
-		]
-		cancelBar = [
-			<div>
-				<Link id='page-cancel-bar' to={`/restaurants/${restaurant.id}`}>
-					Book Again
-				</Link>
-			</div>
-		]
-	} else {
-		statusBar = [
-			<div>
-				<i className="fa-solid fa-circle-check"></i>
-				Reservation Confirmed
-			</div>
-		]
-		cancelBar = [
-			<div id='page-cancel-bar'>
-				<Link
-					to={{
-						pathname:`/booking/${booking.id}/modify`,
-						state: {
-							date: date,
-							time: time,
-							restaurant: restaurant,
-							booking: booking,
-							user: user
-						}
-					}}
-					>Modify
-				</Link>
-				<button onClick={cancelModal}>Cancel</button>
-			</div>
-		]
+	if (restaurant) {
+		if (isCancelled && !completed) {
+			statusBar = [
+				<div>
+					<i class="fa-solid fa-circle-xmark"></i>
+					Reservation Cancelled
+				</div>
+			]
+			cancelBar = [
+				<div>
+					<Link id='page-cancel-bar' to={`/restaurants/${restaurant.id}`}>
+						Book Again
+					</Link>
+				</div>
+			]
+		} else if (!isCancelled && !completed) {
+			statusBar = [
+				<div>
+					<i className="fa-solid fa-circle-check"></i>
+					Reservation Confirmed
+				</div>
+			]
+			cancelBar = [
+				<div id='page-cancel-bar'>
+					<Link
+						to={{
+							pathname:`/booking/${booking.id}/modify`,
+							state: {
+								date: date,
+								time: time,
+								restaurant: restaurant,
+								booking: booking,
+								user: user
+							}
+						}}
+						>Modify
+					</Link>
+					<button onClick={cancelModal}>Cancel</button>
+				</div>
+			]
+		} else {
+			statusBar = [
+				<div>
+					<img src={`data:image/svg+xml;utf8,${icReservation}`}/>
+					Booking Completed
+				</div>
+			]
+			cancelBar = [
+				cancelBar = [
+					<div>
+						<Link id='page-cancel-bar' to={`/restaurants/${restaurant.id}`}>
+							Book Again
+						</Link>
+					</div>
+				]
+			]
+		}
 	}
 
-	return (
+	return restaurant && booking ? (
 		<div className='res-confirmation-container'>
+			{/* {console.log(userId)} */}
 			<section className='res-confirm-left'>
 				<div>
 					<div>
@@ -124,7 +165,7 @@ const BookingShow = (props) => {
 				</div>
 			</aside>
 		</div>
-	)
+	) : null;
 }
 
 export default withRouter(BookingShow);

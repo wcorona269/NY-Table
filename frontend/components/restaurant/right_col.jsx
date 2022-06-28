@@ -49,13 +49,14 @@ class RightColumn extends React.Component {
 	handleSubmit(e) {
 		e.preventDefault();
 		this.props.history.push({
-			pathname: `/booking/`,
+			// pathname: `/booking/`,
+			pathname: `/booking/${this.props.restaurant.id}/${this.state.date}/${this.state.time}/${this.state.party}`,
 			state: {
 				restaurant: this.props.restaurant,
-				date: this.state.date,
-				time: this.state.time,
-				party: this.state.party,
-				currentUser: this.props.currentUser
+			// 	date: this.state.date,
+			// 	time: this.state.time,
+			// 	party: this.state.party,
+			// 	currentUser: this.props.currentUser
 			}
 		})
 	}
@@ -119,7 +120,7 @@ class RightColumn extends React.Component {
 								<select className='res-select' onChange={this.updateTime}>
 									<option value='11;00'>11:00 AM</option>
 									<option value='11:30'>11:30 AM</option>
-									<option selected defaultValue value='12:00'>12:00 PM</option>
+									<option defaultValue value='12:00'>12:00 PM</option>
 									<option value='12:30'>12:30 PM</option>
 									<option value='13:00'>1:00 PM</option>
 									<option value='13:30'>1:30 PM</option>

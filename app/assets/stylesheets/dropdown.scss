@@ -34,6 +34,11 @@
 }
 
 
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
 .user-dropdown-ul {
 	z-index: 100;
 	display: block;
@@ -54,6 +59,10 @@
 	background-color: #fff;
 	border: 1px solid $border-color;
 	border-radius: 3px;
+	animation: fadeIn .3s;
+	// transition: all .5s ease-in-out;
+  // transform-origin: left top;
+  // transform: scaleY(0);
 
 	ul {
 		border-top: 1.5px solid rgba(211, 211, 211, 0.6);
@@ -78,7 +87,6 @@
 .user-dropdown-ul li:hover {
 	cursor: pointer;
 	background-color: $background-color;
-
 }
 
 %user-drops {
@@ -141,5 +149,3 @@
 	margin: 0 auto;
 	max-width: 80rem;
 }
-
-

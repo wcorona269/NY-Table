@@ -1,5 +1,5 @@
 import React from 'react';
-import SearchBarContainer from "../searchbar/searchbar_container";
+import SearchBarContainer from "../search/searchbar_container";
 import CategoriesContainer from './categories_container';
 
 class Home extends React.Component {

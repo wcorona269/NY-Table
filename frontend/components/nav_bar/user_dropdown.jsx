@@ -23,7 +23,7 @@ const UserDropdown = ({logout, currentUser}) => {
 				<img src={`data:image/svg+xml;utf8,${icPerson}`} href="#" id="userDropdown" data-toggle="dropdown" className="user-info-img-dropdown-button"/>
 			</button>
 			{visible && 
-				<div className='user-dropdown-ul' onMouseLeave={hideMenu}>
+				<div className='user-dropdown-ul' onMouseLeave={() => setVisible(false)}>
 					<div className="dropdown-title">Hello, {currentUser.fname}!
 					</div>
 					<ul>

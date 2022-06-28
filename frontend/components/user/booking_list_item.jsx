@@ -83,15 +83,10 @@ const BookingListItem = ({booking, completed}) => {
 
 	return !restaurant ? (null) : (
 		<Link to={{
-			pathname:`/booking/show/${booking.id}`,
+			pathname:`/booking/show/${booking.id}/${parseTime(booking.time)}/${parseDate(booking.date)}`,
 			state: {
-				booking: booking,
-				time: parseTime(booking.time),
-				date: parseDate(booking.date),
-				user: currentUser,
-				restaurant: restaurant
+				completed: true
 			}
-			
 		}}
 			id='res-list-box'>
 			<img src={restaurant.icon}/>

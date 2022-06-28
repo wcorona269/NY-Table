@@ -1,31 +1,31 @@
 import React, { useEffect, useState } from 'react'
-import { withRouter, useLocation, useHistory } from 'react-router-dom';
+import { withRouter, useLocation, useHistory, useParams } from 'react-router-dom';
 import { icCalendar, icClock, icPerson } from 'otkit-icons/token.theme.common';
 import { createBooking } from '../../actions/booking_actions'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchRests } from '../../actions/rest_actions';
 
 const BookingForm = (props) => {
 	const history = useHistory();
 	const dispatch = useDispatch();
 	const location = useLocation();
-
+	const {restId, date, resTime, party} = useParams()
+	// debugger;
 	// LOCAL STORAGE TO PERSIST STATE ON REFRESH
 
-	if (!props.location.state) {
-		history.push('/')
-		window.location.reload()
-	}
+	useEffect(() => {
+		dispatch(fetchRests())
+	}, [])
 
-	const restaurant = props.location.state.restaurant;
-	const restId = props.location.state.restaurant.id;
-	const party = props.location.state.party;
-	const resTime = props.location.state.time;
-	const date = props.location.state.date;
-	const userId = props.location.state.currentUser.id;
-	const userEmail = props.location.state.currentUser.email;
-	const userPhone = props.location.state.currentUser.phone;
+	const restaurant = useSelector(state => state.entities.rests[restId])
+	const user = Object.values(useSelector(state => state.entities.users))
+	const userId = user[0].id
+	const userEmail = user[0].email
+	const userPhone = user[0].phone
+	// const userEmail = props.location.state.currentUser.email;
+	// const userPhone = props.location.state.currentUser.phone;
 	const [booking, setBooking] = useState({
-		date: new Date(date.toDateString()).toString(),
+		date: new Date(date).toDateString(),
 		time: resTime,
 		rest_id: restId,
 		user_id: userId,
@@ -70,10 +70,10 @@ const BookingForm = (props) => {
 	}, [mins, secs])
 
 	useEffect(() => {
-		if (location.state.booking) {
-				const {date, party_size} = location.state.booking;
-				setBooking({...booking, date: date, time: location.state.time, party_size: party_size})
-		}
+		// if (location.state.booking) {
+		// 	const {date, party_size} = location.state.booking;
+		setBooking({...booking, date: date, time: resTime, party_size: party})
+		// }
 	}, []);
 
 	const updateInfo = (e) => {
@@ -91,7 +91,7 @@ const BookingForm = (props) => {
 	}
 
 	const parseDate = (date) => {
-		date = date.toDateString();
+		date = new Date(date).toDateString();
 		let split = date.split(' ');
 		return `${split[0]}, ${split[1]} ${split[2]}`
 	}
@@ -100,26 +100,26 @@ const BookingForm = (props) => {
 		e.preventDefault();
 		dispatch(createBooking(booking)).then(res =>
 				history.push({
-					pathname: `/booking/show/${res.booking.id}`,
+					pathname: `/booking/show/${res.booking.id}/${parseTime(resTime)}/${parseDate(new Date(date))}`,
 					state: {
 						time: parseTime(resTime),
-						date: parseDate(date),
+						date: parseDate(new Date(date)),
 						restaurant: restaurant,
-						user: props.location.state.currentUser,
+						user: user[0],
 						booking: res.booking
 					}
 				})
 			)
 		}
 
-	return (
+	return restaurant ? (
 		<div className='booking-form-container'>
 			<section className='booking-form-left'>
 				<h2>
 					You're almost done!
 				</h2>
 				<div className='booking-info-bar'>
-					<img src={restaurant.icon}/>
+					<img src={restaurant.iconUrl}/>
 					<div id='info-bar-right'>
 						<h2>
 							{restaurant.name}
@@ -209,7 +209,7 @@ const BookingForm = (props) => {
 				</aside>
 			</div>
 		</div>
-	)
+	) : (null)
 }
 
 export default withRouter(BookingForm);

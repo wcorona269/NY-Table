@@ -11,6 +11,7 @@ import UserShow from './user/show';
 import BookingForm from "./form/booking_form";
 import BookingShow from './booking/show';
 import UpdateBooking from './booking/update';
+import SearchResultsContainer from './search/results';
 import { Switch } from "react-router-dom";
 
 const App = () => (
@@ -23,10 +24,11 @@ const App = () => (
                     <Switch>
                         <Route exact path='/' component={HomeContainer}/>
                         <Route exact path={"/restaurants/:restId"} component={RestShowContainer} />
+                        <Route path={`/search/:input/:time/:party/:date`} component={SearchResultsContainer} />
                         <ProtectedRoute path="/my/profile" component={UserShow} />
                         <ProtectedRoute path='/booking/:bookingId/modify' component={UpdateBooking}/>
-                        <ProtectedRoute path='/booking/show/:bookingId' component={BookingShow}/>
-                        <ProtectedRoute path="/booking" component={BookingForm} />
+                        <ProtectedRoute path='/booking/show/:bookingId/:time/:date' component={BookingShow}/>
+                        <ProtectedRoute path="/booking/:restId/:date/:resTime/:party" component={BookingForm} />
                     </Switch>
                 </div>
             <Route path='/' component={Footer}/>
