@@ -89,6 +89,7 @@ html {
 
 /* line 68, /Users/Will2/Desktop/myTable/app/assets/stylesheets/reset.scss */
 .inner-body {
+  position: absolute;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: fit-content auto;

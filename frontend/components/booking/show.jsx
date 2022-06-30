@@ -26,10 +26,8 @@ const BookingShow = (props) => {
 	today.setHours(23, 59, 59, 998);
 	const tentativeDate = new Date(date)
 	tentativeDate.setFullYear(2022)
+	tentativeDate.setHours(23, 59, 59, 998)
 	const completed = (today > tentativeDate)
-	console.log(`date = ${tentativeDate}`)
-	console.log(`today = ${today}`)
-	console.log(today > tentativeDate)
 
 	// debugger;
 	useEffect(() => {
