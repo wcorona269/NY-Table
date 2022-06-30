@@ -120,21 +120,32 @@ input[type=checkbox].input-checkbox:checked {
 	align-items: center;
 	justify-content: center;
 
+	div {
+		position: relative;
+		display: flex;
+		justify-content: center;
+		width: 73px;
+		z-index: 0;
+	}
+
+	div:hover {
+		text-decoration: none;
+	}
 
 	label {
 		// cursor: pointer;
     display: block;
-    padding: 0.75rem;
+    padding: 0.75rem 0;
 		position: relative;
 		display: inline-block;
 		align-items: center;
 		background-color: white;
 		border: 0.1rem solid #d8d9db;
 		width: 73px;
-		justify-content: center;
+		justify-content: space-around;
 		text-align: center;
-		// height: 42px;
 		border-radius: 4px;
+		// z-index: 1000;
 	}
 
 	label:hover {
@@ -154,20 +165,21 @@ input[type=checkbox].input-checkbox:checked {
     position: absolute;
 	}
 
-	input[type=checkbox]:checked {
+
+
+	input[type=checkbox].input-checkbox:checked + label {
+		// appearance:inherit;
 		accent-color: $ash-darker;
+		background-color: $ash-darker;
+		background: $ash-darker;
 		color: #fff;
 	}
 
 	span {
-		color: $ash-darker;
-		// z-index: 2;
 		text-align: center;
 		width: 100%;
-	}
-
-	span:hover {
-		color: #fff;
+		height: 100%;
+		z-index: -1;
 	}
 
 	button {

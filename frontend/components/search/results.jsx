@@ -7,22 +7,20 @@ import RestaurantCard from './index_card';
 import SearchBar from './searchbar'
 
 const SearchResultsContainer = (props) => {
-	
+
 	const dispatch = useDispatch();
 	// const location = useLocation();
 	const {input, time, party, date} = useParams();
 	let rests = Object.values(useSelector(state => state.entities.rests))
 	const initial = Object.values(rests.filter(rest => rest.name.includes(input) || rest.neighborhood.includes(input) || rest.cuisines.includes(input)))
 	const [filtered, setFiltered] = useState([...initial])
-	// setFiltered(Object.values(rests.filter(rest => rest.name.includes(input) || rest.neighborhood.includes(input) || rest.cuisines.includes(input))))
-	// console.log(filtered)
 	const cuisines = initial.map(rest => rest.cuisines)
 	let priceRanges = initial.map(rest => rest.price_range)
 	let filteredPriceRanges = priceRanges.filter((v, i, a) => a.indexOf(v) === i)
 	let filteredCuisines = cuisines.filter((v, i, a) => a.indexOf(v) === i)
 	filteredPriceRanges = filteredPriceRanges.sort()
 	const [cuisineFilters, setCuisineFilters] = useState([])
-	let priceFilters = []
+	const [priceFilters, setPriceFilters] = useState([])
 
 	useEffect(() => {
 		dispatch(fetchRests())
@@ -30,6 +28,7 @@ const SearchResultsContainer = (props) => {
 		}, [])
 
 	useEffect(() => {
+
 	}, [rests, filtered])
 
 
@@ -45,55 +44,63 @@ const SearchResultsContainer = (props) => {
 	}
 
 	useEffect(() => {
-
 		let arr = [...filtered]
 
 		if (!!cuisineFilters.length) {
-			console.log(cuisineFilters.join(' ').includes('Seafood'))
-			// debugger;
 			setFiltered(arr.filter(rest => cuisineFilters.some(ele => ele.includes(rest.cuisines))))
-		} else {
-			// console.log(cuisineFilters)
+		}
+		if (!!priceFilters.length) {
+			setFiltered(arr.filter(rest => priceFilters.some(ele => ele == rest.price_range)))
+		}
+		if (!cuisineFilters.length && !priceFilters.length) {
 			setFiltered([...initial])
 		}
-	}, [cuisineFilters])
+	}, [cuisineFilters, priceFilters])
 
 	const togglePriceFilter = (e) => {
+		console.log(e.currentTarget.checked)
+		let arr = [...priceFilters]
 		let int = parseInt(e.target.name)
-		let idx = priceFilters.indexOf(int)
-		if (idx == -1 && !isNaN(int)) {
-			priceFilters.push(int)
-		} 
-		if (idx !== -1 && !isNaN(int)) {
-			priceFilters.splice(idx, 1)
+
+		if (e.currentTarget.checked) {
+			setPriceFilters([...arr, int]);
+		} else {
+			setPriceFilters(arr.filter(ele => ele !== int))
 		}
+		setFiltered([...initial])
 	}
 
 	const priceDisplay = (range, idx) => {
 		return range == 1 ? (
-			<label htmlFor={`price-button-${idx}`} key={idx} onClick={togglePriceFilter} className='input-label'>
-				<input type='checkbox' id={`price-button-${idx}`} name={range} className='input-checkbox'/>
-				<span>$</span>
-			</label>
+			<div>
+				<input type='checkbox' id={`price-button-${idx}`} name={range} className='input-checkbox' onChange={togglePriceFilter}/>
+				<label htmlFor={`price-button-${idx}`} key={idx} className='input-label'>
+					<span>$</span>
+				</label>
+			</div>
 		) : range == 2 ? (
-			<label htmlFor={`price-button-${idx}`} key={idx} onClick={togglePriceFilter} className='input-label'>
-				<input type='checkbox' id={`price-button-${idx}`} name={range} className='input-checkbox'/>
-				<span>$$</span>
-			</label>
+			<div>
+				<input type='checkbox' id={`price-button-${idx}`} name={range} className='input-checkbox' onChange={togglePriceFilter}/>
+				<label htmlFor={`price-button-${idx}`} key={idx}  className='input-label'>
+					<span>$$</span>
+				</label>
+			</div>
 		) : range == 3 ? (
-			<label htmlFor={`price-button-${idx}`} key={idx} onClick={togglePriceFilter} className='input-label'>
-				<input type='checkbox' id={`price-button-${idx}`} name={range} className='input-checkbox'/>
-				<span>$$$</span>
-			</label>
+			<div>
+				<input type='checkbox' id={`price-button-${idx}`} name={range} className='input-checkbox' onChange={togglePriceFilter}/>
+				<label htmlFor={`price-button-${idx}`} key={idx} className='input-label'>
+					<span>$$$</span>
+				</label>
+			</div>
 		) : (
-			<label htmlFor={`price-button-${idx}`} key={idx} onClick={togglePriceFilter} className='input-label'>
-				<input type='checkbox' id={`price-button-${idx}`} name={range} className='input-checkbox'/>
-				<span>$$$$</span>
-			</label>
+			<div>
+				<input type='checkbox' id={`price-button-${idx}`} name={range} className='input-checkbox' onChange={togglePriceFilter}/>
+				<label htmlFor={`price-button-${idx}`} key={idx} className='input-label'>
+					<span>$$$$</span>
+				</label>
+			</div>
 		)
 	}
-
-
 
 	const validSearch = (
 		<div className='search-results-container'>
@@ -145,7 +152,7 @@ const SearchResultsContainer = (props) => {
 					</h2>
 				</section>
 				<div id='restaurant-cards'>
-					{filtered.map((rest, idx) => <RestaurantCard rest={rest} time={time} date={date} key={idx}/>)}
+					{filtered.map((rest, idx) => <RestaurantCard rest={rest} time={time} date={date} party={party} key={idx}/>)}
 				</div>
 			</div>
 		</div>

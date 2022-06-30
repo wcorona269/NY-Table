@@ -3,7 +3,9 @@ import { useDispatch } from 'react-redux';
 import { Link, useHistory, useLocation, useParams, withRouter } from 'react-router-dom';
 
 const TimeButtons = (props) => {
-	const {time} = props;
+
+	const {time, date, party, restId} = props;
+	console.log(restId)
 	let newTime
 	let split = time.split(":")
 	let hrs = parseInt(split[0])
@@ -66,31 +68,48 @@ const TimeButtons = (props) => {
 		btn5 = `${h.toString()}:45 ${amPm}`;
 	}
 
+	const handleClick = (btn) => {
+		let time = Object.values(btn)
+		console.log(time)
+		let splitted = time[0].split(" ")
+		time = splitted[0].split(':')
+		let h = parseInt(time[0])
+		let m = time[1]
+		console.log(splitted[1] == 'PM')
+
+		if (h < 12 && splitted[1] == 'PM') {
+			h += 12
+		}
+		time = `${h}:${m}`
+		
+		history.push(`/booking/${restId}/${date}/${time}/${party}`)
+	}
+
 	return (
 		<div className='buttons-container'>
 			<ul>
 				<li>
-					<button>
+					<button onClick={() => handleClick({btn1})}>
 						{btn1}
 					</button>
 				</li>
 				<li>
-					<button>
+					<button onClick={() => handleClick({btn2})}>
 						{btn2}
 					</button>
 				</li>
 				<li>
-					<button>
+					<button onClick={() => handleClick({btn3})}>
 						{btn3} 
 					</button>
 				</li>
 				<li>
-					<button>
+					<button onClick={() => handleClick({btn4})}>
 						{btn4}
 					</button>
 				</li>
 				<li>
-					<button>
+					<button onClick={() => handleClick({btn5})}>
 						{btn5}
 					</button>
 				</li>

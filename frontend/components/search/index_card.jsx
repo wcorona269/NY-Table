@@ -4,7 +4,7 @@ import { DynamicStar } from 'react-dynamic-star';
 import { icSocialProof } from 'otkit-icons/token.theme.common';
 import TimeButtons from '../booking/time_buttons';
 
-const RestaurantCard = ({rest, time, date}) => {
+const RestaurantCard = ({rest, time, date, party}) => {
 	let rating = parseFloat(rest.avg_rating).toFixed(1)
 
 	const gagueQuality = (rating) => {
@@ -76,7 +76,7 @@ const RestaurantCard = ({rest, time, date}) => {
 					/>
 					Booked {rest.bookings_count} times today
 				</div>
-				<TimeButtons time={time} date={date}/>
+				<TimeButtons restId={rest.id} time={time} date={date} party={party}/>
 			</div>
 		</div>
 	)

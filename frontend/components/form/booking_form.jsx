@@ -10,8 +10,6 @@ const BookingForm = (props) => {
 	const dispatch = useDispatch();
 	const location = useLocation();
 	const {restId, date, resTime, party} = useParams()
-	// debugger;
-	// LOCAL STORAGE TO PERSIST STATE ON REFRESH
 
 	useEffect(() => {
 		dispatch(fetchRests())
@@ -22,8 +20,6 @@ const BookingForm = (props) => {
 	const userId = user[0].id
 	const userEmail = user[0].email
 	const userPhone = user[0].phone
-	// const userEmail = props.location.state.currentUser.email;
-	// const userPhone = props.location.state.currentUser.phone;
 	const [booking, setBooking] = useState({
 		date: new Date(date).toDateString(),
 		time: resTime,

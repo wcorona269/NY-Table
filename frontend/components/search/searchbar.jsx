@@ -84,8 +84,10 @@ const SearchBar = () => {
 		return input.length ? (
 			history.push({
 				pathname: `/search/${input}/${search.time}/${search.party}/${search.date}`
-			})
+			}),
+			window.location.reload()
 		) : (null)
+
 	}
 
 	return (

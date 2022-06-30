@@ -118,7 +118,7 @@ class RightColumn extends React.Component {
 									Time
 								</label>
 								<select className='res-select' onChange={this.updateTime}>
-									<option value='11;00'>11:00 AM</option>
+									<option value='11:00'>11:00 AM</option>
 									<option value='11:30'>11:30 AM</option>
 									<option defaultValue value='12:00'>12:00 PM</option>
 									<option value='12:30'>12:30 PM</option>
