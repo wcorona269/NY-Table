@@ -6,7 +6,7 @@ import TimeButtons from '../booking/time_buttons';
 
 const RestaurantCard = ({rest, time, date, party}) => {
 	let rating = parseFloat(rest.avg_rating).toFixed(1)
-
+	
 	const gagueQuality = (rating) => {
 		return rating > 4.5 ? (
 			'Exceptional'

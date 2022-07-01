@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import ScrollBarContainer from './scrollbar/scrollbar_container';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchRests } from '../../actions/rest_actions';
 
 const CatList = ({title, key}) => {
 	const dispatch = useDispatch()
-	const rests = Object.values(useSelector(state => state.entities.rests))
+	let rests = Object.values(useSelector(state => state.entities.rests))
 
 	useEffect(() => {
 		dispatch(fetchRests())
@@ -31,6 +31,8 @@ const CatList = ({title, key}) => {
 		return array;
 	}
 
+	rests = shuffle(rests)
+
 	return (
 		<>
 			<div className="categories-section-container">
@@ -41,12 +43,12 @@ const CatList = ({title, key}) => {
 								{title}
 							</h2>
 						</div>
-						<a className="view-all-button">
+						<Link to={{pathname:'/restaurants/all', state:{ rests: rests }}} className="view-all-button">
 							View all
-						</a>
+						</Link>
 					</header>
 					<div className="outer-scroll-container">
-						<ScrollBarContainer key={key} rests={shuffle(rests)}/>
+						<ScrollBarContainer key={key} rests={rests}/>
 					</div>
 				</section>
 			</div>

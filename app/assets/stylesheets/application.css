@@ -37,4 +37,5 @@
  @import './delete_booking.scss';
  @import './booking_update.scss';
  @import './time_buttons.scss';
+ @import './index.scss';
  /* @import 'react-datepicker/dist/react-datepicker-cssmodules.css'; */
