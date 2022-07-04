@@ -99,6 +99,16 @@
 .user-calendar-dropdown-button {
 	@extend %user-nav-btn;
 	margin-right: 5px;
+	position: relative;
+
+	div {
+		background-color: #da3743;
+    border-radius: 50%;
+    left: 20px;
+    padding: 4px;
+    position: absolute;
+    top: 4px;
+	}
 }
 
 .user-abt-dropdown-button {

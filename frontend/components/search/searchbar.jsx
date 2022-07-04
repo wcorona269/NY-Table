@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { closeModal } from '../../actions/modal_actions';
 import { useHistory, useLocation, withRouter, useParams } from 'react-router-dom';
 import { icCalendar, icPerson, icClock, icDown, icSearch } from 'otkit-icons/token.theme.common';
 import DatePicker from 'react-datepicker';
@@ -8,6 +9,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 const SearchBar = () => {
 
 	const history = useHistory();
+	const dispatch = useDispatch();
 
 	var criteria = Object.values(useSelector(state => (state.entities.rests))).flatMap(el => [el.cuisines, el.name, el.neighborhood])
 	var lowerCriteria = Object.values(useSelector(state => (state.entities.rests))).flatMap(el => [el.cuisines.toLowerCase(), el.name.toLowerCase(), el.neighborhood.toLowerCase()])
@@ -85,10 +87,11 @@ const SearchBar = () => {
 			history.push({
 				pathname: `/search/${input}/${search.time}/${search.party}/${search.date}`
 			}),
-			window.location.reload()
-		) : (null)
-
+			window.location.reload(),
+			dispatch(closeModal())
+			) : (null)
 	}
+
 
 	return (
 		<div>

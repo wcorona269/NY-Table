@@ -436,7 +436,7 @@ end
 
 rest12 = Restaurant.create!(
 	name: "Grand Central Oyster Bar",
-	description: "If you thought getting a table at Per Se was tough, try getting into Rao's. On second thought, don't. Rao's (pronounced “RAY-ohs”) is really a private club without the dues. To eat here, you'll need a personal invite from one of the heavy hitters who “owns” a table. These CEOs, actors, politicians, news personalities and neighborhood old-timers established a long-standing arrangement with the late, legendary owner Frankie “No” Pellegrino, and that's what ensures a seat at one of the ten tables at the Italian-American icon. In fact, reading this review is probably the closest you'll get to Rao's.",
+	description: "The oldest restaurant in Grand Central, this landmark has one of the largest and freshest seafood menus in the city. Here, you’ll find 25 types of fish and up to 30 varieties of oysters, along with other seafood specialties, including the world-famous pan roast. All of this is matched with an award-winning wine list featuring 80 selections by the glass. Open every day for lunch and dinner. Reservations are recommended. Come on in. The seafood’s fine.",
 	cuisines: "Seafood",
 	price_range: 2,
 	neighborhood: "Midtown East",

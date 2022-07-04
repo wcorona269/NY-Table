@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
-import Review from '../reviews/review';
+import ReviewsIndex from '../reviews/review';
 import ReviewsHeader from './reviews_header';
 
 class Reviews extends React.Component {
@@ -85,8 +85,14 @@ class Reviews extends React.Component {
 		return (this.props.reviews.length) ? (
 			<section className='reviews-container' id='reviews-id'>
 				<ReviewsHeader reviews={reviews} averages={averages} overalls={overalls}/>
-				<ol>
-					<Review reviews={reviews}/>
+				{/* <div>
+				<select defaultValue = 'newest'>
+					<option value='newest'>Newest</option>
+					<option>Oldest</option>
+				</select>
+				</div> */}
+				<ol id='reviews-ol'>
+					<ReviewsIndex reviews={reviews}/>
 				</ol>
 			</section>
 		) : (null)

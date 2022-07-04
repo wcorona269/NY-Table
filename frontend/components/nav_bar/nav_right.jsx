@@ -20,6 +20,7 @@ class NavRight extends React.Component {
 
 		this.signupModal = this.signupModal.bind(this);
 		this.loginModal = this.loginModal.bind(this);
+		this.searchModal = this.searchModal.bind(this);
 	}
 
 	signupModal() {
@@ -28,6 +29,10 @@ class NavRight extends React.Component {
 
 	loginModal() {
 		this.props.showModal("login")
+	}
+
+	searchModal() {
+		this.props.showModal("search")
 	}
 
 	render () {
@@ -40,7 +45,7 @@ class NavRight extends React.Component {
 				<AbtDropdown/>
 				<div id="user-nav-right-search-button-container" className="user-nav-right-button-container">
 					<div id="user-search" className="user-nav-right-search-wrapper">
-						<button className="user-search-popout-button">
+						<button className="user-search-popout-button" onClick={this.searchModal}>
 							<img id="search-img"  src={`data:image/svg+xml;utf8,${icSearch}`} href="#"/>
 						</button>
 					</div>

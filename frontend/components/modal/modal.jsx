@@ -5,6 +5,7 @@ import SignupFormContainer from "../form/signup_form_container";
 import LoginFormContainer from '../form/login_form_container';
 import CancelBookingModal from '../booking/delete';
 import GalleryModal from '../restaurant/gallery_modal';
+import SearchModal from '../search/search_modal';
 import { closeModal } from '../../actions/modal_actions';
 import { icClose } from 'otkit-icons/token.theme.common';
 
@@ -44,8 +45,11 @@ class Modal extends React.Component {
 				const idx = modal.idx
 				component = <GalleryModal photos={photos} idx={idx}/>
 				break;
-			// case "review":
-			// 	component = <
+			case "search":
+				component = <SearchModal/>
+				break;
+			// case "review"
+			// component = <ReviewFormModal/>
 			default:
 				return null;
 		}

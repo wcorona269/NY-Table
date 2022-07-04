@@ -94,12 +94,80 @@
 	padding: 8px 16px;
 }
 
-
 #res-drop {
 	@extend %user-drops;
 	right: 14.5%;
-	height: fit-content;
+	min-height: fit-content;
+	max-height: 25.9375rem;
+	overflow: hidden;
+
+	img {
+		height: 1.2rem;
+		width: 1.2rem;
+		vertical-align: text-bottom;
+		margin-right: 4px;
+	}
 }
+
+#res-drop > div {
+	overflow-y: scroll !important;
+	overflow-x: hidden;
+	min-height: 150px;
+	max-height: fit-content;
+	min-height: fit-content;
+}
+
+#upcoming-dropdown {
+	scroll-behavior: smooth;
+	overflow-y: auto;
+	overflow-x: hidden;
+	max-height: 300px;
+}
+
+#res-drop-li {
+	padding: 0px !important;
+	margin: none;
+	color: #2d333f;
+	font-size: 14px;
+	outline: none;
+	// padding-bottom: 4px;
+	text-decoration: none;
+	overflow-y: auto;
+	overflow-x: scroll;
+	border-bottom: 0.0625rem solid #d8d9db;
+	display: flex;
+	flex-direction: row !important;
+	font-weight: 500;
+	line-height: 1.4;
+	line-height: 20px;
+	padding: 16px 0 !important;
+	
+
+	h6 {
+		margin-bottom: 4px;
+		font-weight: 700;
+	}
+
+	span {
+		background: $ash-lightest;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border: 1px solid $ash-darker;
+		border-radius: 50%;
+		height: 32px;
+		width: 32px;
+		margin-right: 4px;
+	}
+}
+
+#amenities {
+	width: 22px !important;
+	height: 22px !important;
+	margin: 0px !important;
+}
+
+
 
 #abt-drop {
 	@extend %user-drops;
@@ -118,6 +186,8 @@
 
 #res-drop-title {
 	@extend %drop-titles;
+	position: relative;
+
 }
 
 #abt-drop-title {

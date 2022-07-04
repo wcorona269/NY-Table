@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { DynamicStar } from 'react-dynamic-star';
 import { icReview } from 'otkit-icons/token.theme.common';
 
-const Review = ({reviews}) => {
+const ReviewsIndex = ({reviews}) => {
 
 	return (
 		reviews.map((review, idx) => 
@@ -52,4 +52,4 @@ const Review = ({reviews}) => {
 
 }
 
-export default withRouter(Review);
+export default withRouter(ReviewsIndex);

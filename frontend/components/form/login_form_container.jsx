@@ -44,7 +44,7 @@ const LoginFormContainer = () => {
     e.preventDefault();
     let demoUser = {
       email: 'guest@mytable.com',
-      password: 'guest'
+      password: 'guestuser'
     }
 
     dispatch(login(demoUser))
