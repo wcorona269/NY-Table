@@ -58,7 +58,6 @@ const SearchResultsContainer = (props) => {
 	}, [cuisineFilters, priceFilters])
 
 	const togglePriceFilter = (e) => {
-		console.log(e.currentTarget.checked)
 		let arr = [...priceFilters]
 		let int = parseInt(e.target.name)
 

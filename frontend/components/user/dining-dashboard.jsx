@@ -23,10 +23,11 @@ const UserDiningDashboard = (props) => {
 	bookings.map((booking, idx) => {
 		let parts = booking.date.split('-');
 		let today = new Date();
-		today.setHours(23, 59, 59, 998);
 		parts = `${parts[1]}-${parts[2]}-${parts[0]}`
-		let date = new Date(parts);
-		date > today ? upcoming.push(booking) : past.push(booking)
+		let bookingDate = new Date(parts);
+		let now = new Date()
+		bookingDate.setHours(23, 59, 59, 998);
+		bookingDate > today ? upcoming.push(booking) : past.push(booking)
 	})
 	
 	return (

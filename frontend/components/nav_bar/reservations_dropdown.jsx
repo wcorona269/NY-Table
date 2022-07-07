@@ -19,14 +19,28 @@ const ResDropdown = ({resDropdown}) => {
 	const user = Object.values(useSelector(state => state.entities.users))
 	const bookings = user[0].bookings
 	let today = new Date();
-	today.setDate(today.getDate() - 1)
+	today.setDate(today.getD)
 	today.setHours(23, 59, 59, 998);
-	const futureBookings = bookings.filter(booking => new Date(booking.date) > today && !booking.cancelled)
-	console.log(futureBookings.map(booking => booking.date))
+
+	const timeDistinction = (date) => {
+
+		// set booking date to end of today
+		// filter if booking date > current date and time
+		let parts = date.split('-');
+		parts = `${parts[1]}-${parts[2]}-${parts[0]}`
+		let bookingDate = new Date(parts);
+		bookingDate.setHours(23, 59, 59, 998);
+
+		let today = new Date();
+		return (bookingDate > today)
+	}
+
+	const futureBookings = bookings.filter((booking) => (
+		timeDistinction(booking.date) && !booking.cancelled)
+	)
+	
 	let rests = Object.values(useSelector(state => state.entities.rests))
 	rests = rests.map(rest => rest.name)
-	console.log(futureBookings)
-	console.log(rests)
 
 	useEffect(() => {
 

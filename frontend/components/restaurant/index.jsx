@@ -21,7 +21,6 @@ const RestIndexContainer = (props) => {
 	useEffect(() => {
 		if (location.state) {
 			let { rests } = location.state
-			// console.log(rests)
 			setRestIndex([...rests])
 		} else {
 			dispatch(fetchRests()).then(res => setRestIndex((Object.values(res.rests))))

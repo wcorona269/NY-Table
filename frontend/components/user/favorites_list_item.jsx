@@ -17,7 +17,6 @@ const FavoritesListItem = ({fav}) => {
 	return (
 		<div className='favorite-list-item-container'>
 			<div>
-{				console.log(fav.id)}
 				<div id='rest-row-info'>
 					<Link to={`/restaurants/${fav.id}`}>
 						<img id='rest-row-info-img' src={fav.icon} />
@@ -44,7 +43,7 @@ const FavoritesListItem = ({fav}) => {
 							{fav.cuisines} | {fav.neighborhood}
 						</p>
 					</div>
-					<Link to={`/restaurants/${fav.id}`}>
+					<Link to={`/restaurants/${fav.restaurant.id}`}>
 						<button>
 							Reserve Now
 						</button>

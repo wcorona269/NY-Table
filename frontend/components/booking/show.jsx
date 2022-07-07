@@ -117,7 +117,6 @@ const BookingShow = (props) => {
 
 	return restaurant && booking ? (
 		<div className='res-confirmation-container'>
-			{/* {console.log(userId)} */}
 			<section className='res-confirm-left'>
 				<div>
 					<div>

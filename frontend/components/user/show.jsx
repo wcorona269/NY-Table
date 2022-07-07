@@ -22,7 +22,6 @@ const UserShow = (props) => {
 	}, [])
 
 	useEffect(() => {
-		console.log(window.location.hash)
 		if (window.location.hash == `#/my/profile/${user[0].id}/dining-dashboard`) {
 			setShowDash(true)
 			setShowSaved(false)

@@ -5,7 +5,6 @@ import { Link, useHistory, useLocation, useParams, withRouter } from 'react-rout
 const TimeButtons = (props) => {
 
 	const {time, date, party, restId} = props;
-	console.log(restId)
 	let newTime
 	let split = time.split(":")
 	let hrs = parseInt(split[0])
@@ -70,12 +69,10 @@ const TimeButtons = (props) => {
 
 	const handleClick = (btn) => {
 		let time = Object.values(btn)
-		console.log(time)
 		let splitted = time[0].split(" ")
 		time = splitted[0].split(':')
 		let h = parseInt(time[0])
 		let m = time[1]
-		console.log(splitted[1] == 'PM')
 
 		if (h < 12 && splitted[1] == 'PM') {
 			h += 12
