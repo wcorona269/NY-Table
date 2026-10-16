@@ -9,8 +9,12 @@ class ApplicationController < ActionController::Base
         !!current_user
     end
 
+    # Reuse the user's current token so signing in on one device (or as the
+    # shared guest account) doesn't sign out every other session. Logging out
+    # rotates the token, which ends all sessions for that user.
     def login(user)
-        session[:session_token] = user.reset_session_token!
+        user.reset_session_token! if user.session_token.blank?
+        session[:session_token] = user.session_token
     end
 
     def logout!
