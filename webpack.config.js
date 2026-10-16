@@ -1,23 +1,20 @@
 const path = require('path');
-// const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
+
+const isProduction = process.env.NODE_ENV === 'production';
 
 module.exports = {
   target: "web",
+  mode: isProduction ? 'production' : 'development',
   entry: './frontend/mytable.jsx',
   output: {
     path: path.resolve(__dirname, 'app', 'assets', 'javascripts'),
     filename: 'bundle.js',
     sourceMapFilename: 'bundle.js.map',
   },
-
-  
-  
   module: {
-    
-    // loaders: 'babel-loader',
     rules: [
       {
-        test: [/\.js?$/, /\.jsx?$/, /\.(jpg|png|svg)$/], 
+        test: [/\.js?$/, /\.jsx?$/, /\.(jpg|png|svg)$/],
         exclude: /(node_modules)/,
         use: {
           loader: 'babel-loader',
@@ -32,12 +29,9 @@ module.exports = {
       },
     ]
   },
-  devtool: 'source-map',
-  // devServer: {
-  //   contentBase: 'public',
-  //   watchContentBase: true,
-  //   hot: true,
-  // },
+  // Full source maps only in development; production gets a lighter map
+  // that doesn't ship readable source, to keep the bundle small.
+  devtool: isProduction ? 'nosources-source-map' : 'source-map',
   resolve: {
     extensions: ['', '.js', '.jsx', '*', '.png', '.css'],
   },
