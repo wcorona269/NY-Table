@@ -19,7 +19,7 @@ end
 json.menu_items do
 	@restaurant.menu_items.each do |item|
 		json.set! item.id do
-			json.extract! item, :item
+			json.extract! item, :id, :rest_id, :item
 		end
 	end
 end
