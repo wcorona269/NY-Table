@@ -1,7 +1,8 @@
+import ajax from './ajax';
 
 export const fetchAllFavorites = () => {
 	return (
-		$.ajax({
+		ajax({
 		method: 'GET',
 		url: '/api/favorites'
 	})
@@ -10,7 +11,7 @@ export const fetchAllFavorites = () => {
 
 export const fetchFavorite = favId => {
 	return (
-		$.ajax({
+		ajax({
 			method: 'GET',
 			url: `/api/favorites/${favId}`
 		})
@@ -19,7 +20,7 @@ export const fetchFavorite = favId => {
 
 export const createFavorite = favorite => {
 	return (
-		$.ajax({
+		ajax({
 			method: 'POST',
 			url: `/api/favorites`,
 			data: { favorite }
@@ -29,7 +30,7 @@ export const createFavorite = favorite => {
 
 export const deleteFavorite = (favId) => {
 	return (
-		$.ajax({
+		ajax({
 			method: 'DELETE',
 			url: `/api/favorites/${favId}`
 		})

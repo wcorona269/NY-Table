@@ -1,188 +1,106 @@
 import React, { useState, useEffect } from "react";
-import {signup, removeSessionErrors} from '../../actions/session_actions';
+import { useDispatch } from "react-redux";
+import DialogContent from "@mui/material/DialogContent";
+import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
+import Divider from "@mui/material/Divider";
+import Link from "@mui/material/Link";
+import { signup, login, removeSessionErrors, RECEIVE_CURRENT_USER } from '../../actions/session_actions';
 import { closeModal, showModal } from "../../actions/modal_actions";
-import { icClose } from 'otkit-icons/token.theme.common';
-import { withRouter } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { GUEST_USER } from "./login_form_container";
 
-const SignupFormContainer = () => {
-	useEffect(() => {
-		return () => {
-			dispatch(removeSessionErrors())
-		}
-	}, [])
+const FIELDS = [
+	{ name: 'fname', label: 'First name', autoComplete: 'given-name', half: true },
+	{ name: 'lname', label: 'Last name', autoComplete: 'family-name', half: true },
+	{ name: 'email', label: 'Email', type: 'email', autoComplete: 'email' },
+	{ name: 'phone', label: 'Phone number', type: 'tel', autoComplete: 'tel' },
+	{ name: 'dname', label: 'Display name', helperText: 'Shown on your reviews. Avoid using your full name or email.' },
+	{ name: 'password', label: 'Password', type: 'password', autoComplete: 'new-password', helperText: 'At least 6 characters.' },
+];
 
+// Map Rails' full error messages ("Fname can't be blank") onto form fields.
+const ERROR_PREFIXES = { Fname: 'fname', Lname: 'lname', Email: 'email', Phone: 'phone', Dname: 'dname', Password: 'password' };
+
+const parseErrors = (messages = []) => messages.reduce((acc, msg) => {
+	const prefix = Object.keys(ERROR_PREFIXES).find(p => msg.startsWith(p));
+	if (prefix) {
+		const field = ERROR_PREFIXES[prefix];
+		const text = msg.slice(prefix.length).trim();
+		acc[field] = acc[field] || text.charAt(0).toUpperCase() + text.slice(1);
+	}
+	return acc;
+}, {});
+
+const SignupForm = () => {
 	const dispatch = useDispatch();
-	const errors = useSelector(state => state.errors.session);
+	const [formUser, setFormUser] = useState({ dname: '', fname: '', lname: '', email: '', phone: '', password: '' });
+	const [errors, setErrors] = useState({});
+	const [submitting, setSubmitting] = useState(false);
 
-	const [formUser, setFormUser] = useState({
-		dname: '',
-		fname: '',
-		lname: '',
-		email: '',
-		phone: '',
-		password: '',
-	})
+	useEffect(() => () => dispatch(removeSessionErrors()), []);
 
-	const [dNameErr, setDNameError] = useState(false)
-	const [fNameErr, setFNameError] = useState(false)
-	const [lNameErr, setLNameError] = useState(false)
-	const [emailError, setEmailError] = useState(false)
-	const [phoneError, setPhoneError] = useState(false)
-	const [passError, setPassError] = useState(false)
+	const updateInfo = (e) => {
+		const { name, value } = e.target;
+		setErrors({ ...errors, [name]: undefined });
+		setFormUser({ ...formUser, [name]: name === 'phone' ? value.replace(/\D/g, '').slice(0, 10) : value });
+	};
 
-	useEffect(() => {
-		if (Array.isArray(errors)) {
-			errors.map(err => {
-					if (err.includes('Lname')) {
-							setLNameError(true)
-					} else if (err.includes('Fname')) {
-							setFNameError(true)
-					} else if (err.includes('Email')) {
-							setEmailError(true)
-					} else if (err.includes('Password')) {
-							setPassError(true)
-					} else if (err.includes('Dname')) {
-							setDNameError(true)
-					} else if (err.includes('Phone')) {
-							setPhoneError(true)
-					}
-			})
+	const handleResult = (action) => {
+		setSubmitting(false);
+		if (action.type === RECEIVE_CURRENT_USER) {
+			dispatch(closeModal());
+		} else {
+			setErrors(parseErrors(action.errors));
 		}
-	}, [errors]);
+	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		dispatch(signup(formUser)).then(() => dispatch(closeModal()))
-	}
-
-	const handleClose = () => {
-		dispatch(closeModal())
-		dispatch(removeSessionErrors())
-	}
-
-	const updateInfo = (e) => {
-		const {name, value} = e.target
-
-		if (name == 'fname') {
-			setFNameError(false)
-		} else if (name == 'lname') {
-			setLNameError(false)
-		} else if (name == 'dname') {
-			setDNameError(false)
-		} else if (name == 'email') {
-			setEmailError(false)
-		} else if (name == 'password') {
-			setPassError(false)
-		} else if (name == 'phone') {
-			setPhoneError(false)
-		}
-
-		setFormUser({ ...formUser, [name]: value })
+		setSubmitting(true);
+		dispatch(signup(formUser)).then(handleResult);
 	};
 
-  const handleDemoSubmit = (e) => {
-    e.preventDefault();
-    let demoUser = {
-      email: 'guest@nytable.com',
-      password: 'guestuser'
-    }
-
-    dispatch(login(demoUser))
-      .then(() => dispatch(closeModal()))
-  }
-
-	const showLoginForm = (e) => {
-		e.preventDefault();
-		dispatch(closeModal()).then(dispatch(showModal('login')))
-	}
+	const handleGuest = () => {
+		setSubmitting(true);
+		dispatch(login(GUEST_USER)).then(handleResult);
+	};
 
 	return (
-		<div className='auth-form-container'>
-			<form className="auth-form" onSubmit={handleSubmit}>
-				<div className="auth-content-container">
-					<div className="auth-form-x-btn-wrapper">
-						<div onClick={() => dispatch(closeModal())} className="auth-form-x-btn-container">
-							<img className="auth-form-x-button-image" src={`data:image/svg+xml;utf8,${icClose}`}/>
-						</div>
-					</div>
-				<div className="auth-content-header">Sign Up</div>
-					{/* <br/> */}
-					<div className="auth-content-sub-header">Fill out required fields to continue.</div>
-					<input
-						className={phoneError && 'error-input'}
-						type="tel"
-						placeholder="Phone number"
-						maxLength="12"
-						value={formUser.phone}
+		<DialogContent sx={{ p: { xs: 3, sm: 4 }, pt: { xs: 7, sm: 5 } }}>
+			<Typography variant="h5" component="h2">Create an account</Typography>
+			<Typography color="text.secondary" sx={{ mt: 0.5, mb: 3 }}>Book tables at the best spots in the city.</Typography>
+			<Stack component="form" onSubmit={handleSubmit} noValidate
+				sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2 }}>
+				{FIELDS.map(({ name, half, helperText, ...rest }) => (
+					<TextField
+						key={name}
+						name={name}
+						value={formUser[name]}
 						onChange={updateInfo}
-						name='phone'
+						error={Boolean(errors[name])}
+						helperText={errors[name] || helperText}
+						sx={{ gridColumn: half ? 'auto' : '1 / -1' }}
+						{...rest}
 					/>
-					{phoneError && <div id='auth-form-error'>Please enter a 10-digit phone number</div>}
-					<br/>
-					<input
-						className={fNameErr && 'error-input'}
-						type="text"
-						placeholder="First name"
-						value={formUser.fname}
-						onChange={updateInfo}
-						name='fname'
-					/>
-					{fNameErr && <div id='auth-form-error'>Please enter your first name</div>}
-					<br />
-					<input
-						className={lNameErr && 'error-input'}
-						type="text"
-						placeholder="Last name"
-						value={formUser.lname}
-						onChange={updateInfo}
-						name='lname'
-					/>
-					{lNameErr && <div id='auth-form-error'>Please enter your surname</div>}
-					<br />
-					<input 
-						className={emailError && 'error-input'}						
-						type="text"
-						placeholder="Email"
-						value={formUser.email}
-						onChange={updateInfo}
-						name='email'
-					/>
-					{emailError && <div id='auth-form-error'>Please enter a valid Email</div>}
-					<br />
-					<input
-						className={dNameErr && 'error-input'}
-						type="text"
-						placeholder="Review display name"
-						value={formUser.dname}
-						onChange={updateInfo}
-						name='dname'
-					/>
-					{dNameErr && <div id='auth-form-error'>Please enter a display name</div>}
-					<br />
-					<small className="form-small">
-						This is a name that will be shown whenever you leave a review. Remember to not use your full name or email.	
-					</small>
-					<br/>
-					<input 
-						className={passError && 'error-input'}
-						type="password"
-						placeholder="Password"
-						value={formUser.password}
-						onChange={updateInfo}
-						name='password'
-						/>
-					{passError && <div id='auth-form-error'>Password is too short (minimum is 6 characters)</div>}
-					<br />
-					<br />
-					<button id="auth-button" className="auth-field" type="submit">Continue</button>
-					<br/>
-					<p className='guest-login-message'>Already have an account?<span onClick={showLoginForm}>Login</span></p>
-          <p className='guest-login-message'>Don't want to sign up? <span onClick={handleDemoSubmit}>Login as Guest</span></p>
-				</div>
-			</form>
-		</div>
-	)
-}
+				))}
+				<Button type="submit" variant="contained" size="large" disabled={submitting} sx={{ gridColumn: '1 / -1' }}>
+					Create account
+				</Button>
+			</Stack>
+			<Divider sx={{ my: 3 }}>or</Divider>
+			<Button fullWidth variant="outlined" size="large" onClick={handleGuest} disabled={submitting}>
+				Continue as guest
+			</Button>
+			<Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 3 }}>
+				Already have an account?{' '}
+				<Link component="button" type="button" fontWeight={600} color="text.primary" onClick={() => dispatch(showModal('login'))}>
+					Sign in
+				</Link>
+			</Typography>
+		</DialogContent>
+	);
+};
 
-export default withRouter(SignupFormContainer);
+export default SignupForm;

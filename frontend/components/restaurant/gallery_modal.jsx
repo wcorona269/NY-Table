@@ -1,69 +1,58 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { icBack, icAdvance } from 'otkit-icons/token.theme.common';
-import { closeModal } from '../../actions/modal_actions';
+import Dialog from '@mui/material/Dialog';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import CloseIcon from '@mui/icons-material/Close';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
-const GalleryModal = ({photos, idx}) => {
-	const dispatch = useDispatch();
-	const [display, setDisplay] = useState(false)
-	const [index, setIndex] = useState(idx)
-	const [backBtn, setBackBtn] = useState()
-	const [advBtn, setAdvBtn] = useState()
+const navButtonSx = {
+	position: 'absolute',
+	top: '50%',
+	transform: 'translateY(-50%)',
+	bgcolor: 'rgba(255,255,255,0.15)',
+	color: 'common.white',
+	'&:hover': { bgcolor: 'rgba(255,255,255,0.3)' },
+};
+
+const GalleryModal = ({ photos = [], idx = 0, onClose }) => {
+	const [index, setIndex] = useState(Number(idx) || 0);
+	const last = photos.length - 1;
+	const prev = () => setIndex(i => Math.max(i - 1, 0));
+	const next = () => setIndex(i => Math.min(i + 1, last));
 
 	useEffect(() => {
-		photos ? setDisplay(true) : setDisplay(false)
-	}, [photos])
+		const onKey = (e) => {
+			if (e.key === 'ArrowLeft') prev();
+			if (e.key === 'ArrowRight') next();
+		};
+		window.addEventListener('keydown', onKey);
+		return () => window.removeEventListener('keydown', onKey);
+	}, [last]);
 
-	useEffect(() => {
-		index == 0 ? setBackBtn(false) : setBackBtn(true)
-		index == photos.length -1 ? setAdvBtn(false) : setAdvBtn(true)
-	}, [index])
+	return (
+		<Dialog open fullScreen onClose={onClose} PaperProps={{ sx: { bgcolor: 'rgba(0,0,0,0.94)', borderRadius: 0 } }}>
+			<IconButton onClick={onClose} aria-label="Close gallery" sx={{ position: 'absolute', right: 16, top: 16, color: 'common.white', zIndex: 1 }}>
+				<CloseIcon />
+			</IconButton>
+			<Box sx={{ position: 'relative', flex: 1, display: 'grid', placeItems: 'center', p: { xs: 1, md: 8 } }}>
+				<Box component="img" src={photos[index]} alt={`Photo ${index + 1}`}
+					sx={{ maxWidth: '100%', maxHeight: 'calc(100vh - 120px)', objectFit: 'contain', borderRadius: 2 }} />
+				{index > 0 && (
+					<IconButton onClick={prev} aria-label="Previous photo" sx={{ ...navButtonSx, left: { xs: 8, md: 24 } }}>
+						<ChevronLeftIcon fontSize="large" />
+					</IconButton>
+				)}
+				{index < last && (
+					<IconButton onClick={next} aria-label="Next photo" sx={{ ...navButtonSx, right: { xs: 8, md: 24 } }}>
+						<ChevronRightIcon fontSize="large" />
+					</IconButton>
+				)}
+			</Box>
+			<Typography align="center" sx={{ color: 'grey.400', pb: 3 }}>{index + 1} / {photos.length}</Typography>
+		</Dialog>
+	);
+};
 
-	const handleButtonClick = (e) => {
-		e.preventDefault();
-		if (e.target.id == 'back' && index > 0) {
-			let back = +index - 1
-			setIndex(back)
-		} else if (e.target.id == 'advance' && index < photos.length - 1) {
-			let adv = +index + 1
-			setIndex(adv)
-		}
-	}
-
-	const handleClose = (e) => {
-		e.preventDefault();
-		if (e.target.id == 'outer-gallery-container') {
-			dispatch(closeModal())
-		}
-	}
-
-	return display && (
-		<div id='outer-gallery-container' onClick={handleClose}>
-			<div className='gallery-modal-container'>
-				<button id='back'>
-				{ backBtn &&
-					<i
-						id='back'
-						class="directional-btn fa-solid fa-angle-left"
-						onClick={handleButtonClick}
-					/>
-				}
-				</button>
-				<img id='modal-img' src={photos[index]}/>
-
-				<button id='advance'>
-				{advBtn && 
-					<i 
-						id='advance' 
-						className="directional-btn fa-solid fa-angle-right"
-						onClick={handleButtonClick}
-					/>
-				}
-				</button>
-			</div>
-		</div>
-	)
-}
-
-export default withRouter(GalleryModal);
+export default GalleryModal;

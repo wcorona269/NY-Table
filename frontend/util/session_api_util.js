@@ -1,6 +1,7 @@
+import ajax from './ajax';
 
 export const login = user => (
-    $.ajax({
+    ajax({
         method: 'POST',
         url: '/api/session',
         data: { user }
@@ -8,14 +9,14 @@ export const login = user => (
 );
 
 export const logout = () => (
-    $.ajax({
+    ajax({
         method: 'DELETE',
         url: '/api/session',
     })
 );
 
 export const signup = user => (
-	$.ajax({
+	ajax({
 			method: 'POST',
 			url: '/api/users',
 			data: { user }
@@ -23,10 +24,9 @@ export const signup = user => (
 );
 
 export const updateUser = user => (
-    $.ajax({
+    ajax({
         method: 'PATCH',
         url: `/api/users/${user.id}`,
         data: { user }
     })
 )
-

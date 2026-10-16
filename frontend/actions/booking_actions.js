@@ -48,25 +48,15 @@ export const removeBookingErrors = () => {
 	}
 }
 
-export const fetchAllBookings = () => dispatch => {
-	return bookingApiUtil.fetchAllBookings()
-			.then(bookings => dispatch(receiveBookings(bookings)))
-};
-
-export const fetchBookings = data => dispatch => (
-	bookingApiUtil.fetchBookings(data)
+// The bookings index is scoped server-side to the current user.
+export const fetchMyBookings = () => dispatch => (
+	bookingApiUtil.fetchBookings()
 		.then(bookings => dispatch(receiveBookings(bookings)))
 );
 
 export const createBooking = booking => dispatch => (
 	bookingApiUtil.createBooking(booking)
 		.then(booking => dispatch(receiveBooking(booking)),
-		errors => receiveBookingErrors(errors.responseJSON))
-)
-
-export const fetchUserBookings = (userId) => dispatch => (
-	bookingApiUtil.fetchUserBookings(userId)
-		.then(bookings => dispatch(receiveBookings(bookings)),
 		errors => dispatch(receiveBookingErrors(errors.responseJSON)))
 )
 
@@ -82,7 +72,7 @@ export const fetchBooking = id => dispatch => (
 		errors => dispatch(receiveBookingErrors(errors.responseJSON)))
 )
 
-export const deleteBooking = bookingId => dispatch (
+export const deleteBooking = bookingId => dispatch => (
 	bookingApiUtil.deleteBooking(bookingId)
 		.then(booking => dispatch(removeBooking(booking.id)))
 )

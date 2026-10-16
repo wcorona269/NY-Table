@@ -14,8 +14,8 @@ module.exports = {
   module: {
     rules: [
       {
-        test: [/\.js?$/, /\.jsx?$/, /\.(jpg|png|svg)$/],
-        exclude: /(node_modules)/,
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
           options: {
@@ -23,27 +23,12 @@ module.exports = {
           }
         }
       },
-      {
-        test: [/\.css$/i, /\.scss$/i],
-        use: ["style-loader", "css-loader", "sass-loader"],
-      },
     ]
   },
   // Full source maps only in development; production gets a lighter map
   // that doesn't ship readable source, to keep the bundle small.
   devtool: isProduction ? 'nosources-source-map' : 'source-map',
   resolve: {
-    extensions: ['', '.js', '.jsx', '*', '.png', '.css'],
+    extensions: ['.js', '.jsx'],
   },
-
-  devServer: {
-    before(app, server) {
-      server._watch(`src/*/**.html`);
-    },
-    contentBase: path.join(__dirname, 'src'),
-    watchContentBase: true,
-    hot: true,
-  }
 };
-
-

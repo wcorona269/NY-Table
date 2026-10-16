@@ -1,96 +1,47 @@
-import React, {useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
+import DialogContent from '@mui/material/DialogContent';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import Alert from '@mui/material/Alert';
 import { closeModal } from "../../actions/modal_actions";
-import { deleteBooking } from "../../actions/booking_actions";
-import { icCalendar, icPerson, icClose } from 'otkit-icons/token.theme.common';
-import { withRouter, useHistory, Link } from "react-router-dom";
-import { updateBooking } from '../../actions/booking_actions';
+import { updateBooking, RECEIVE_BOOKING } from '../../actions/booking_actions';
+import { formatDate, formatTime, partyLabel } from '../../util/format';
 
-const CancelBookingModal = (props) => {
-	const dispatch = useDispatch()
-	const history = useHistory();
-	const booking = useSelector(state => state.entities.bookings);
-	const rests = Object.values(useSelector(state => state.entities.rests));
-	const rest = rests[0];
-	const [updated, setUpdated] = useState({
-		id: booking.id,
-		date: booking.date,
-		time: booking.time,
-		rest_id: booking.rest_id,
-		user_id: booking.user_id,
-		party_size: booking.party_size,
-		special_request: booking.special_request,
-		occasion: booking.occasion,
-		cancelled: true
-	});
+const CancelBookingModal = ({ bookingId }) => {
+	const dispatch = useDispatch();
+	const booking = useSelector(state => state.entities.bookings[bookingId]);
+	const [error, setError] = useState(false);
+	const [submitting, setSubmitting] = useState(false);
 
-	const handleClick = () => {
-		dispatch(updateBooking(updated));
-		dispatch(closeModal())
-		window.location.reload()
-	}
+	if (!booking) return null;
 
-	const parseTime = (time) => {
-		time = time.split('T');
-		time = time[1].split('.');
-		time = time[0];
-		time = time.split(":")
-		let hrs = parseInt(time[0])
-		if (hrs < 12) return hrs + ':' + time[1] + ' AM'
-		if (hrs == 12) return hrs + ':' + time[1] + ' PM'
-		hrs = hrs % 12;
-		let newTime = hrs + ':' + time[1] + ' PM'
-		return newTime
-	}
-
-	useEffect(() => {
-		rest
-	}, [rest])
-
-	const parseDate = (date) => {
-		date = date.split('-');
-		date = `${date[1]}-${date[2]}-${date[0]}`
-		date = new Date(date)
-		date = date.toDateString();
-		let split = date.split(' ');
-		return `${split[0]}, ${split[1]} ${split[2]}`
-	}
+	const handleCancel = () => {
+		setSubmitting(true);
+		dispatch(updateBooking({ id: booking.id, cancelled: true })).then(action => {
+			setSubmitting(false);
+			if (action.type === RECEIVE_BOOKING) dispatch(closeModal());
+			else setError(true);
+		});
+	};
 
 	return (
-		<div className='cancel-booking-container'>
-			<div onClick={() => dispatch(closeModal())} className="auth-form-x-btn-container">
-				<img className="auth-form-x-button-image" src={`data:image/svg+xml;utf8,${icClose}`}/>
-			</div>
-			<div className='cancel-info'>
-				<p>
-					Are you sure you want to cancel this reservation?
-				</p>
-				<div>
-					<h2>
-						{rest.name}
-					</h2>
-					<div id='res-cancel-info'>
-						<span>
-							<img id="res-info-img" src={`data:image/svg+xml;utf8,${icPerson}`}/>
-						 	{booking.party_size} People
-						</span>
-						<span id='res-info-date'>
-							<img id="res-info-img" src={`data:image/svg+xml;utf8,${icCalendar}`}/>
-							{parseDate(booking.date)} at {parseTime(booking.time)}
-						</span>
-					</div>
-				</div>
-			</div>
-			<div id='cancel-bar'>
-				<a onClick={() => dispatch(closeModal())}>
-					Nevermind
-				</a>
-				<button onClick={handleClick}>
-					Cancel
-				</button>
-			</div>
-		</div>
-	)
-}
+		<DialogContent sx={{ p: { xs: 3, sm: 4 }, pt: { xs: 7, sm: 5 } }}>
+			<Typography variant="h5" component="h2">Cancel reservation?</Typography>
+			<Typography sx={{ mt: 2, fontWeight: 700 }}>{booking.restaurant?.name}</Typography>
+			<Typography color="text.secondary">
+				{formatDate(booking.date)} at {formatTime(booking.time)} · {partyLabel(booking.party_size)}
+			</Typography>
+			{error && <Alert severity="error" sx={{ mt: 2 }}>Something went wrong. Please try again.</Alert>}
+			<Stack direction="row" spacing={1.5} justifyContent="flex-end" sx={{ mt: 4 }}>
+				<Button onClick={() => dispatch(closeModal())}>Keep it</Button>
+				<Button variant="contained" color="error" onClick={handleCancel} disabled={submitting}>
+					Cancel reservation
+				</Button>
+			</Stack>
+		</DialogContent>
+	);
+};
 
-export default withRouter(CancelBookingModal);
+export default CancelBookingModal;

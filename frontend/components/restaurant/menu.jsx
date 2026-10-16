@@ -1,48 +1,27 @@
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { clearMenuItems } from '../../actions/menu_item_actions';
+import React from 'react';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
-const Menu = ({menuItems}) => {
-	const dispatch = useDispatch();
-
-	useEffect(() => {
-		return () => {
-			dispatch(clearMenuItems())
-		}
-	}, [menuItems])
-
-	const menuList = (items) => {
-		return items.map((item) =>
-			<li key={item.id}>
-				<h4>
-					<span>{item.item[0]}</span>
-					<span>${item.item[2]}</span>
-				</h4>
-				<p>
-					{item.item[1]}
-				</p>
-			</li>
-		)
-	}
+// Menu items are stored as [name, description, price].
+const Menu = ({ menuItems }) => {
+	if (!menuItems.length) return null;
 
 	return (
-		<section className='menu-container' id='menu-id'>
-			<header className='menu-header'>
-				<div>
-					<h2>
-						Menu
-					</h2>
-				</div>
-			</header>
-			<article className='menu'>
-				<ul>
-					{menuList(menuItems)}
-				</ul>
-			</article>
-		</section>
-	)
-}
+		<Box component="section" id="menu">
+			<Typography variant="h5" component="h2" sx={{ mb: 2 }}>Menu</Typography>
+			<Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' }, columnGap: 4 }}>
+				{menuItems.map(({ id, item: [name, description, price] }) => (
+					<Box key={id} sx={{ py: 2, borderBottom: 1, borderColor: 'divider' }}>
+						<Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 2 }}>
+							<Typography fontWeight={700}>{name}</Typography>
+							<Typography fontWeight={700}>${price}</Typography>
+						</Box>
+						<Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>{description}</Typography>
+					</Box>
+				))}
+			</Box>
+		</Box>
+	);
+};
 
-export default withRouter(Menu);
-
+export default Menu;

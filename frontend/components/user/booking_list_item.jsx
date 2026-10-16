@@ -1,116 +1,37 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { withRouter, Link } from 'react-router-dom';
-import { fetchRest } from '../../actions/rest_actions';
-import { icCalendar, icPerson, icClose, icReservation } from 'otkit-icons/token.theme.common';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import Card from '@mui/material/Card';
+import CardActionArea from '@mui/material/CardActionArea';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Chip from '@mui/material/Chip';
+import Button from '@mui/material/Button';
+import { bookingStatus } from '../booking/show';
+import { formatDate, formatTime, partyLabel } from '../../util/format';
 
+const BookingListItem = ({ booking }) => {
+	const status = bookingStatus(booking);
+	const restaurant = booking.restaurant || {};
 
-const BookingListItem = ({booking, completed}) => {
-	const dispatch = useDispatch();
-	const rests = Object.values(useSelector(state => state.entities.rests));
-	const user = Object.values(useSelector(state => state.entities.users));
-	const currentUser = user[0];
-	let restName;
-	let restaurant;
+	return (
+		<Card>
+			<CardActionArea component={Link} to={`/reservations/${booking.id}`} sx={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'stretch' }}>
+				<Box component="img" src={booking.icon} alt="" sx={{ width: { xs: 96, sm: 140 }, objectFit: 'cover', flexShrink: 0 }} />
+				<Box sx={{ p: 2, minWidth: 0, flex: 1 }}>
+					<Typography fontWeight={700} noWrap>{restaurant.name}</Typography>
+					<Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
+						{formatDate(booking.date)} at {formatTime(booking.time)} · {partyLabel(booking.party_size)}
+					</Typography>
+					<Chip size="small" icon={status.icon} label={status.label} color={status.color} variant="outlined" sx={{ mt: 1.5 }} />
+				</Box>
+			</CardActionArea>
+			{status.key === 'completed' && (
+				<Box sx={{ px: 2, pb: 1.5, pt: 0.5, borderTop: 1, borderColor: 'divider' }}>
+					<Button size="small" component={Link} to={`/review/${booking.rest_id}`} sx={{ ml: -1 }}>Leave a review</Button>
+				</Box>
+			)}
+		</Card>
+	);
+};
 
-	useEffect(() => {
-		dispatch(fetchRest(booking.rest_id));
-	}, [])
-
-	rests.map((rest, idx) => {
-		if (rest.id == booking.rest_id) {
-			restName = rest.name
-			restaurant = rest;
-		}
-	})
-
-	const bookingStatus = () => {
-		if (completed && !booking.cancelled) {
-			return (
-				<>
-					<img src={`data:image/svg+xml;utf8,${icReservation}`}/>
-					Booking Completed
-				</>
-			)
-		}
-		return !booking.cancelled ? (
-			<div>
-			<i className="fa-solid fa-circle-check"></i>
-			Reservation Confirmed
-		</div>
-		) : (
-			<div>
-				<i class="fa-solid fa-circle-xmark"></i>
-				Reservation Cancelled
-			</div>
-		)
-	}
-
-	const parseDate = (date) => {
-		date = date.split('-');
-		date = `${date[1]}-${date[2]}-${date[0]}`
-		date = new Date(date)
-		date = date.toDateString();
-		let split = date.split(' ');
-		if (!completed) return `${split[0]}, ${split[1]} ${split[2]}`;
-		return `${split[1]} ${split[2]}`;
-	}
-
-	const parseTime = (time) => {
-		time = time.split('T');
-		time = time[1].split('.');
-		time = time[0];
-		time = time.split(":")
-		let hrs = parseInt(time[0])
-		if (hrs < 12) return hrs + ':' + time[1] + ' AM'
-		if (hrs == 12) return hrs + ':' + time[1] + ' PM'
-		hrs = hrs % 12;
-		let newTime = hrs + ':' + time[1] + ' PM'
-		return newTime
-	}
-
-	const DateDetails = (date, time) => {
-		return !completed ? (
-			<>
-				{parseDate(date)} at {parseTime(time)}
-			</>
-		) : (
-			<>
-				{parseDate(date)}
-			</>
-		)
-	}
-
-	return !restaurant ? (null) : (
-		<Link to={{
-			pathname:`/booking/show/${booking.id}/${parseTime(booking.time)}/${parseDate(booking.date)}`,
-			state: {
-				completed: true
-			}
-		}}
-			id='res-list-box'>
-			<img src={restaurant.icon}/>
-			<div>
-				<h3>
-					{restName}
-				</h3>
-				<span>
-					{bookingStatus()}
-				</span>
-				<span id='fine-details'>
-					<span>
-						<img src={`data:image/svg+xml;utf8,${icPerson}`}/>
-						{booking.party_size}
-					</span>
-					<span>
-					<img src={`data:image/svg+xml;utf8,${icCalendar}`}/>
-						{DateDetails(booking.date, booking.time)}
-					</span>
-				</span>
-				{ completed && <Link id='review-link' to={`/review/create/${booking.rest_id}`}>Leave a review</Link>}
-			</div>
-		</Link>
-	)
-}
-
-export default withRouter(BookingListItem);
+export default BookingListItem;

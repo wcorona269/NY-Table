@@ -1,41 +1,57 @@
-import React, { useEffect } from 'react';
-import PastReservations from './past';
-import UpcomingReservations from './upcoming';
-import { useDispatch, useSelector } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { fetchBookings } from '../../actions/booking_actions';
-import { clearBookings } from '../../actions/booking_actions';
-import Past from './past';
+import React, { useMemo } from 'react';
+import { Link } from 'react-router-dom';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import BookingListItem from './booking_list_item';
+import { useBookings } from '../../util/selectors';
+import { isUpcoming } from '../../util/format';
 
-const UserDiningDashboard = (props) => {
-	const dispatch = useDispatch();
+const byDate = (a, b) => (a.date + a.time).localeCompare(b.date + b.time);
 
-	const user = Object.values(useSelector(state => state.entities.users));
-	const bookings = user[0].bookings;
-	let upcoming = [];
-	let past = [];
+const Empty = ({ children }) => (
+	<Box sx={{ p: 3, border: 1, borderStyle: 'dashed', borderColor: 'divider', borderRadius: 4, textAlign: 'center' }}>
+		<Typography color="text.secondary">{children}</Typography>
+	</Box>
+);
 
+const UserDiningDashboard = () => {
+	const bookings = useBookings();
 
-	useEffect(() => {
-		window.scrollTo(0, 0)
-	}, [])
+	const { upcoming, past } = useMemo(() => {
+		const upcoming = bookings.filter(b => !b.cancelled && isUpcoming(b.date)).sort(byDate);
+		const past = bookings.filter(b => b.cancelled || !isUpcoming(b.date)).sort(byDate).reverse();
+		return { upcoming, past };
+	}, [bookings]);
 
-	bookings.map((booking, idx) => {
-		let parts = booking.date.split('-');
-		let today = new Date();
-		parts = `${parts[1]}-${parts[2]}-${parts[0]}`
-		let bookingDate = new Date(parts);
-		let now = new Date()
-		bookingDate.setHours(23, 59, 59, 998);
-		(bookingDate > today && !booking.cancelled) ? upcoming.push(booking) : past.push(booking)
-	})
-	
 	return (
-		<div>
-			<UpcomingReservations upcoming={upcoming}/>
-			<PastReservations past={past}/>
-		</div>
-	)
-}
+		<Stack spacing={5}>
+			<Box>
+				<Typography variant="h5" component="h2" sx={{ mb: 2 }}>Upcoming reservations</Typography>
+				{upcoming.length ? (
+					<Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', lg: '1fr 1fr' }, gap: 2 }}>
+						{upcoming.map(b => <BookingListItem key={b.id} booking={b} />)}
+					</Box>
+				) : (
+					<Empty>
+						You have no upcoming reservations.{' '}
+						<Button component={Link} to="/restaurants" size="small">Find a table</Button>
+					</Empty>
+				)}
+			</Box>
+			<Box>
+				<Typography variant="h5" component="h2" sx={{ mb: 2 }}>Past reservations</Typography>
+				{past.length ? (
+					<Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', lg: '1fr 1fr' }, gap: 2 }}>
+						{past.map(b => <BookingListItem key={b.id} booking={b} />)}
+					</Box>
+				) : (
+					<Empty>You have no past reservations.</Empty>
+				)}
+			</Box>
+		</Stack>
+	);
+};
 
-export default withRouter(UserDiningDashboard);
+export default UserDiningDashboard;

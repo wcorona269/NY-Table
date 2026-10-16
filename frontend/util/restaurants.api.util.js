@@ -1,7 +1,8 @@
+import ajax from './ajax';
 
 export const fetchRests = data => {
 	return (
-		$.ajax({
+		ajax({
 			url: '/api/restaurants',
 			data
 		})
@@ -10,9 +11,8 @@ export const fetchRests = data => {
 
 export const fetchRest = restId => {
 	return (
-		$.ajax({
+		ajax({
 			url: `/api/restaurants/${restId}`
 		})
 	)
 }
-

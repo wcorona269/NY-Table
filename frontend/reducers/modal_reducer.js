@@ -5,9 +5,9 @@ const modalReducer = (oldState = {}, action) => {
 
 	switch(action.type) {
 		case SHOW_MODAL:
-			return {...oldState, modal: action.modal }
+			return { modal: action.modal, ...action.props }
 		case SHOW_GALLERY:
-			return {...oldState, modal: action.modal, photos: action.photos, idx: action.idx }
+			return { modal: action.modal, photos: action.photos, idx: action.idx }
 		case CLOSE_MODAL:
 			return {};
 		default:

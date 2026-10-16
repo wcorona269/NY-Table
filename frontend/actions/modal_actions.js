@@ -9,9 +9,11 @@ export const showGallery = (modal, photos, idx) => ({
 	idx: idx
 })
 
-export const showModal = (modal) => ({
+// `props` is passed through to the modal component (e.g. { bookingId }).
+export const showModal = (modal, props = {}) => ({
 	type: SHOW_MODAL,
-	modal: modal
+	modal: modal,
+	props
 });
 
 export const closeModal = () => ({

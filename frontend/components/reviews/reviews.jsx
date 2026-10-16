@@ -1,69 +1,72 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import ReviewsIndex from '../reviews/review';
+import React, { useMemo, useState } from 'react';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import MenuItem from '@mui/material/MenuItem';
+import Stack from '@mui/material/Stack';
+import Review from './review';
 import ReviewsHeader from './reviews_header';
-import { clearReviews } from '../../actions/review_actions';
 
-const getAverageReviews = (reviews) => {
-	const averages = { overall: [], food: [], service: [], ambience: [] };
+const PAGE_SIZE = 6;
 
-	reviews.forEach(review => {
-		averages.overall.push(review.overall)
-		averages.food.push(review.food)
-		averages.service.push(review.service)
-		averages.ambience.push(review.ambience)
-	})
+const average = (reviews, key) => (
+	reviews.length ? reviews.reduce((sum, r) => sum + r[key], 0) / reviews.length : 0
+);
 
-	const num = averages.overall.length;
+const SORTS = {
+	newest: (a, b) => b.id - a.id,
+	highest: (a, b) => b.overall - a.overall,
+	lowest: (a, b) => a.overall - b.overall,
+};
 
-	return {
-		overall: (averages.overall.reduce((a, b) => a + b, 0) / num).toFixed(1),
-		food: (averages.food.reduce((a, b) => a + b, 0) / num).toFixed(1),
-		service: (averages.service.reduce((a, b) => a + b, 0) / num).toFixed(1),
-		ambience: (averages.ambience.reduce((a, b) => a + b, 0) / num).toFixed(1),
-	}
-}
+const Reviews = ({ reviews }) => {
+	const [visible, setVisible] = useState(PAGE_SIZE);
+	const [sort, setSort] = useState('newest');
 
-const overallScoreCounts = (reviews) => {
-	const counts = { one: 0, two: 0, three: 0, four: 0, five: 0 };
-	const labels = { 1: 'one', 2: 'two', 3: 'three', 4: 'four', 5: 'five' };
+	const averages = useMemo(() => ({
+		overall: average(reviews, 'overall'),
+		food: average(reviews, 'food'),
+		service: average(reviews, 'service'),
+		ambience: average(reviews, 'ambience'),
+	}), [reviews]);
 
-	reviews.forEach((review) => {
-		const label = labels[review.overall];
-		if (label) counts[label] += 1;
-	})
+	const distribution = useMemo(() => {
+		const counts = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+		reviews.forEach(r => { counts[r.overall] = (counts[r.overall] || 0) + 1; });
+		Object.keys(counts).forEach(k => { counts[k] = reviews.length ? (100 * counts[k]) / reviews.length : 0; });
+		return counts;
+	}, [reviews]);
 
-	const total = reviews.length * 1.0;
-	return {
-		one: (100 * counts.one) / total,
-		two: (100 * counts.two) / total,
-		three: (100 * counts.three) / total,
-		four: (100 * counts.four) / total,
-		five: (100 * counts.five) / total,
-	}
-}
-
-const Reviews = ({ match }) => {
-	const dispatch = useDispatch();
-	const allReviews = useSelector(state => Object.values(state.entities.reviews));
-
-	useEffect(() => () => dispatch(clearReviews()), []);
-
-	const reviews = allReviews.filter(review => review.rest_id == match.params.restId);
-
-	if (!allReviews.length) return null;
-
-	const averages = getAverageReviews(reviews);
-	const overalls = overallScoreCounts(reviews);
+	const sorted = useMemo(() => [...reviews].sort(SORTS[sort]), [reviews, sort]);
 
 	return (
-		<section className='reviews-container' id='reviews-id'>
-			<ReviewsHeader reviews={reviews} averages={averages} overalls={overalls}/>
-			<ol id='reviews-ol'>
-				<ReviewsIndex reviews={reviews}/>
-			</ol>
-		</section>
-	)
-}
+		<Box component="section" id="reviews">
+			<Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 2 }}>
+				<Typography variant="h5" component="h2">What {reviews.length} people are saying</Typography>
+			</Stack>
+			{reviews.length === 0 ? (
+				<Typography color="text.secondary">No reviews yet. Dine here and be the first!</Typography>
+			) : (
+				<>
+					<ReviewsHeader averages={averages} distribution={distribution} count={reviews.length} />
+					<Stack direction="row" justifyContent="flex-end" sx={{ mt: 3 }}>
+						<TextField select size="small" label="Sort" value={sort} onChange={e => setSort(e.target.value)} sx={{ width: 180 }}>
+							<MenuItem value="newest">Newest</MenuItem>
+							<MenuItem value="highest">Highest rated</MenuItem>
+							<MenuItem value="lowest">Lowest rated</MenuItem>
+						</TextField>
+					</Stack>
+					{sorted.slice(0, visible).map(review => <Review key={review.id} review={review} />)}
+					{visible < sorted.length && (
+						<Button variant="outlined" onClick={() => setVisible(v => v + PAGE_SIZE)} sx={{ mt: 3 }}>
+							Show more reviews
+						</Button>
+					)}
+				</>
+			)}
+		</Box>
+	);
+};
 
 export default Reviews;

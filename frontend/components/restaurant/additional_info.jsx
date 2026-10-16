@@ -1,265 +1,82 @@
 import React from 'react';
-import { icMap, icClock, icPhone, icNeighborhood, icDiningStyle, icDressCode, icPayment, icCuisine } from 'otkit-icons/token.theme.common';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import Link from '@mui/material/Link';
+import PlaceOutlinedIcon from '@mui/icons-material/PlaceOutlined';
+import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined';
+import LocationCityOutlinedIcon from '@mui/icons-material/LocationCityOutlined';
+import RestaurantOutlinedIcon from '@mui/icons-material/RestaurantOutlined';
+import WineBarOutlinedIcon from '@mui/icons-material/WineBarOutlined';
+import CheckroomOutlinedIcon from '@mui/icons-material/CheckroomOutlined';
+import CreditCardOutlinedIcon from '@mui/icons-material/CreditCardOutlined';
+import ScheduleOutlinedIcon from '@mui/icons-material/ScheduleOutlined';
+import { formatPhone } from '../../util/format';
 
+const DINING_STYLE = { 1: 'Casual Dining', 2: 'Casual Dining', 3: 'Casual Elegant', 4: 'Fine Dining' };
+const DRESS_CODE = { 1: 'Casual Dress', 2: 'Casual Dress', 3: 'Business Casual', 4: 'Smart Casual' };
 
-const AdditionalInfo = ({restaurant}) => {
+const paymentOptions = (rest) => {
+	if (rest.name === 'Peter Luger Steak House') return 'Cash, Check or Debit Card';
+	if (rest.price_range === 1) return 'Cash Only';
+	return 'AMEX, Discover, MasterCard, Visa';
+};
 
-	const parsePhone = (phone) => {
-		let str = phone.toString();
-		return `(${str.slice(0, 3)}) ${str.slice(3,6)}-${str.slice(6,10)}`
-	}
+const Info = ({ icon, label, children }) => (
+	<ListItem disableGutters alignItems="flex-start" sx={{ py: 0.75 }}>
+		<ListItemIcon sx={{ minWidth: 36, mt: 0.5, color: 'text.primary' }}>{icon}</ListItemIcon>
+		<ListItemText
+			primary={label}
+			secondary={children}
+			primaryTypographyProps={{ variant: 'body2', fontWeight: 700 }}
+			secondaryTypographyProps={{ variant: 'body2', color: 'text.secondary', component: 'div' }}
+		/>
+	</ListItem>
+);
 
-	const DiningStyleAndDressCode = (rest) => {
-		return rest.price_range <= 2 ? (
-			<>
-				<li>
-					<div className='additional-info-box'>
-						<span>
-							<img src={`data:image/svg+xml;utf8,${icDiningStyle}`}/>
-						</span>
-						<div className='additional-info-text'>
-							<span>
-								Dining Style
-							</span>
-							<p>
-								Casual Dining
-							</p>
-						</div>
-					</div>
-				</li>
-				<li>
-					<div className='additional-info-box'>
-						<span>
-							<img src={`data:image/svg+xml;utf8,${icDressCode}`}/>
-						</span>
-						<div className='additional-info-text'>
-							<span>
-								Dress Code 
-							</span>
-							<p>
-								Casual Dress
-								{/* casual, business casual, smart casual */}
-								{/* {(restaurant.cuisines)} */}
-							</p>
-						</div>
-					</div>
-				</li>
-			</>
-		) : rest.price_range == 3 ? (
-			<>
-				<li>
-					<div className='additional-info-box'>
-						<span>
-							<img src={`data:image/svg+xml;utf8,${icDiningStyle}`}/>
-						</span>
-						<div className='additional-info-text'>
-							<span>
-								Dining Style
-							</span>
-							<p>
-								Casual Elegant
-							</p>
-						</div>
-					</div>
-				</li>
-				<li>
-					<div className='additional-info-box'>
-						<span>
-							<img src={`data:image/svg+xml;utf8,${icDressCode}`}/>
-						</span>
-						<div className='additional-info-text'>
-							<span>
-								Dress Code 
-							</span>
-							<p>
-								Business Casual
-								{/* casual, business casual, smart casual */}
-								{/* {(restaurant.cuisines)} */}
-							</p>
-						</div>
-					</div>
-				</li>
-			</>
-		) : (
-			<>
-				<li>
-					<div className='additional-info-box'>
-						<span>
-							<img src={`data:image/svg+xml;utf8,${icDiningStyle}`}/>
-						</span>
-						<div className='additional-info-text'>
-							<span>
-								Dining Style
-							</span>
-							<p>
-								Fine Dining
-							</p>
-						</div>
-					</div>
-				</li>
-				<li>
-					<div className='additional-info-box'>
-						<span>
-							<img src={`data:image/svg+xml;utf8,${icDressCode}`}/>
-						</span>
-						<div className='additional-info-text'>
-							<span>
-								Dress Code 
-							</span>
-							<p>
-								Smart Casual
-								{/* casual, business casual, smart casual */}
-								{/* {(restaurant.cuisines)} */}
-							</p>
-						</div>
-					</div>
-				</li>
-			</>
-		)
-	}
-
-	const PaymentOptions = (rest) => {
-
-		return rest.price_range == 1 ? (
-			<li>
-				<div className='additional-info-box'>
-					<span>
-						<img src={`data:image/svg+xml;utf8,${icPayment}`}/>
-					</span>
-					<div className='additional-info-text'>
-						<span>
-							Payment Options
-						</span>
-						<p>
-							Cash Only
-						</p>
-					</div>
-				</div>
-			</li>
-		) : rest.name == "Peter Luger Steak House" ? (
-			<li>
-				<div className='additional-info-box'>
-					<span>
-						<img src={`data:image/svg+xml;utf8,${icPayment}`}/>
-					</span>
-					<div className='additional-info-text'>
-						<span>
-							Payment Options
-						</span>
-						<p>
-							Cash, Check or Debit Card
-						</p>
-					</div>
-				</div>
-			</li>
-		) : (
-			<li>
-				<div className='additional-info-box'>
-					<span>
-						<img src={`data:image/svg+xml;utf8,${icPayment}`}/>
-					</span>
-					<div className='additional-info-text'>
-						<span>
-							Payment Options
-						</span>
-						<p>
-							AMEX, Discover, MasterCard, Visa
-						</p>
-					</div>
-				</div>
-			</li>
-		)
-	}
+const AdditionalInfo = ({ restaurant }) => {
+	const mapQuery = encodeURIComponent(`${restaurant.name}, ${restaurant.address}`);
 
 	return (
-		<div className='additional-info'>
-			<h4>
-				Additional Information
-			</h4>
-			<div>
-				<ul>
-					<li>
-						<div className='additional-info-box'>
-							<span>
-								<img src={`data:image/svg+xml;utf8,${icNeighborhood}`}/>
-							</span>
-							<div className='additional-info-text'>
-								<span>
-									Neighborhood
-								</span>
-								<p>
-									{restaurant.neighborhood}
-								</p>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div className='additional-info-box'>
-							<span>
-								<img src={`data:image/svg+xml;utf8,${icPhone}`}/>
-							</span>
-							<div className='additional-info-text'>
-								<span>
-									Phone number
-								</span>
-								<p>
-									{parsePhone(restaurant.phone)}
-								</p>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div className='additional-info-box'>
-							<span>
-								<img src={`data:image/svg+xml;utf8,${icMap}`}/>
-							</span>
-							<div className='additional-info-text'>
-								<span>
-									Address
-								</span>
-								<p>
-									{restaurant.address}
-								</p>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div className='additional-info-box'>
-							<span>
-								<img src={`data:image/svg+xml;utf8,${icCuisine}`}/>
-							</span>
-							<div className='additional-info-text'>
-								<span>
-									Cuisines
-								</span>
-								<p>
-									{(restaurant.cuisines)}
-								</p>
-							</div>
-						</div>
-					</li>
-					{DiningStyleAndDressCode(restaurant)}
-					{PaymentOptions(restaurant)}
-					<li>
-						<div className='additional-info-box'>
-							<span>
-								<img src={`data:image/svg+xml;utf8,${icClock}`}/>
-							</span>
-							<div className='additional-info-text'>
-								<span>
-									Hours of Operation
-								</span>
-								<p>
-									Mon–Thu 11:30 am–10:00 pm Fri, Sat 11:30 am–11:00 pm Sun 11:30 am–9:00 pm
-								</p>
-							</div>
-						</div>
-					</li>
-				</ul>
-			</div>
-		</div>
-	)
-
-}
+		<Box component="section" id="details">
+			<Typography variant="h5" component="h2" sx={{ mb: 2 }}>Location & details</Typography>
+			<Card sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' } }}>
+				<Box
+					component="iframe"
+					title={`Map of ${restaurant.name}`}
+					src={`https://maps.google.com/maps?q=${mapQuery}&z=15&output=embed`}
+					loading="lazy"
+					referrerPolicy="no-referrer-when-downgrade"
+					sx={{ width: '100%', height: '100%', minHeight: 240, border: 0, display: 'block' }}
+				/>
+				<CardContent sx={{ p: 3 }}>
+					<List dense disablePadding>
+						<Info icon={<PlaceOutlinedIcon fontSize="small" />} label="Address">
+							<Link href={`https://maps.google.com/?q=${mapQuery}`} target="_blank" rel="noopener noreferrer" color="inherit">
+								{restaurant.address}
+							</Link>
+						</Info>
+						<Info icon={<PhoneOutlinedIcon fontSize="small" />} label="Phone number">
+							<Link href={`tel:${restaurant.phone}`} color="inherit">{formatPhone(restaurant.phone)}</Link>
+						</Info>
+						<Info icon={<LocationCityOutlinedIcon fontSize="small" />} label="Neighborhood">{restaurant.neighborhood}</Info>
+						<Info icon={<RestaurantOutlinedIcon fontSize="small" />} label="Cuisine">{restaurant.cuisines}</Info>
+						<Info icon={<WineBarOutlinedIcon fontSize="small" />} label="Dining style">{DINING_STYLE[restaurant.price_range]}</Info>
+						<Info icon={<CheckroomOutlinedIcon fontSize="small" />} label="Dress code">{DRESS_CODE[restaurant.price_range]}</Info>
+						<Info icon={<CreditCardOutlinedIcon fontSize="small" />} label="Payment options">{paymentOptions(restaurant)}</Info>
+						<Info icon={<ScheduleOutlinedIcon fontSize="small" />} label="Hours of operation">
+							Mon–Thu 11:30 am–10:00 pm<br />Fri, Sat 11:30 am–11:00 pm<br />Sun 11:30 am–9:00 pm
+						</Info>
+					</List>
+				</CardContent>
+			</Card>
+		</Box>
+	);
+};
 
 export default AdditionalInfo;

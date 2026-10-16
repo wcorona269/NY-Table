@@ -1,199 +1,116 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useMemo, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory, useLocation } from 'react-router-dom';
+import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import MenuItem from '@mui/material/MenuItem';
+import Button from '@mui/material/Button';
+import Autocomplete from '@mui/material/Autocomplete';
+import InputAdornment from '@mui/material/InputAdornment';
+import SearchIcon from '@mui/icons-material/Search';
 import { closeModal } from '../../actions/modal_actions';
-import { useHistory, useLocation, withRouter, useParams } from 'react-router-dom';
-import { icCalendar, icPerson, icClock, icDown, icSearch } from 'otkit-icons/token.theme.common';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+import { useRestaurants } from '../../util/selectors';
+import { TIME_OPTIONS, PARTY_OPTIONS, formatTime, partyLabel, toISODate, defaultSearch } from '../../util/format';
 
-const SearchBar = () => {
+// Reads the current search (if any) from the URL so the bar stays in sync on /search.
+export const useSearchParams = () => {
+	const { search } = useLocation();
+	return useMemo(() => {
+		const params = new URLSearchParams(search);
+		const defaults = defaultSearch();
+		return {
+			q: params.get('q') || '',
+			date: params.get('date') || defaults.date,
+			time: params.get('time') || defaults.time,
+			party: Number(params.get('party')) || defaults.party,
+		};
+	}, [search]);
+};
 
+export const buildSearchUrl = ({ q, date, time, party }) => {
+	const params = new URLSearchParams({ date, time, party });
+	if (q) params.set('q', q);
+	return `/search?${params.toString()}`;
+};
+
+const SearchBar = ({ autoFocus = false, elevated = false }) => {
 	const history = useHistory();
 	const dispatch = useDispatch();
+	const initial = useSearchParams();
+	const restaurants = useRestaurants();
+	const [search, setSearch] = useState(initial);
 
-	var criteria = Object.values(useSelector(state => (state.entities.rests))).flatMap(el => [el.cuisines, el.name, el.neighborhood])
-	var lowerCriteria = Object.values(useSelector(state => (state.entities.rests))).flatMap(el => [el.cuisines.toLowerCase(), el.name.toLowerCase(), el.neighborhood.toLowerCase()])
+	const options = useMemo(() => {
+		const set = new Set();
+		restaurants.forEach(r => [r.name, r.cuisines, r.neighborhood].forEach(v => v && set.add(v)));
+		return [...set].sort();
+	}, [restaurants]);
 
-	const inputRef = useRef();
-	const [date, setDate] = useState(new Date())
-	const [input, setInput] = useState('')
-	const [suggestion, setSuggestion] = useState(false);
-	const [matches, setMatches] = useState([])
-	const [search, setSearch] = useState({
-		text: input,
-		time: '12:00',
-		party: 2,
-		date: new Date()
-	})
+	const update = (field) => (e) => setSearch({ ...search, [field]: e.target.value });
 
-	useEffect(() => {
-		setSearch({ ...search, date: date })
-	}, [date])
-
-	const updateInfo = (e) => {
-		setSearch({ ...search, [e.target.id]: e.target.value })
-	}
-
-	const updateDate = (e) => {
-		setDate(e)
-	}
-
-	const parseDate = (date) => {
-		date = date.toDateString();
-		let split = date.split(' ');
-		return `${split[0]}, ${split[1]} ${split[2]}`
-	}
-
-	const shuffle = (array) => {
-		let currentIndex = array.length,  randomIndex;
-	
-		while (currentIndex != 0) {
-	
-			// Pick a remaining element.
-			randomIndex = Math.floor(Math.random() * currentIndex);
-			currentIndex--;
-	
-			// And swap it with the current element.
-			[array[currentIndex], array[randomIndex]] = [
-				array[randomIndex], array[currentIndex]];
-		}
-	
-		return array;
-	}
-
-	const updateSearchParams = (e) => {
+	const handleSubmit = (e) => {
 		e.preventDefault();
-		setInput(e.target.value)
-		let filtered = lowerCriteria.filter(ele => ele.includes(e.target.value.toLowerCase()))
-		let unique = filtered.filter((v, i, a) => a.indexOf(v) === i)
-
-		if (filtered.length && e.target.value.length) {
-			setSuggestion(true);
-			setMatches(unique.slice(0, 4))
-		}	 else {
-			setSuggestion(false)
-		}
-	}
-
-	const handleSuggestionClick = (e) => {
-		e.preventDefault()
-		inputRef.current.value = e.target.innerText
-		setInput(e.target.innerText)
-		setSuggestion(false)
-	}
-	
-	const handleSearch = (e) => {
-		return input.length ? (
-			history.push({
-				pathname: `/search/${input}/${search.time}/${search.party}/${search.date}`
-			}),
-			window.location.reload(),
-			dispatch(closeModal())
-			) : (null)
-	}
-
+		dispatch(closeModal());
+		history.push(buildSearchUrl({ ...search, q: search.q.trim() }));
+	};
 
 	return (
-		<div>
-			<div>
-				<div id='mod-left'>
-					<div>
-						<img src={`data:image/svg+xml;utf8,${icCalendar}`}/>
-						<DatePicker
-							id='date'
-							className="res-update-select"
-							dateFormat="MM-dd-yy"
-							minDate={new Date()}
-							selected={date}
-							onChange={updateDate}
-						/>
-						<img id='dropdown-img' src={`data:image/svg+xml;utf8,${icDown}`}/>
-					</div>
-					<div>
-						<img src={`data:image/svg+xml;utf8,${icClock}`}/>
-						<select defaultValue='12:00' id='time' className='res-update-select' onChange={updateInfo}>
-							<option value='11:00'>11:00 AM</option>
-							<option value='11:30'>11:30 AM</option>
-							<option value='12:00'>12:00 PM</option>
-							<option value='12:30'>12:30 PM</option>
-							<option value='13:00'>1:00 PM</option>
-							<option value='13:30'>1:30 PM</option>
-							<option value='14:00'>2:00 PM</option>
-							<option value='14:30'>2:30 PM</option>
-							<option value='15:00'>3:00 PM</option>
-							<option value='15:30'>3:30 PM</option>
-							<option value='16:00'>4:00 PM</option>
-							<option value='16:30'>4:30 PM</option>
-							<option value='17:00'>5:00 PM</option>
-							<option value='17:30'>5:30 PM</option>
-							<option value='18:00'>6:00 PM</option>
-							<option value='18:30'>6:30 PM</option>
-							<option value='19:00'>7:00 PM</option>
-							<option value='19:30'>7:30 PM</option>
-							<option value='20:00'>8:00 PM</option>
-							<option value='20:30'>8:30 PM</option>
-							<option value='21:00'>9:00 PM</option>
-							<option value='21:30'>9:30 PM</option>
-							<option value='22:00'>10:00 PM</option>
-							<option value='22:30'>10:30 PM</option>
-							<option value='23:00'>11:00 PM</option>
-						</select>
-						<img id='dropdown-img' src={`data:image/svg+xml;utf8,${icDown}`}/>
-					</div>
-					<div>
-						<img src={`data:image/svg+xml;utf8,${icPerson}`}/>
-						<select defaultValue='2' id='party-size' className='res-update-select' onChange={updateInfo}>
-							<option value='1'>1 person</option>
-							<option value='2'>2 people</option>
-							<option value='3'>3 people</option>
-							<option value='4'>4 people</option>
-							<option value='5'>5 people</option>
-							<option value='6'>6 people</option>
-							<option value='7'>7 people</option>
-							<option value='8'>8 people</option>
-							<option value='9'>9 people</option>
-							<option value='10'>10 people</option>
-							<option value='11'>11 people</option>
-							<option value='12'>12 people</option>
-							<option value='13'>13 people</option>
-							<option value='14'>14 people</option>
-							<option value='15'>15 people</option>
-							<option value='16'>16 people</option>
-							<option value='17'>17 people</option>
-							<option value='18'>18 people</option>
-							<option value='19'>19 people</option>
-							<option value='20'>20 people</option>
-						</select>
-						<img id='dropdown-img' src={`data:image/svg+xml;utf8,${icDown}`}/>
-					</div>
-					{/* <button id='update-button'>
-						Find a new table
-					</button> */}
-				</div>
-			</div>
-			<div id='search-right'>
-				<div className='search-input-container'>
-					<div>
-						<img id='dropdown-img' src={`data:image/svg+xml;utf8,${icSearch}`}/>
-						<input ref={inputRef} type='text' placeholder='Location, Restaurant, or Cuisine' onChange={updateSearchParams}/>
-					</div>
-					{suggestion && 
-					<div id='suggestions-dropdown' onMouseLeave={() => setSuggestion(false)} >
-						<ul>
-							{shuffle(matches).map((ele, idx) => 
-							<li key={idx} onClick={handleSuggestionClick}>
-								{ele}
-							</li>)}
-						</ul>
-					</div>
-					}
-				</div>
-				<button onClick={handleSearch}>
-					Let's Go
-				</button>
-			</div>
-		</div>
-	)
-}
+		<Paper
+			component="form"
+			onSubmit={handleSubmit}
+			elevation={elevated ? 8 : 0}
+			sx={{
+				p: 1.5,
+				display: 'grid',
+				gap: 1.5,
+				gridTemplateColumns: { xs: '1fr 1fr', md: '150px 130px 130px 1fr auto' },
+				border: elevated ? 0 : 1,
+				borderColor: 'divider',
+			}}
+		>
+			<TextField
+				type="date"
+				label="Date"
+				size="small"
+				value={search.date}
+				onChange={update('date')}
+				inputProps={{ min: toISODate() }}
+				InputLabelProps={{ shrink: true }}
+				sx={{ gridColumn: { xs: '1 / -1', md: 'auto' } }}
+			/>
+			<TextField select label="Time" size="small" value={search.time} onChange={update('time')}>
+				{TIME_OPTIONS.map(t => <MenuItem key={t} value={t}>{formatTime(t)}</MenuItem>)}
+			</TextField>
+			<TextField select label="Party" size="small" value={search.party} onChange={update('party')}>
+				{PARTY_OPTIONS.map(n => <MenuItem key={n} value={n}>{partyLabel(n)}</MenuItem>)}
+			</TextField>
+			<Autocomplete
+				freeSolo
+				options={options}
+				inputValue={search.q}
+				onInputChange={(_, value) => setSearch(s => ({ ...s, q: value }))}
+				sx={{ gridColumn: { xs: '1 / -1', md: 'auto' } }}
+				renderInput={(params) => (
+					<TextField
+						{...params}
+						size="small"
+						autoFocus={autoFocus}
+						label="Restaurant, cuisine or neighborhood"
+						InputProps={{
+							...params.InputProps,
+							startAdornment: <InputAdornment position="start"><SearchIcon fontSize="small" /></InputAdornment>,
+						}}
+					/>
+				)}
+			/>
+			<Box sx={{ gridColumn: { xs: '1 / -1', md: 'auto' } }}>
+				<Button type="submit" variant="contained" color="secondary" fullWidth sx={{ height: '100%', minHeight: 40, px: 4 }}>
+					Let's go
+				</Button>
+			</Box>
+		</Paper>
+	);
+};
 
-export default withRouter(SearchBar)
+export default SearchBar;

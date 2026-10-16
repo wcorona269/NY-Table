@@ -1,137 +1,39 @@
 import React from 'react';
-import { DynamicStar } from 'react-dynamic-star'
-import { icNoiseLevel } from 'otkit-icons/token.theme.common';;
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Rating from '@mui/material/Rating';
+import LinearProgress from '@mui/material/LinearProgress';
+import Stack from '@mui/material/Stack';
+import { formatRating } from '../../util/format';
 
-const ReviewsHeader = ({averages, overalls, reviews}) => {
-	return (
-		<>
-			<header className='reviews-header'>
-				<div>
-					<h2>
-						What {reviews.length} people are saying
-					</h2>
-				</div>
-			</header>
-			<section className="overall-section">
-				<h3 className="overall-header">
-					Overall ratings and reviews
-				</h3>
-				<article className="overall-details">
-				<div>
-					Reviews can only be made by diners who have eaten at this restaurant
-				</div>
-				<div className='star-details' >
-					<div>
-						<DynamicStar
-								rating={averages.overall}
-								width={20}
-								height={20}
-								outlined={false}
-								totalStars={5}
-								sharpnessStar={2}
-								fullStarColor="#da3743"
-								emptyStarColor="lightgray"
-							/>
-					</div>
-					<span>
-						{averages.overall} Based on recent reviews
-					</span>
-				</div>
-				<ul className='details-ratings-ul'>
-					<li>
-						<p className='list-rating'>
-							{averages.food}
-						</p>
-						<p className='ratings-cat'>
-							Food
-						</p>
-					</li>	
-					<li>
-						<p className='list-rating'>
-							{averages.service}
-						</p>
-						<p className='ratings-cat'>
-							Service
-						</p>
-					</li>	
-					<li>
-						<p className='list-rating'>
-							{averages.ambience}
-						</p>
-						<p className='ratings-cat'>
-							Ambience
-						</p>
-					</li>	
-				</ul>
-				<div className='noise-rating'>
-					<img src={`data:image/svg+xml;utf8,${icNoiseLevel}`}/>
-					<span>
-						Noise
-					</span>
-					<p>
-						Moderate
-					</p>
-				</div>
-			</article>
-			<article className="overall-graph">
-				<ol>
-					<li>
-						<label>
-							5
-						</label>
-						<meter 
-							id="meter-5"
-						>
-							<div style={{width: `${overalls.five}%`}}/>
-						</meter>
-					</li>
-					<li>
-						<label>
-							4
-						</label>
-						<meter 
-							id="meter-4"
-						>
-							<div style={{width: `${overalls.four}%`}}/>
-						</meter>
-					</li>
-					<li>
-						<label>
-							3
-						</label>
-						<meter 
-							id="meter-3"
-							// value="79.08653846153845" min="0" max="100"
-						>
-							<div style={{width: `${overalls.three}%`}}/>
-						</meter>
-					</li>
-					<li>
-						<label>
-							2
-						</label>
-						<meter 
-							id="meter-2"
-						>
-							<div style={{width: `${overalls.two}%`}}/>
-						</meter>
-					</li>
-					<li>
-						<label>
-							1
-						</label>
-						<meter 
-							id="meter-1"
-						>
-							<div style={{width: `${overalls.one}%`}}/>
-						</meter>
-					</li>					
-					</ol>
-				</article>
-			</section>
-		</>
+const ReviewsHeader = ({ averages, distribution, count }) => (
+	<Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: 'auto 1fr' }, gap: { xs: 3, sm: 5 }, p: 3, bgcolor: 'background.default', borderRadius: 4 }}>
+		<Box>
+			<Typography variant="h2" component="p" lineHeight={1}>{formatRating(averages.overall)}</Typography>
+			<Rating value={Number(averages.overall)} sx={{ mt: 1 }} />
+			<Typography variant="body2" color="text.secondary">Based on {count} reviews</Typography>
+			<Stack direction="row" spacing={3} sx={{ mt: 2 }}>
+				{['food', 'service', 'ambience'].map(key => (
+					<Box key={key}>
+						<Typography fontWeight={800}>{formatRating(averages[key])}</Typography>
+						<Typography variant="caption" color="text.secondary" sx={{ textTransform: 'capitalize' }}>{key}</Typography>
+					</Box>
+				))}
+			</Stack>
+		</Box>
+		<Stack spacing={1} justifyContent="center">
+			{[5, 4, 3, 2, 1].map(star => (
+				<Stack key={star} direction="row" alignItems="center" spacing={1.5}>
+					<Typography variant="body2" fontWeight={700} sx={{ width: 12 }}>{star}</Typography>
+					<LinearProgress
+						variant="determinate"
+						value={distribution[star]}
+						sx={{ flex: 1, height: 8, borderRadius: 4, bgcolor: 'divider', '& .MuiLinearProgress-bar': { bgcolor: '#E8A800', borderRadius: 4 } }}
+					/>
+				</Stack>
+			))}
+		</Stack>
+	</Box>
+);
 
-	)
-}
-
-export default ReviewsHeader
+export default ReviewsHeader;

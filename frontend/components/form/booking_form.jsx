@@ -1,211 +1,148 @@
-import React, { useEffect, useState } from 'react'
-import { withRouter, useLocation, useHistory, useParams } from 'react-router-dom';
-import { icCalendar, icClock, icPerson } from 'otkit-icons/token.theme.common';
-import { createBooking } from '../../actions/booking_actions'
+import React, { useEffect, useMemo, useState } from 'react';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchRests } from '../../actions/rest_actions';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
+import MenuItem from '@mui/material/MenuItem';
+import Button from '@mui/material/Button';
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
+import Skeleton from '@mui/material/Skeleton';
+import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
+import BookingSummary from '../booking/booking_summary';
+import { createBooking, RECEIVE_BOOKING } from '../../actions/booking_actions';
+import { fetchRest } from '../../actions/rest_actions';
+import { selectCurrentUser } from '../../util/selectors';
+import { defaultSearch, formatPhone } from '../../util/format';
 
-const BookingForm = (props) => {
+const OCCASIONS = ['Birthday', 'Anniversary', 'Date Night', 'Business Meal', 'Celebration'];
+const HOLD_SECONDS = 300;
+
+const useCountdown = (seconds) => {
+	const [left, setLeft] = useState(seconds);
+	useEffect(() => {
+		if (left <= 0) return;
+		const t = setTimeout(() => setLeft(left - 1), 1000);
+		return () => clearTimeout(t);
+	}, [left]);
+	return left;
+};
+
+const BookingForm = () => {
 	const history = useHistory();
 	const dispatch = useDispatch();
-	const location = useLocation();
-	const {restId, date, resTime, party} = useParams()
+	const { restId } = useParams();
+	const { search } = useLocation();
+	const params = useMemo(() => {
+		const p = new URLSearchParams(search);
+		const d = defaultSearch();
+		return { date: p.get('date') || d.date, time: p.get('time') || d.time, party: Number(p.get('party')) || d.party };
+	}, [search]);
+
+	const restaurant = useSelector(state => state.entities.rests[restId]);
+	const user = useSelector(selectCurrentUser);
+	const [details, setDetails] = useState({ occasion: '', special_request: '' });
+	const [error, setError] = useState(null);
+	const [submitting, setSubmitting] = useState(false);
+	const left = useCountdown(HOLD_SECONDS);
 
 	useEffect(() => {
-		dispatch(fetchRests())
-	}, [])
+		if (!restaurant?.icon && !restaurant?.iconUrl) dispatch(fetchRest(restId));
+	}, [restId]);
 
-	const restaurant = useSelector(state => state.entities.rests[restId])
-	const user = Object.values(useSelector(state => state.entities.users))
-	const userId = user[0].id
-	const userEmail = user[0].email
-	const userPhone = user[0].phone
-	const [booking, setBooking] = useState({
-		date: new Date(date).toDateString(),
-		time: resTime,
-		rest_id: restId,
-		user_id: userId,
-		party_size: party,
-		special_request: '',
-		occasion: '',
-		cancelled: false
-	});
-	
-	const [time, setTimer] = useState(300);
-	const [mins, setMins] = useState('');
-	const [secs, setSecs] = useState('');
-	const [formatted, setFormatted] = useState('5:00');
-
-		useEffect(() => {
-		window.scrollTo(0, 0)
-		}, [])
-
-	useEffect(() => {
-        
-		setMins(Math.floor(time / 60) % 60)
-		setSecs(Math.floor(time % 60));
-
-	}, [time])
-
-	useEffect(() => {
-		if (!time) return;
-
-		const countdown = setInterval(() => {
-				setTimer(time - 1)
-		}, 1000)
-
-		return () => clearInterval(countdown)
-	}, [time])
-
-	useEffect(() => {
-			if (secs < 10) {
-					setFormatted(`${mins}:0${secs}`)
-			} else {
-					setFormatted(`${mins}:${secs}`)
-			}
-	}, [mins, secs])
-
-	useEffect(() => {
-		// if (location.state.booking) {
-		// 	const {date, party_size} = location.state.booking;
-		setBooking({...booking, date: date, time: resTime, party_size: party})
-		// }
-	}, []);
-
-	const updateInfo = (e) => {
-		setBooking({ ...booking, [e.target.id]: e.target.value })
-	};
-
-	const parseTime = (time) => {
-		let split = time.split(":")
-		let hrs = parseInt(split[0])
-		if (hrs < 12) return time + ' AM';
-		if (hrs == 12) return time + ' PM'
-		hrs = hrs % 12;
-		let newTime = hrs + ':' + split[1] + ' PM'
-		return newTime
-	}
-
-	const parseDate = (date) => {
-		date = new Date(date).toDateString();
-		let split = date.split(' ');
-		return `${split[0]}, ${split[1]} ${split[2]}`
-	}
+	const update = (field) => (e) => setDetails({ ...details, [field]: e.target.value });
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		dispatch(createBooking(booking)).then(res =>
-				history.push({
-					pathname: `/booking/show/${res.booking.id}/${parseTime(resTime)}/${parseDate(new Date(date))}`,
-					state: {
-						time: parseTime(resTime),
-						date: parseDate(new Date(date)),
-						restaurant: restaurant,
-						user: user[0],
-						booking: res.booking
-					}
-				})
-			)
-		}
+		setSubmitting(true);
+		setError(null);
+		const booking = {
+			rest_id: restId,
+			date: params.date,
+			time: params.time,
+			party_size: params.party,
+			...details,
+		};
+		dispatch(createBooking(booking)).then(action => {
+			setSubmitting(false);
+			if (action.type === RECEIVE_BOOKING) {
+				history.push(`/reservations/${action.booking.id}`);
+			} else {
+				setError((action.errors || ['Something went wrong. Please try again.']).join(' '));
+			}
+		});
+	};
 
-	return restaurant ? (
-		<div className='booking-form-container'>
-			<section className='booking-form-left'>
-				<h2>
-					You're almost done!
-				</h2>
-				<div className='booking-info-bar'>
-					<img src={restaurant.iconUrl}/>
-					<div id='info-bar-right'>
-						<h2>
-							{restaurant.name}
-						</h2>
-						<div>
-							<div>
-								<img id="res-info-img" src={`data:image/svg+xml;utf8,${icCalendar}`}/>
-								<p id='res-info'>
-									{parseDate(date)}
-								</p>
-							</div>
-							<div>
-								<img id="res-info-img" src={`data:image/svg+xml;utf8,${icClock}`}/>
-								<p id='res-info'>
-									{parseTime(resTime)}
-								</p>
-							</div>
-							<div>
-								<img id="res-info-img" src={`data:image/svg+xml;utf8,${icPerson}`}/>
-								<p id='res-info'>
-									{party} people
-								</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div className="countdown" id="countdown">
-					{time ?  (
-							<div className="countdown-message">
-									<span>We're holding this table for you for </span>
-									<span id='time-span'> {formatted} minutes</span>
-							</div>
-					) : (
-							<div className="countdown-over-mess">
-									You can still try to complete your reservation, but this table may no longer be available.
-							</div>
-					)}
-				</div>
-				<h2 id='diner-details'>
-					Diner Details
-				</h2>
-				<form className='booking-info-form'>
-					<div className='booking-input-row'>
-						<div>
-							<input defaultValue={userPhone} type='text' id='phone' placeholder="Phone Number" onChange={updateInfo}/>
-							<span aria-live='assertive' id='phone-error'>
-								Phone number is required.
-							</span>
-						</div>
-						<div>
-							<input defaultValue={userEmail} type='text' id='email' readOnly/>
-						</div>
-					</div>
-					<div className='booking-input-row'>
-						<div>
-							<select type='text' id='occasion' onChange={updateInfo}>
-								<option id='default' selected defaultValue disabled>Select an occasion (optional)</option>
-								<option value='Birthday'>Birthday</option>
-								<option value='Anniversary'>Anniversary</option>
-								<option value='Date Night'>Date Night</option>
-								<option value='Business Meal'>Business Meal</option>
-								<option value='Celebration'>Celebration</option>
-							</select>
-						</div>
-						<div>
-							<textarea id='special_request' type='text' placeholder="Add a special request (optional)" onChange={updateInfo}/>
-						</div>
-					</div>
-					<button id='auth-button' type="submit" onClick={handleSubmit}>
-						Complete Reservation
-					</button>
-				</form>
-			</section>
-			<div className='booking-form-right'>
-				<aside>
-					<h1>
-						What to know before you go
-					</h1>
-					<section>
-						<h1 id='dining-info'>
-							Important Dining Information
-						</h1>
-						<p>
-							We have a 15 minute grace period. Please call us if you are running later than 15 minutes after your reservation time.
-						</p>
-					</section>
-				</aside>
-			</div>
-		</div>
-	) : (null)
-}
+	if (!restaurant) {
+		return <Container maxWidth="md" sx={{ py: 6 }}><Skeleton variant="rounded" height={320} /></Container>;
+	}
 
-export default withRouter(BookingForm);
+	const mins = Math.floor(left / 60);
+	const secs = String(left % 60).padStart(2, '0');
+
+	return (
+		<Container maxWidth="lg" sx={{ py: { xs: 3, md: 6 } }}>
+			<Grid container spacing={4}>
+				<Grid item xs={12} md={8}>
+					<Typography variant="h4" component="h1" sx={{ mb: 3 }}>You're almost done!</Typography>
+					<Card>
+						<CardContent sx={{ p: { xs: 2.5, sm: 3 } }}>
+							<BookingSummary restaurant={restaurant} image={restaurant.iconUrl || restaurant.icon}
+								date={params.date} time={params.time} party={params.party} />
+						</CardContent>
+					</Card>
+
+					<Alert icon={<TimerOutlinedIcon />} severity={left ? 'info' : 'warning'} sx={{ mt: 2, borderRadius: 3 }}>
+						{left
+							? <>We're holding this table for you for <strong>{mins}:{secs}</strong> minutes.</>
+							: 'You can still try to complete your reservation, but this table may no longer be available.'}
+					</Alert>
+
+					<Card sx={{ mt: 3 }}>
+						<CardContent component="form" onSubmit={handleSubmit} sx={{ p: { xs: 2.5, sm: 3 } }}>
+							<Typography variant="h6" component="h2" sx={{ mb: 2 }}>Diner details</Typography>
+							<Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' }, gap: 2 }}>
+								<TextField label="Name" value={`${user.fname} ${user.lname}`} InputProps={{ readOnly: true }} />
+								<TextField label="Phone" value={formatPhone(user.phone)} InputProps={{ readOnly: true }} />
+								<TextField label="Email" value={user.email} InputProps={{ readOnly: true }} sx={{ gridColumn: '1 / -1' }} />
+								<TextField select label="Occasion (optional)" value={details.occasion} onChange={update('occasion')} sx={{ gridColumn: '1 / -1' }}>
+									<MenuItem value="">None</MenuItem>
+									{OCCASIONS.map(o => <MenuItem key={o} value={o}>{o}</MenuItem>)}
+								</TextField>
+								<TextField label="Special request (optional)" multiline minRows={3} value={details.special_request}
+									onChange={update('special_request')} inputProps={{ maxLength: 500 }} sx={{ gridColumn: '1 / -1' }} />
+							</Box>
+							{error && <Alert severity="error" sx={{ mt: 2 }}>{error}</Alert>}
+							<Button type="submit" variant="contained" size="large" disabled={submitting} sx={{ mt: 3, width: { xs: '100%', sm: 'auto' } }}>
+								Complete reservation
+							</Button>
+						</CardContent>
+					</Card>
+				</Grid>
+				<Grid item xs={12} md={4}>
+					<Card sx={{ bgcolor: 'background.default', position: { md: 'sticky' }, top: { md: 100 }, mt: { md: 8 } }}>
+						<CardContent sx={{ p: 3 }}>
+							<Typography variant="h6" component="h2">What to know before you go</Typography>
+							<Stack spacing={1} sx={{ mt: 2 }}>
+								<Typography variant="subtitle2">Important dining information</Typography>
+								<Typography variant="body2" color="text.secondary">
+									We have a 15 minute grace period. Please call us if you are running later than 15 minutes after your reservation time.
+								</Typography>
+								<Typography variant="body2" color="text.secondary">
+									Phone: {formatPhone(restaurant.phone)}
+								</Typography>
+							</Stack>
+						</CardContent>
+					</Card>
+				</Grid>
+			</Grid>
+		</Container>
+	);
+};
+
+export default BookingForm;
