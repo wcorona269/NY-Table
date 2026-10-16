@@ -1089,37 +1089,31 @@ Restaurant.all.each do |rest|
 	end
 end
 
-dates = [
-	"2022-06-08",
-	"2022-05-10",
-	"2022-05-30",
-	"2022-08-20",
-	"2022-09-01",
-	"2022-10-15",
-	"2022-11-05",
-	"2023-01-06"
-]
+# Bookings are dated relative to when the seed runs, so every user has a mix
+# of past dinners (reviewable) and upcoming reservations.
+dinner_times = %w(11:30 12:00 12:30 13:00 17:30 18:00 18:30 19:00 19:30 20:00 20:30 21:00)
+occasions = [nil, nil, nil, "Birthday", "Anniversary", "Date Night", "Business Meal", "Celebration"]
 
-times = [
-	"08:00",
-	"15:00",
-	"13:30",
-	"12:00",
-	"17:15"
-]
-
-user_ids.each do |idx|
-	3.times do
-		Booking.create!(
-			date: dates.sample,
-			time: times.sample,
-			rest_id: rest_ids.sample,
-			user_id: idx,
-			party_size: rand(1..20),
-			cancelled: false
-		)
-	end
+create_booking = lambda do |user_id, date, cancelled: false|
+	Booking.create!(
+		date: date,
+		time: dinner_times.sample,
+		rest_id: rest_ids.sample,
+		user_id: user_id,
+		party_size: [2, 2, 2, 3, 4, 4, 5, 6, 8].sample,
+		occasion: occasions.sample,
+		cancelled: cancelled
+	)
 end
+
+user_ids.each do |user_id|
+	2.times { create_booking.call(user_id, Date.today - rand(3..180)) }
+	create_booking.call(user_id, Date.today + rand(1..45))
+	create_booking.call(user_id, Date.today - rand(3..90), cancelled: true) if rand < 0.3
+end
+
+# Make sure the demo account always has upcoming reservations to show off.
+2.times { |i| create_booking.call(user2.id, Date.today + 2 + (i * 7)) }
 
 
 
