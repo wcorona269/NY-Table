@@ -52,9 +52,10 @@ Rails.application.configure do
     image/vnd.microsoft.icon
   )
 
-  ## setting secret_key_base due to errors received:
-  #### => "Missing `secret_key_base` for 'production' environment"
-  config.secret_key_base = '<%= ENV["SECRET_KEY_BASE"] %>'
+  # secret_key_base must come from the environment in production. Note this file is
+  # plain .rb (not .rb.erb), so ERB tags here are never evaluated -- they'd previously
+  # been assigned as a literal string instead of the actual env var value.
+  config.secret_key_base = ENV.fetch("SECRET_KEY_BASE")
 
   # Mount Action Cable outside main process or domain
   # config.action_cable.mount_path = nil
@@ -62,11 +63,10 @@ Rails.application.configure do
   # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
+  config.force_ssl = true
 
-  # Use the lowest log level to ensure availability of diagnostic information
-  # when problems arise.
-  config.log_level = :debug
+  # debug-level logging in production is a perf cost and can leak sensitive request data.
+  config.log_level = :info
 
   # Prepend all log lines with the following tags.
   config.log_tags = [ :request_id ]

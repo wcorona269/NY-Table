@@ -6,10 +6,12 @@ class Api::MenuItemsController < ApplicationController
 	end
 
 	def create
-		@menu_item = MenuItem.create!
-		
+		@menu_item = MenuItem.new(menu_item_params)
+
 		if @menu_item.save
 			render :show
+		else
+			render json: @menu_item.errors.full_messages, status: 422
 		end
 	end
 

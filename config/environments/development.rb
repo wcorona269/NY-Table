@@ -28,9 +28,9 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
   
-  # Store uploaded files on the local file system (see config/storage.yml for options)
-  config.active_storage.service = :local
-  config.active_storage.service = :amazon_dev
+  # Store uploaded files on the local file system (see config/storage.yml for options).
+  # Set ACTIVE_STORAGE_SERVICE=amazon_dev to use the S3 dev bucket instead.
+  config.active_storage.service = ENV.fetch('ACTIVE_STORAGE_SERVICE', 'local').to_sym
   
   # Allow various image types to be processed
   config.active_storage.variable_content_types = %w(
