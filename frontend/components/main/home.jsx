@@ -13,7 +13,10 @@ import RestaurantCarousel from './restaurant_carousel';
 import { useRestaurants } from '../../util/selectors';
 import { defaultSearch } from '../../util/format';
 
-const byDesc = (key) => (a, b) => (Number(b[key]) || 0) - (Number(a[key]) || 0);
+// NYC skyline banner from the original design.
+const HERO_IMAGE = 'https://media.timeout.com/images/105679930/image.jpg';
+
+const byDesc =(key) => (a, b) => (Number(b[key]) || 0) - (Number(a[key]) || 0);
 
 const Section = ({ title, subtitle, children }) => (
 	<Box component="section" sx={{ mt: { xs: 5, md: 7 } }}>
@@ -56,9 +59,11 @@ const Home = () => {
 				sx={{
 					bgcolor: 'primary.main',
 					color: 'common.white',
-					pt: { xs: 6, md: 10 },
-					pb: { xs: 6, md: 10 },
-					backgroundImage: 'radial-gradient(circle at 85% 20%, rgba(252,204,10,0.18), transparent 40%), radial-gradient(circle at 10% 90%, rgba(238,53,46,0.15), transparent 45%)',
+					pt: { xs: 7, md: 12 },
+					pb: { xs: 7, md: 12 },
+					backgroundImage: `linear-gradient(90deg, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.45) 55%, rgba(0,0,0,0.3) 100%), url(${HERO_IMAGE})`,
+					backgroundSize: 'cover',
+					backgroundPosition: 'center',
 				}}
 			>
 				<Container maxWidth="lg">

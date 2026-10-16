@@ -27,7 +27,8 @@ user6 = User.create!(fname: "Amin", lname: "Babar", dname: "aminbabar", password
 user7 = User.create!(fname: "Jim", lname: "Nardi", dname: "jimnardi", password: "iamjimmy", email: "jim@jim.com", phone: 7777777777)
 
 
-30.times do
+# Simulated diners, so restaurants have plenty of reviews and bookings.
+130.times do
 	User.create!(
 		fname: Faker::Name.unique.first_name,
 		lname: Faker::Name.unique.last_name,
@@ -1135,3 +1136,8 @@ user_ids.each do |user_id|
 		rest_id: rest_ids[third.sample]
 	)
 end
+
+# A thousand more reviews with restaurant-specific dishes and varied ratings
+# (needs menu items, so it runs after they're seeded).
+require_relative 'seeds/reviews'
+SeedReviews.create(1000, author_ids: user_ids, restaurants: Restaurant.includes(:menu_items).to_a)
