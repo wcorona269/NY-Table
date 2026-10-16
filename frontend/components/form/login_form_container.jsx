@@ -1,106 +1,72 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import DialogContent from "@mui/material/DialogContent";
+import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Alert from "@mui/material/Alert";
+import Stack from "@mui/material/Stack";
+import Divider from "@mui/material/Divider";
+import Link from "@mui/material/Link";
 import { closeModal, showModal } from "../../actions/modal_actions";
-import {login, removeSessionErrors} from '../../actions/session_actions';
-import { icClose } from 'otkit-icons/token.theme.common';
+import { login, removeSessionErrors, RECEIVE_CURRENT_USER } from '../../actions/session_actions';
 
-const LoginFormContainer = () => {
-  const dispatch = useDispatch();
-  const errors = Object.values(useSelector(state => state.errors.session));
-  
-  const [error, setError] = useState(false)
+export const GUEST_USER = { email: 'guest@nytable.com', password: 'guestuser' };
 
-  const [formUser, setFormUser] = useState({
-		email: '',
-		password: '',
-  })
+const LoginForm = () => {
+	const dispatch = useDispatch();
+	const [formUser, setFormUser] = useState({ email: '', password: '' });
+	const [error, setError] = useState(false);
+	const [submitting, setSubmitting] = useState(false);
 
-  useEffect(() => {
-		return () => {
-			dispatch(removeSessionErrors())
-		}
-	}, [])
+	useEffect(() => () => dispatch(removeSessionErrors()), []);
 
-  useEffect(() => {
-    if (errors.length) {
-      setError(true)
-		}
-  }, [useSelector(state => state.errors.session)]);
+	const updateInfo = (e) => {
+		setError(false);
+		setFormUser({ ...formUser, [e.target.name]: e.target.value });
+	};
 
-  const updateInfo = (e) => {
-		const {name, value} = e.target
-    setError(false)
-		setFormUser({ ...formUser, [name]: value })
-  }
+	const submit = (user) => {
+		setSubmitting(true);
+		dispatch(login(user)).then(action => {
+			setSubmitting(false);
+			if (action.type === RECEIVE_CURRENT_USER) {
+				dispatch(closeModal());
+			} else {
+				setError(true);
+			}
+		});
+	};
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(login(formUser))
-      .then(() => dispatch(closeModal()))
-  }
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		submit(formUser);
+	};
 
-  const handleDemoSubmit = (e) => {
-    e.preventDefault();
-    let demoUser = {
-      email: 'guest@nytable.com',
-      password: 'guestuser'
-    }
+	return (
+		<DialogContent sx={{ p: { xs: 3, sm: 4 }, pt: { xs: 7, sm: 5 } }}>
+			<Typography variant="h5" component="h2">Welcome back</Typography>
+			<Typography color="text.secondary" sx={{ mt: 0.5, mb: 3 }}>Sign in to book and manage your reservations.</Typography>
+			<Stack component="form" spacing={2} onSubmit={handleSubmit} noValidate>
+				{error && <Alert severity="error">Invalid email or password.</Alert>}
+				<TextField label="Email" type="email" name="email" autoComplete="email" autoFocus
+					value={formUser.email} onChange={updateInfo} error={error} />
+				<TextField label="Password" type="password" name="password" autoComplete="current-password"
+					value={formUser.password} onChange={updateInfo} error={error} />
+				<Button type="submit" variant="contained" size="large" disabled={submitting}>Continue</Button>
+			</Stack>
+			<Divider sx={{ my: 3 }}>or</Divider>
+			<Button fullWidth variant="outlined" size="large" onClick={() => submit(GUEST_USER)} disabled={submitting}>
+				Continue as guest
+			</Button>
+			<Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 3 }}>
+				New to NY Table?{' '}
+				<Link component="button" type="button" fontWeight={600} color="text.primary" onClick={() => dispatch(showModal('signup'))}>
+					Create an account
+				</Link>
+			</Typography>
+		</DialogContent>
+	);
+};
 
-    dispatch(login(demoUser))
-      .then(() => dispatch(closeModal()))
-  }
-
-  const showSignupForm = (e) => {
-    e.preventDefault()
-    dispatch(closeModal()).then(dispatch(showModal('signup')))
-  }
-
-  return (
-    <div className='auth-form-container'>
-      <form className="auth-form" onSubmit={handleSubmit}>
-        <div className="auth-content-container">
-          <div className="auth-form-x-btn-wrapper">
-            <div onClick={() => dispatch(closeModal())} className="auth-form-x-btn-container">
-              <img className="auth-form-x-button-image" src={`data:image/svg+xml;utf8,${icClose}`}/>
-            </div>
-          </div>
-          <div className="auth-content-header">Enter your email</div>
-          {/* <br/> */}
-          <div className="auth-content-sub-header">We'll need to verify it's you to continue.</div>
-          <input
-            className={error && 'error-input'}
-            type="text"
-            placeholder="Email"
-            value={formUser.email}
-            name='email'
-            onChange={updateInfo}
-          />
-          <br />
-          <input 
-            className={error && 'error-input'}
-            type="password"
-            placeholder="Password"
-            value={formUser.password}
-            name = 'password'
-            onChange={updateInfo}
-          />
-          <br />
-          {
-          error && 
-          <div id='auth-form-error'>
-            Invalid Username or Password
-          </div>
-          }
-          <br/>
-          <button id="auth-button" className="auth-field" type="submit">Continue</button>
-          <br/>
-          <p className='guest-login-message'>Don't have an account?<span onClick={showSignupForm}>Sign Up</span></p>
-          <p className='guest-login-message'>Don't want to sign up? <span onClick={handleDemoSubmit}>Login as Guest</span></p>
-        </div>
-      </form>
-    </div>
-  )
-}
-
-export default LoginFormContainer;
+export default LoginForm;

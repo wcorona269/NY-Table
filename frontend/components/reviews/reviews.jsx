@@ -1,102 +1,72 @@
-import React from 'react';
-import { withRouter } from 'react-router-dom';
-
-import ReviewsIndex from '../reviews/review';
+import React, { useMemo, useState } from 'react';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import MenuItem from '@mui/material/MenuItem';
+import Stack from '@mui/material/Stack';
+import Review from './review';
 import ReviewsHeader from './reviews_header';
 
-class Reviews extends React.Component {
-	constructor(props) {
-		super(props)
+const PAGE_SIZE = 6;
 
-		this.getAverageReviews = this.getAverageReviews.bind(this)
-		this.overallScoreCounts = this.overallScoreCounts.bind(this)
-	}
+const average = (reviews, key) => (
+	reviews.length ? reviews.reduce((sum, r) => sum + r[key], 0) / reviews.length : 0
+);
 
-	componentWillUnmount() {
-		this.props.clearReviews();
-	}
+const SORTS = {
+	newest: (a, b) => b.id - a.id,
+	highest: (a, b) => b.overall - a.overall,
+	lowest: (a, b) => a.overall - b.overall,
+};
 
-	getAverageReviews(reviews) {
-		let averages = {
-			"overall": [],
-			"food": [],
-			"service": [],
-			"ambience": []
-		}
+const Reviews = ({ reviews }) => {
+	const [visible, setVisible] = useState(PAGE_SIZE);
+	const [sort, setSort] = useState('newest');
 
-		reviews.forEach(review => {
-			averages.overall.push(review.overall)
-			averages.food.push(review.food)
-			averages.service.push(review.service)
-			averages.ambience.push(review.ambience)
-		})
+	const averages = useMemo(() => ({
+		overall: average(reviews, 'overall'),
+		food: average(reviews, 'food'),
+		service: average(reviews, 'service'),
+		ambience: average(reviews, 'ambience'),
+	}), [reviews]);
 
-		let num = averages.overall.length
+	const distribution = useMemo(() => {
+		const counts = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+		reviews.forEach(r => { counts[r.overall] = (counts[r.overall] || 0) + 1; });
+		Object.keys(counts).forEach(k => { counts[k] = reviews.length ? (100 * counts[k]) / reviews.length : 0; });
+		return counts;
+	}, [reviews]);
 
-		return {
-			"overall": (averages.overall.reduce((a, b) => a + b, 0) / num).toFixed(1),
-			"food": (averages.food.reduce((a, b) => a + b, 0) / num).toFixed(1),
-			"service": (averages.service.reduce((a, b) => a + b, 0) / num).toFixed(1),
-			"ambience": (averages.ambience.reduce((a, b) => a + b, 0) / num).toFixed(1),
-		}
-	}
+	const sorted = useMemo(() => [...reviews].sort(SORTS[sort]), [reviews, sort]);
 
-	overallScoreCounts(reviews) {
-		let overallScoreCounts = {
-			"one": 0,
-			"two": 0,
-			"three": 0,
-			"four": 0,
-			"five": 0,
-		}
+	return (
+		<Box component="section" id="reviews">
+			<Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 2 }}>
+				<Typography variant="h5" component="h2">What {reviews.length} people are saying</Typography>
+			</Stack>
+			{reviews.length === 0 ? (
+				<Typography color="text.secondary">No reviews yet. Dine here and be the first!</Typography>
+			) : (
+				<>
+					<ReviewsHeader averages={averages} distribution={distribution} count={reviews.length} />
+					<Stack direction="row" justifyContent="flex-end" sx={{ mt: 3 }}>
+						<TextField select size="small" label="Sort" value={sort} onChange={e => setSort(e.target.value)} sx={{ width: 180 }}>
+							<MenuItem value="newest">Newest</MenuItem>
+							<MenuItem value="highest">Highest rated</MenuItem>
+							<MenuItem value="lowest">Lowest rated</MenuItem>
+						</TextField>
+					</Stack>
+					{sorted.slice(0, visible).map(review => <Review key={review.id} review={review} />)}
+					{visible < sorted.length && (
+						<Button variant="outlined" onClick={() => setVisible(v => v + PAGE_SIZE)} sx={{ mt: 3 }}>
+							Show more reviews
+						</Button>
+					)}
+				</>
+			)}
+		</Box>
+	);
+};
 
-		reviews.forEach((review) => {
-			if (review.overall == 1) {
-				overallScoreCounts.one += 1
-			} 
-			else if (review.overall == 2) {
-				overallScoreCounts.two += 1
-			}
-			else if (review.overall == 3) {
-				overallScoreCounts.three += 1
-			}
-			else if (review.overall == 4) {
-				overallScoreCounts.four += 1
-			}
-			else if (review.overall == 5) {
-				overallScoreCounts.five += 1
-			}
-		})
-
-		return {
-			"one" : (100 * overallScoreCounts.one) / (reviews.length * 1.0),
-			"two" : (100 * overallScoreCounts.two) / (reviews.length * 1.0),
-			"three" : (100 * overallScoreCounts.three) / (reviews.length * 1.0),
-			"four" : (100 * overallScoreCounts.four) / (reviews.length * 1.0),
-			"five" : (100 * overallScoreCounts.five) / (reviews.length * 1.0),
-		}
-	}
-
-	render() {
-		let reviews = this.props.reviews.filter(review => review.rest_id == this.props.match.params.restId);
-		let averages = this.getAverageReviews(reviews);
-		let overalls = this.overallScoreCounts(reviews);
-
-		return (this.props.reviews.length) ? (
-			<section className='reviews-container' id='reviews-id'>
-				<ReviewsHeader reviews={reviews} averages={averages} overalls={overalls}/>
-				{/* <div>
-				<select defaultValue = 'newest'>
-					<option value='newest'>Newest</option>
-					<option>Oldest</option>
-				</select>
-				</div> */}
-				<ol id='reviews-ol'>
-					<ReviewsIndex reviews={reviews}/>
-				</ol>
-			</section>
-		) : (null)
-	}
-}
-
-export default withRouter(Reviews);
+export default Reviews;

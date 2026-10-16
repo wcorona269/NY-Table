@@ -1,73 +1,63 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { Link, Redirect, useParams } from 'react-router-dom';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+import Avatar from '@mui/material/Avatar';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Stack from '@mui/material/Stack';
+import UserDiningDashboard from './dining-dashboard';
 import UserFavorites from './favorites';
 import UserEdit from './edit';
-import UserDiningDashboard from './dining-dashboard';
-import {useDispatch, useSelector} from 'react-redux';
-import { useHistory, useLocation, NavLink, Route } from 'react-router-dom';
-import { fetchAllFavs } from '../../actions/favorite_actions';
+import { selectCurrentUser } from '../../util/selectors';
 
-const UserShow = (props) => {
+const TABS = {
+	reservations: { label: 'Reservations', component: UserDiningDashboard },
+	saved: { label: 'Saved restaurants', component: UserFavorites },
+	account: { label: 'Account details', component: UserEdit },
+};
 
-	const history = useHistory();
-	const dispatch = useDispatch();
-	const location = useLocation();
-	const [showDash, setShowDash] = useState(false)
-	const [showSaved, setShowSaved] = useState(false)
-	const [showEdit, setShowEdit] = useState(false)
+const UserShow = () => {
+	const { tab } = useParams();
+	const user = useSelector(selectCurrentUser);
 
-	const user = Object.values(useSelector(state => state.entities.users));
-
-	useEffect(() => {
-		window.scrollTo(0, 0)
-	}, [])
-
-	useEffect(() => {
-		if (window.location.hash == `#/my/profile/${user[0].id}/dining-dashboard`) {
-			setShowDash(true)
-			setShowSaved(false)
-			setShowEdit(false)
-		} else if (window.location.hash == `#/my/profile/${user[0].id}/favorites`) {
-			setShowSaved(true)
-			setShowDash(false)
-			setShowEdit(false)
-		} else {
-			setShowSaved(false)
-			setShowDash(false)
-			setShowEdit(true)
-		}
-	}, [window.location.hash])
+	if (!TABS[tab]) return <Redirect to="/profile/reservations" />;
+	const Content = TABS[tab].component;
 
 	return (
-		<div className='user-show-container'>
-			<header className='user-show-header'>
-				<div>
-					<h1>
-						{user[0].fname} {user[0].lname}
-					</h1>
-				</div>
-			</header>
-			<div className='user-show-flex-container'>
-				<div className='user-show-left-col'>
-					<NavLink
-						className={showDash ? 'showing' : undefined}
-						to={`/my/profile/${user[0].id}/dining-dashboard`}>Reservations</NavLink>
-					<NavLink 
-						className={showSaved ? 'showing' : undefined}
-						to={`/my/profile/${user[0].id}/favorites`}>Saved Restaurants</NavLink>
-					<NavLink 
-						className={showEdit ? 'showing' : undefined}
-						to={`/my/profile/edit`}>Account Details</NavLink>
-				</div>
-				<div className='user-show-right-col'>
-					<div>
-						<Route exact path={`/my/profile/:userId/dining-dashboard`} component={UserDiningDashboard}/>
-						<Route exact path={`/my/profile/:userId/favorites`} component={UserFavorites}/>
-						<Route exact path={`/my/profile/edit`} component={UserEdit}/>
-					</div>
-				</div>
-			</div>
-		</div>
-	)
-}
+		<>
+			<Box sx={{ bgcolor: 'primary.main', color: 'common.white', pt: { xs: 4, md: 6 } }}>
+				<Container maxWidth="lg">
+					<Stack direction="row" spacing={2} alignItems="center">
+						<Avatar sx={{ width: 64, height: 64, bgcolor: 'secondary.main', color: 'primary.main', fontWeight: 800, fontSize: 26 }}>
+							{user.fname[0]}
+						</Avatar>
+						<Box>
+							<Typography variant="h4" component="h1">{user.fname} {user.lname}</Typography>
+							<Typography sx={{ opacity: 0.7 }}>{user.email}</Typography>
+						</Box>
+					</Stack>
+					<Tabs
+						value={tab}
+						variant="scrollable"
+						scrollButtons={false}
+						textColor="inherit"
+						TabIndicatorProps={{ sx: { bgcolor: 'secondary.main', height: 3 } }}
+						sx={{ mt: 3, '& .MuiTab-root': { opacity: 0.7 }, '& .Mui-selected': { opacity: 1 } }}
+					>
+						{Object.entries(TABS).map(([key, { label }]) => (
+							<Tab key={key} value={key} label={label} component={Link} to={`/profile/${key}`} />
+						))}
+					</Tabs>
+				</Container>
+			</Box>
+			<Container maxWidth="lg" sx={{ py: { xs: 3, md: 5 } }}>
+				<Content />
+			</Container>
+		</>
+	);
+};
 
 export default UserShow;

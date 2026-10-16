@@ -15,6 +15,7 @@ Restaurant.destroy_all
 Review.destroy_all
 Booking.destroy_all
 Favorite.destroy_all
+MenuItem.destroy_all
 
 # users
 user1 = User.create!(fname: "Food", lname: "Enjoyer", dname: "foodenjoyer", password: "ilovefood", email: "foodenjoyer@foodnetwork.com", phone: 2032550021)
@@ -65,7 +66,7 @@ hearthpics = [
 ]
 
 hearthpics.each do |path, i|
-		file = open(path)
+		file = open(path) rescue next
 		rest1.photos.attach(io: file, filename:"hearth_#{i}.jpeg")
 end
 
@@ -103,7 +104,7 @@ carmines = [
 ]
 
 carmines.each do |path, i|
-		file = open(path)
+		file = open(path) rescue next
 		rest2.photos.attach(io: file, filename: "carmines_#{i}.jpeg")
 end
 
@@ -143,7 +144,7 @@ bills = [
 ]
 
 bills.each do |path, i|
-		file = open(path)
+		file = open(path) rescue next
 		rest3.photos.attach(io: file, filename: "bills#{i}.jpeg")
 end
 
@@ -179,7 +180,7 @@ centralpark = [
 ]
 
 centralpark.each do |path, i|
-		file = open(path)
+		file = open(path) rescue next
 		rest4.photos.attach(io: file, filename: "cp_#{i}.jpeg")
 end
 
@@ -214,7 +215,7 @@ lugers = [
 ]
 
 lugers.each do |path, i|
-		file = open(path)
+		file = open(path) rescue next
 		rest5.photos.attach(io: file, filename: "lugers_#{i}.jpeg")
 end
 
@@ -248,7 +249,7 @@ patsys = [
 ]
 
 patsys.each do |path, i|
-		file = open(path)
+		file = open(path) rescue next
 		rest6.photos.attach(io: file, filename: "patsys_#{i}.jpeg")
 end
 
@@ -283,7 +284,7 @@ katz = [
 ]
 
 katz.each do |path, i|
-		file = open(path)
+		file = open(path) rescue next
 		rest7.photos.attach(io: file, filename: "katz_#{i}.jpeg")
 end
 
@@ -318,7 +319,7 @@ lombardis = [
 ]
 
 lombardis.each do |path, i|
-		file = open(path)
+		file = open(path) rescue next
 		rest8.photos.attach(io: file, filename: "lombardis_#{i}.jpeg")
 end
 
@@ -354,7 +355,7 @@ tavern = [
 ]
 
 tavern.each do |path, i|
-		file = open(path)
+		file = open(path) rescue next
 		rest9.photos.attach(io: file, filename: "tavern_#{i}.jpeg")
 end
 
@@ -390,7 +391,7 @@ rainbow = [
 ]
 
 rainbow.each do |path, i|
-		file = open(path)
+		file = open(path) rescue next
 		rest10.photos.attach(io: file, filename: "rainbow_#{i}.jpeg")
 end
 
@@ -425,7 +426,7 @@ raos = [
 ]
 
 raos.each do |path, i|
-		file = open(path)
+		file = open(path) rescue next
 		rest11.photos.attach(io: file, filename: "raos_#{i}.jpeg")
 end
 
@@ -465,7 +466,7 @@ oyster = [
 ]
 
 oyster.each do |path, i|
-		file = open(path)
+		file = open(path) rescue next
 		rest12.photos.attach(io: file, filename: "oyster_#{i}.jpeg")
 end
 
@@ -500,7 +501,7 @@ farmacy = [
 ]
 
 farmacy.each do |path, i|
-		file = open(path)
+		file = open(path) rescue next
 		rest13.photos.attach(io: file, filename: "farmacy_#{i}.jpeg")
 end
 
@@ -537,7 +538,7 @@ nathans = [
 ]
 
 nathans.each do |path, i|
-		file = open(path)
+		file = open(path) rescue next
 		rest14.photos.attach(io: file, filename: "nathans_#{i}.jpeg")
 end
 
@@ -576,7 +577,7 @@ juniors = [
 ]
 
 juniors.each do |path, i|
-		file = open(path)
+		file = open(path) rescue next
 		rest15.photos.attach(io: file, filename: "juniors_#{i}.jpeg")
 end
 
@@ -614,7 +615,7 @@ benihana = [
 ]
 
 benihana.each do |path, i|
-		file = open(path)
+		file = open(path) rescue next
 		rest16.photos.attach(io: file, filename: "benihana_#{i}.jpeg")
 end
 
@@ -654,7 +655,7 @@ casa = [
 ]
 
 casa.each do |path, i|
-		file = open(path)
+		file = open(path) rescue next
 		rest17.photos.attach(io: file, filename: "casa_#{i}.jpeg")
 end
 
@@ -695,7 +696,7 @@ nomwah = [
 ]
 
 nomwah.each do |path, i|
-		file = open(path)
+		file = open(path) rescue next
 		rest18.photos.attach(io: file, filename: "nomwah_#{i}.jpeg")
 end
 
@@ -733,7 +734,7 @@ sylvias = [
 ]
 
 sylvias.each do |path, i|
-		file = open(path)
+		file = open(path) rescue next
 		rest19.photos.attach(io: file, filename: "sylvias_#{i}.jpeg")
 end
 
@@ -773,7 +774,7 @@ punjabi = [
 ]
 
 punjabi.each do |path, i|
-		file = open(path)
+		file = open(path) rescue next
 		rest20.photos.attach(io: file, filename: "punjabi_#{i}.jpeg")
 end
 
@@ -820,7 +821,7 @@ bernardin = [
 ]
 
 bernardin.each do |path, i|
-		file = open(path)
+		file = open(path) rescue next
 		rest21.photos.attach(io: file, filename: "bernardin_#{i}.jpeg")
 end
 
@@ -961,50 +962,158 @@ end
 	)
 end
 
-(Restaurant.all).each do |rest|
-	6.times do
+cuisine_menus = {
+	"Italian Comfort" => [
+		["Hearth-Baked Rigatoni", "Slow-roasted tomato sugo, pecorino, fresh basil", 24],
+		["Braised Short Rib", "Red wine reduction, parmesan polenta", 34],
+		["Burrata & Heirloom Tomato", "Basil oil, aged balsamic, grilled bread", 18],
+		["Wood-Fired Branzino", "Lemon, capers, charred fennel", 36],
+		["Cacio e Pepe", "Tonnarelli, black pepper, pecorino romano", 22],
+		["Tiramisu", "Espresso-soaked ladyfingers, mascarpone cream", 12],
+	],
+	"Italian" => [
+		["Gnocchi Bolognese", "House-made potato gnocchi, slow-simmered ragu", 26],
+		["Chicken Parmigiana", "Breaded cutlet, mozzarella, san marzano sauce", 28],
+		["Linguine alle Vongole", "Littleneck clams, white wine, garlic", 27],
+		["Veal Marsala", "Mushroom marsala sauce, mashed potatoes", 32],
+		["Caesar Salad", "Romaine, house dressing, garlic croutons", 14],
+		["Cannoli", "Ricotta filling, chocolate chips, pistachio", 10],
+	],
+	"American" => [
+		["Classic Cheeseburger", "Griddled patty, american cheese, brioche bun", 19],
+		["Buttermilk Fried Chicken", "Honey drizzle, pickled jalapeno slaw", 23],
+		["New York Strip Steak", "Garlic herb butter, crispy fries", 38],
+		["Mac & Cheese", "Four-cheese blend, toasted breadcrumb crust", 16],
+		["Cobb Salad", "Grilled chicken, bacon, blue cheese, avocado", 18],
+		["Apple Pie à la Mode", "Warm cinnamon apples, vanilla ice cream", 11],
+	],
+	"Steakhouse" => [
+		["Porterhouse for Two", "Dry-aged, served with steak sauce", 112],
+		["Creamed Spinach", "Classic steakhouse side, cream, nutmeg", 14],
+		["Lobster Tail", "Drawn butter, lemon", 42],
+		["German Fried Potatoes", "Onions, crispy edges", 12],
+		["Shrimp Cocktail", "Jumbo shrimp, house cocktail sauce", 19],
+		["Cheesecake", "New York style, graham crust", 12],
+	],
+	"Pizza" => [
+		["Margherita Pie", "San marzano tomato, fresh mozzarella, basil", 19],
+		["Coal-Fired Pepperoni", "Spicy pepperoni, oregano, chili oil", 22],
+		["White Pie", "Ricotta, mozzarella, garlic, olive oil", 20],
+		["Sicilian Square Slice", "Thick crust, double tomato sauce", 6],
+		["Garlic Knots", "Parmesan, parsley, marinara dip", 8],
+		["Calzone", "Ricotta, mozzarella, your choice of filling", 17],
+	],
+	"Delicatessen" => [
+		["Classic Pastrami on Rye", "Hand-carved, mustard, half-sour pickle", 21],
+		["Hot Dog", "All-beef, crisp-skinned, mustard & kraut", 5],
+		["Matzo Ball Soup", "House broth, dill, carrots", 9],
+		["Reuben Sandwich", "Corned beef, swiss, sauerkraut, russian dressing", 22],
+		["Chopped Liver", "Served with rye bread and onions", 14],
+		["Egg Cream", "Seltzer, milk, chocolate syrup", 5],
+	],
+	"Japanese" => [
+		["Hibachi Steak", "Teppanyaki grilled, garlic butter, vegetables", 36],
+		["Spicy Tuna Roll", "Fresh tuna, sriracha mayo, cucumber", 15],
+		["Chicken Teriyaki", "Grilled, house teriyaki glaze, rice", 24],
+		["Miso Soup", "Tofu, scallion, seaweed", 6],
+		["Shrimp Tempura", "Lightly fried, tempura dipping sauce", 18],
+		["Mochi Ice Cream", "Assorted flavors", 8],
+	],
+	"Mediterranean" => [
+		["Branzino al Limone", "Whole roasted, lemon, olive oil", 38],
+		["Lamb Chops", "Rosemary, garlic, red wine jus", 42],
+		["Burrata Caprese", "Heirloom tomato, basil, balsamic", 19],
+		["Orecchiette alla Salvatore", "Sausage, broccoli rabe, chili", 26],
+		["Hummus & Pita", "House hummus, warm pita, olive oil", 12],
+		["Tiramisu", "Espresso, mascarpone, cocoa", 12],
+	],
+	"Dim Sum" => [
+		["Shrimp & Snow Pea Dumplings", "Steamed, house chili oil", 9],
+		["Pork Shumai", "Steamed pork and shrimp dumplings", 8],
+		["Scallion Pancake", "Crispy, flaky, dipping sauce", 7],
+		["BBQ Pork Buns", "Steamed, sweet bbq pork filling", 8],
+		["Egg Custard Tart", "Flaky crust, silky custard", 4],
+		["Jasmine Tea", "Pot for the table", 4],
+	],
+	"Soul Food" => [
+		["Smothered Fried Chicken", "Buttermilk brined, pepper gravy", 22],
+		["Mac & Cheese", "Baked, extra cheesy crust", 9],
+		["Collard Greens", "Smoked turkey, slow-simmered", 8],
+		["Candied Yams", "Brown sugar, cinnamon", 8],
+		["Cornbread", "Served warm with honey butter", 6],
+		["Sweet Potato Pie", "Classic Harlem recipe", 9],
+	],
+	"Punjabi" => [
+		["Chana Masala", "Spiced chickpeas, tomato, cumin", 9],
+		["Saag Paneer", "Spinach, housemade paneer, garlic", 10],
+		["Yellow Dal", "Lentils, turmeric, ghee tempering", 8],
+		["Aloo Gobi", "Potatoes, cauliflower, curry spices", 9],
+		["Chaat", "Crispy fried dough, tamarind chutney", 6],
+		["Chai", "Spiced black tea, milk", 3],
+	],
+	"French Seafood" => [
+		["Poached Halibut", "Chorizo, piquillo pepper sauce", 58],
+		["Tuna Tartare", "Avocado, wasabi, soy vinaigrette", 32],
+		["Lobster Bisque", "Cognac, chive crème fraîche", 24],
+		["Seared Scallops", "Sea urchin, cauliflower puree", 54],
+		["Baked Salmon", "Tandoori spice crust, basmati rice", 46],
+		["Chocolate Tart", "Valrhona chocolate, sea salt", 16],
+	],
+	"Seafood" => [
+		["Pan Roast", "Classic oyster bar seafood stew", 28],
+		["Raw Bar Sampler", "Oysters, littlenecks, shrimp cocktail", 36],
+		["Lobster Roll", "Chilled, butter toasted brioche", 32],
+		["New England Clam Chowder", "Creamy, smoky bacon", 11],
+		["Grilled Swordfish", "Lemon caper butter", 34],
+		["Key Lime Pie", "Graham crust, whipped cream", 10],
+	],
+	"Sweets" => [
+		["Classic Egg Cream", "Seltzer, milk, chocolate syrup", 5],
+		["Black & White Malted", "House-churned ice cream", 7],
+		["Grilled Cheese", "Classic soda fountain comfort food", 9],
+		["Lime Rickey", "Fresh lime, seltzer", 5],
+		["Banana Split", "Three scoops, hot fudge, whipped cream", 9],
+		["Egg Salad Sandwich", "Classic counter-style", 8],
+	],
+}
+
+default_menu = cuisine_menus["American"]
+
+Restaurant.all.each do |rest|
+	menu = cuisine_menus[rest.cuisines] || default_menu
+	menu.each do |name, description, price|
 		MenuItem.create!(
 			rest_id: rest.id,
-			item: [
-				Faker::Food.dish,
-				Faker::Food.description,
-				rand(1..35).to_s
-			]
+			item: [name, description, price.to_s]
 		)
 	end
 end
 
-dates = [
-	"2022-06-08",
-	"2022-05-10",
-	"2022-05-30",
-	"2022-08-20",
-	"2022-09-01",
-	"2022-10-15",
-	"2022-11-05",
-	"2023-01-06"
-]
+# Bookings are dated relative to when the seed runs, so every user has a mix
+# of past dinners (reviewable) and upcoming reservations.
+dinner_times = %w(11:30 12:00 12:30 13:00 17:30 18:00 18:30 19:00 19:30 20:00 20:30 21:00)
+occasions = [nil, nil, nil, "Birthday", "Anniversary", "Date Night", "Business Meal", "Celebration"]
 
-times = [
-	"08:00",
-	"15:00",
-	"13:30",
-	"12:00",
-	"17:15"
-]
-
-user_ids.each do |idx|
-	3.times do
-		Booking.create!(
-			date: dates.sample,
-			time: times.sample,
-			rest_id: rest_ids.sample,
-			user_id: idx,
-			party_size: rand(1..20),
-			cancelled: false
-		)
-	end
+create_booking = lambda do |user_id, date, cancelled: false|
+	Booking.create!(
+		date: date,
+		time: dinner_times.sample,
+		rest_id: rest_ids.sample,
+		user_id: user_id,
+		party_size: [2, 2, 2, 3, 4, 4, 5, 6, 8].sample,
+		occasion: occasions.sample,
+		cancelled: cancelled
+	)
 end
+
+user_ids.each do |user_id|
+	2.times { create_booking.call(user_id, Date.today - rand(3..180)) }
+	create_booking.call(user_id, Date.today + rand(1..45))
+	create_booking.call(user_id, Date.today - rand(3..90), cancelled: true) if rand < 0.3
+end
+
+# Make sure the demo account always has upcoming reservations to show off.
+2.times { |i| create_booking.call(user2.id, Date.today + 2 + (i * 7)) }
 
 
 

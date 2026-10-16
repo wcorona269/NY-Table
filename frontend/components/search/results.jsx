@@ -1,165 +1,193 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useHistory, withRouter, useParams } from 'react-router-dom';
-import { fetchRests } from '../../actions/rest_actions';
-import { icCuisine, icPriceRange } from 'otkit-icons/token.theme.common';
-import RestaurantCard from './index_card';
-import SearchBar from './searchbar'
+import React, { useMemo, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import Card from '@mui/material/Card';
+import CardMedia from '@mui/material/CardMedia';
+import CardContent from '@mui/material/CardContent';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormGroup from '@mui/material/FormGroup';
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import TextField from '@mui/material/TextField';
+import MenuItem from '@mui/material/MenuItem';
+import Button from '@mui/material/Button';
+import Drawer from '@mui/material/Drawer';
+import Stack from '@mui/material/Stack';
+import Divider from '@mui/material/Divider';
+import Skeleton from '@mui/material/Skeleton';
+import TuneIcon from '@mui/icons-material/Tune';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import SearchBar, { useSearchParams } from './searchbar';
+import TimeButtons from '../booking/time_buttons';
+import { RatingLine, MetaLine, ratingLabel } from '../restaurant/rest_meta';
+import { useRestaurants } from '../../util/selectors';
 
-const SearchResultsContainer = (props) => {
+const SORTS = {
+	recommended: { label: 'Recommended', fn: (a, b) => (b.avg_rating * Math.log(b.bookings_count + 2)) - (a.avg_rating * Math.log(a.bookings_count + 2)) },
+	rating: { label: 'Highest rated', fn: (a, b) => (Number(b.avg_rating) || 0) - (Number(a.avg_rating) || 0) },
+	popular: { label: 'Most booked', fn: (a, b) => b.bookings_count - a.bookings_count },
+	price_low: { label: 'Price: low to high', fn: (a, b) => a.price_range - b.price_range },
+	price_high: { label: 'Price: high to low', fn: (a, b) => b.price_range - a.price_range },
+};
 
-	const dispatch = useDispatch();
-	// const location = useLocation();
-	const {input, time, party, date} = useParams();
-	let rests = Object.values(useSelector(state => state.entities.rests))
-	const initial = Object.values(rests.filter(rest => rest.name.includes(input) || rest.neighborhood.includes(input) || rest.cuisines.includes(input)))
-	const [filtered, setFiltered] = useState([...initial])
-	const cuisines = initial.map(rest => rest.cuisines)
-	let priceRanges = initial.map(rest => rest.price_range)
-	let filteredPriceRanges = priceRanges.filter((v, i, a) => a.indexOf(v) === i)
-	let filteredCuisines = cuisines.filter((v, i, a) => a.indexOf(v) === i)
-	filteredPriceRanges = filteredPriceRanges.sort()
-	const [cuisineFilters, setCuisineFilters] = useState([])
-	const [priceFilters, setPriceFilters] = useState([])
+const matchesQuery = (rest, q) => {
+	if (!q) return true;
+	const needle = q.toLowerCase();
+	return [rest.name, rest.neighborhood, rest.cuisines].some(v => v?.toLowerCase().includes(needle));
+};
 
-	useEffect(() => {
-		dispatch(fetchRests())
-			.then(res => setFiltered(Object.values(res.rests).filter(rest => rest.name.includes(input) || rest.neighborhood.includes(input) || rest.cuisines.includes(input))))
-		}, [])
+const ResultCard = ({ rest, search }) => (
+	<Card sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, overflow: 'hidden' }}>
+		<Box component={Link} to={`/restaurants/${rest.id}`} sx={{ flexShrink: 0, width: { xs: '100%', sm: 220 } }}>
+			<CardMedia component="img" image={rest.iconUrl} alt={rest.name} loading="lazy"
+				sx={{ height: { xs: 180, sm: '100%' }, minHeight: { sm: 200 }, objectFit: 'cover' }} />
+		</Box>
+		<CardContent sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 1, p: { xs: 2, sm: 2.5 } }}>
+			<Typography variant="h6" component={Link} to={`/restaurants/${rest.id}`} sx={{ '&:hover': { textDecoration: 'underline' } }}>
+				{rest.name}
+			</Typography>
+			<Stack direction="row" alignItems="center" spacing={1} flexWrap="wrap">
+				<RatingLine rating={rest.avg_rating} count={rest.review_count} />
+				{rest.avg_rating && <Typography variant="body2" fontWeight={600}>{ratingLabel(Number(rest.avg_rating))}</Typography>}
+			</Stack>
+			<MetaLine rest={rest} />
+			<Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, color: 'text.secondary' }}>
+				<TrendingUpIcon sx={{ fontSize: 16 }} />
+				<Typography variant="caption">Booked {rest.bookings_count} times</Typography>
+			</Box>
+			<Box sx={{ mt: 'auto', pt: 1 }}>
+				<TimeButtons restId={rest.id} {...search} />
+			</Box>
+		</CardContent>
+	</Card>
+);
 
-	useEffect(() => {
+const Filters = ({ cuisines, cuisineFilters, setCuisineFilters, priceFilters, setPriceFilters }) => {
+	const toggleCuisine = (c) => setCuisineFilters(
+		cuisineFilters.includes(c) ? cuisineFilters.filter(x => x !== c) : [...cuisineFilters, c]
+	);
 
-	}, [rests, filtered])
+	return (
+		<Stack spacing={3}>
+			<Box>
+				<Typography variant="subtitle1" sx={{ mb: 1 }}>Price</Typography>
+				<ToggleButtonGroup value={priceFilters} onChange={(_, v) => setPriceFilters(v)} size="small" fullWidth>
+					{[1, 2, 3, 4].map(n => (
+						<ToggleButton key={n} value={n} sx={{ fontWeight: 700 }}>{'$'.repeat(n)}</ToggleButton>
+					))}
+				</ToggleButtonGroup>
+			</Box>
+			<Divider />
+			<Box>
+				<Typography variant="subtitle1" sx={{ mb: 0.5 }}>Cuisine</Typography>
+				<FormGroup>
+					{cuisines.map(c => (
+						<FormControlLabel
+							key={c}
+							label={c}
+							control={<Checkbox size="small" checked={cuisineFilters.includes(c)} onChange={() => toggleCuisine(c)} />}
+						/>
+					))}
+				</FormGroup>
+			</Box>
+			{(cuisineFilters.length > 0 || priceFilters.length > 0) && (
+				<Button onClick={() => { setCuisineFilters([]); setPriceFilters([]); }}>Clear filters</Button>
+			)}
+		</Stack>
+	);
+};
 
+const SearchResults = () => {
+	const { pathname, search: queryString } = useLocation();
+	const search = useSearchParams();
+	const { q, ...slot } = search;
+	const allRests = useRestaurants();
+	const loading = allRests.length === 0;
 
-	const handleFilter = (e) => {
-		let arr = [...cuisineFilters]
-		if (e.target.checked) {
-			setCuisineFilters([...arr, e.target.name]);
-		} else {
-			setCuisineFilters(arr.filter(ele => ele !== e.target.name))
-		}
+	const [cuisineFilters, setCuisineFilters] = useState([]);
+	const [priceFilters, setPriceFilters] = useState([]);
+	const [sort, setSort] = useState('recommended');
+	const [drawerOpen, setDrawerOpen] = useState(false);
 
-		setFiltered([...initial])
-	}
+	const matches = useMemo(() => (
+		allRests.filter(r => r.iconUrl && matchesQuery(r, pathname === '/search' ? q : ''))
+	), [allRests, q, pathname]);
 
-	useEffect(() => {
-		let arr = [...filtered]
+	const cuisines = useMemo(() => [...new Set(matches.map(r => r.cuisines))].sort(), [matches]);
 
-		if (!!cuisineFilters.length) {
-			setFiltered(arr.filter(rest => cuisineFilters.some(ele => ele.includes(rest.cuisines))))
-		}
-		if (!!priceFilters.length) {
-			setFiltered(arr.filter(rest => priceFilters.some(ele => ele == rest.price_range)))
-		}
-		if (!cuisineFilters.length && !priceFilters.length) {
-			setFiltered([...initial])
-		}
-	}, [cuisineFilters, priceFilters])
+	const results = useMemo(() => (
+		matches
+			.filter(r => !cuisineFilters.length || cuisineFilters.includes(r.cuisines))
+			.filter(r => !priceFilters.length || priceFilters.includes(r.price_range))
+			.sort(SORTS[sort].fn)
+	), [matches, cuisineFilters, priceFilters, sort]);
 
-	const togglePriceFilter = (e) => {
-		let arr = [...priceFilters]
-		let int = parseInt(e.target.name)
+	const filterProps = { cuisines, cuisineFilters, setCuisineFilters, priceFilters, setPriceFilters };
+	const activeCount = cuisineFilters.length + priceFilters.length;
+	const heading = pathname === '/search' && q ? `Results for “${q}”` : 'All restaurants';
 
-		if (e.currentTarget.checked) {
-			setPriceFilters([...arr, int]);
-		} else {
-			setPriceFilters(arr.filter(ele => ele !== int))
-		}
-		setFiltered([...initial])
-	}
+	return (
+		<>
+			<Box sx={{ bgcolor: 'primary.main', py: { xs: 2, md: 3 } }}>
+				<Container maxWidth="lg">
+					<SearchBar key={queryString} elevated />
+				</Container>
+			</Box>
+			<Container maxWidth="lg" sx={{ py: { xs: 3, md: 5 } }}>
+				<Grid container spacing={4}>
+					<Grid item md={3} sx={{ display: { xs: 'none', md: 'block' } }}>
+						<Box sx={{ position: 'sticky', top: 96 }}>
+							<Filters {...filterProps} />
+						</Box>
+					</Grid>
+					<Grid item xs={12} md={9}>
+						<Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems={{ sm: 'center' }} spacing={2} sx={{ mb: 3 }}>
+							<Box>
+								<Typography variant="h4" component="h1">{heading}</Typography>
+								<Typography color="text.secondary">
+									{loading ? 'Loading…' : `${results.length} ${results.length === 1 ? 'restaurant' : 'restaurants'} available`}
+								</Typography>
+							</Box>
+							<Stack direction="row" spacing={1}>
+								<Button variant="outlined" startIcon={<TuneIcon />} onClick={() => setDrawerOpen(true)}
+									sx={{ display: { md: 'none' }, flex: 1 }}>
+									Filters{activeCount ? ` (${activeCount})` : ''}
+								</Button>
+								<TextField select size="small" label="Sort by" value={sort} onChange={e => setSort(e.target.value)} sx={{ minWidth: 180, flex: 1 }}>
+									{Object.entries(SORTS).map(([key, { label }]) => <MenuItem key={key} value={key}>{label}</MenuItem>)}
+								</TextField>
+							</Stack>
+						</Stack>
 
-	const priceDisplay = (range, idx) => {
-		return range == 1 ? (
-			<div>
-				<input type='checkbox' id={`price-button-${idx}`} name={range} className='input-checkbox' onChange={togglePriceFilter}/>
-				<label htmlFor={`price-button-${idx}`} key={idx} className='input-label'>
-					<span>$</span>
-				</label>
-			</div>
-		) : range == 2 ? (
-			<div>
-				<input type='checkbox' id={`price-button-${idx}`} name={range} className='input-checkbox' onChange={togglePriceFilter}/>
-				<label htmlFor={`price-button-${idx}`} key={idx}  className='input-label'>
-					<span>$$</span>
-				</label>
-			</div>
-		) : range == 3 ? (
-			<div>
-				<input type='checkbox' id={`price-button-${idx}`} name={range} className='input-checkbox' onChange={togglePriceFilter}/>
-				<label htmlFor={`price-button-${idx}`} key={idx} className='input-label'>
-					<span>$$$</span>
-				</label>
-			</div>
-		) : (
-			<div>
-				<input type='checkbox' id={`price-button-${idx}`} name={range} className='input-checkbox' onChange={togglePriceFilter}/>
-				<label htmlFor={`price-button-${idx}`} key={idx} className='input-label'>
-					<span>$$$$</span>
-				</label>
-			</div>
-		)
-	}
+						<Stack spacing={2}>
+							{loading && [0, 1, 2].map(i => <Skeleton key={i} variant="rounded" height={200} />)}
+							{results.map(rest => <ResultCard key={rest.id} rest={rest} search={slot} />)}
+							{!loading && results.length === 0 && (
+								<Card sx={{ p: 4, textAlign: 'center' }}>
+									<Typography variant="h6">No restaurants match your search</Typography>
+									<Typography color="text.secondary" sx={{ mt: 1, mb: 2 }}>Try a different neighborhood, cuisine or restaurant name.</Typography>
+									<Button component={Link} to="/restaurants" variant="contained">Browse all restaurants</Button>
+								</Card>
+							)}
+						</Stack>
+					</Grid>
+				</Grid>
+			</Container>
 
-	const validSearch = (
-		<div className='search-results-container'>
-			<div className='search-header'>
-				<SearchBar/>
-			</div>
-			<div className='filters-container'>
-				{
-				filteredCuisines.length > 1 && 
-				<section>
-					<h5>
-						<img src={`data:image/svg+xml;utf8,${icCuisine}`}/>
-						Cuisine
-					</h5>
-					<div>
-						{filteredCuisines.map((cuisine, idx) => 
-							<div key={idx}>
-								<input type='checkbox' 
-									id={`checkbox-cuisines-${idx}`}
-									className='input-checkbox'
-									name={cuisine}
-									onClick={handleFilter}
-									/>
-								<label className='input-label' htmlFor={`checkbox-cuisines-${idx}`}>{cuisine}</label>
-							</div>
-						)}
-					</div>
-				</section>
-				}
-				{
-				filteredPriceRanges.length > 1 && 
-				<section>
-					<h5>
-						<img src={`data:image/svg+xml;utf8,${icPriceRange}`}/>
-						Price
-					</h5>
-					<div id='price-filter-buttons'>
-						{filteredPriceRanges.map((range, idx) => 
-							{return priceDisplay(range, idx)}
-						)}
-					</div>
-				</section>
-				}
-			</div>
-			<div className='results-index-container'>
-				<section id='search-summary'>
-					<h2>
-						You searched for "{input}"
-					</h2>
-				</section>
-				<div id='restaurant-cards'>
-					{filtered.map((rest, idx) => <RestaurantCard rest={rest} time={time} date={date} party={party} key={idx}/>)}
-				</div>
-			</div>
-		</div>
-	)
+			<Drawer anchor="bottom" open={drawerOpen} onClose={() => setDrawerOpen(false)}
+				PaperProps={{ sx: { borderTopLeftRadius: 20, borderTopRightRadius: 20, p: 3, maxHeight: '80vh' } }}>
+				<Typography variant="h6" sx={{ mb: 2 }}>Filters</Typography>
+				<Filters {...filterProps} />
+				<Button variant="contained" size="large" sx={{ mt: 3 }} onClick={() => setDrawerOpen(false)}>
+					Show {results.length} results
+				</Button>
+			</Drawer>
+		</>
+	);
+};
 
-	return filtered.length ? (
-		validSearch
-	) : (null)
-}
-
-export default withRouter(SearchResultsContainer);
+export default SearchResults;

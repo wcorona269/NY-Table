@@ -1,43 +1,58 @@
-import React from "react";
-import Header from "./nav_bar/header";
-import { Link, Route } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Route, Switch, Redirect, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import Box from "@mui/material/Box";
 import { ProtectedRoute } from '../util/protected_route_util';
-import HomeContainer from "./main/home_container";
-import NavBarContainer from "./nav_bar/nav_bar_container";
-import ModalContainer from "./modal/modal_container";
+import { fetchRests } from "../actions/rest_actions";
+import NavBar from "./nav_bar/nav_bar";
 import Footer from './footer/footer';
-import RestShowContainer from "./restaurant/rest_show_container";
-import UserShow from './user/show';
+import Modal from "./modal/modal";
+import Home from "./main/home";
+import SearchResults from './search/results';
+import RestShow from "./restaurant/rest_show";
 import BookingForm from "./form/booking_form";
 import BookingShow from './booking/show';
 import UpdateBooking from './booking/update';
-import SearchResultsContainer from './search/results';
-import RestIndexContainer from './restaurant/index';
 import ReviewForm from './reviews/create';
-import { Switch } from "react-router-dom";
+import UserShow from './user/show';
 
-const App = () => (
-    <>
-        <ModalContainer/>
-        <div className="outer-body">
-            <Route path='/' component={Header}/>
-                <div className="inner-body">
-                    <Route path='/' component={NavBarContainer}/>
-                    <Switch>
-                        <Route exact path='/' component={HomeContainer}/>
-                        <Route exact path={"/restaurants/all"} component={RestIndexContainer} />
-                        <Route exact path={"/restaurants/:restId"} component={RestShowContainer} />
-                        <Route path={`/search/:input/:time/:party/:date`} component={SearchResultsContainer} />
-                        <ProtectedRoute path="/my/profile" component={UserShow} />
-                        <ProtectedRoute path='/booking/:bookingId/modify' component={UpdateBooking}/>
-                        <ProtectedRoute path='/booking/show/:bookingId/:time/:date' component={BookingShow}/>
-                        <ProtectedRoute path="/booking/:restId/:date/:resTime/:party" component={BookingForm} />
-                        <ProtectedRoute path="/review/create/:restId" component={ReviewForm} />
-                    </Switch>
-                </div>
-            <Route path='/' component={Footer}/>
-        </div>
-    </>
-)
+const ScrollToTop = () => {
+    const { pathname } = useLocation();
+    useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+    return null;
+};
+
+const App = () => {
+    const dispatch = useDispatch();
+    const hasRests = useSelector(state => Object.keys(state.entities.rests).length > 1);
+
+    // Restaurant summaries back the home page, search and autocomplete; load once.
+    useEffect(() => {
+        if (!hasRests) dispatch(fetchRests());
+    }, []);
+
+    return (
+        <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+            <ScrollToTop />
+            <Modal />
+            <NavBar />
+            <Box component="main" sx={{ flex: 1 }}>
+                <Switch>
+                    <Route exact path='/' component={Home} />
+                    <Route exact path='/restaurants' component={SearchResults} />
+                    <Route exact path='/search' component={SearchResults} />
+                    <Route exact path='/restaurants/:restId' component={RestShow} />
+                    <ProtectedRoute exact path='/book/:restId' component={BookingForm} />
+                    <ProtectedRoute exact path='/reservations/:bookingId' component={BookingShow} />
+                    <ProtectedRoute exact path='/reservations/:bookingId/modify' component={UpdateBooking} />
+                    <ProtectedRoute exact path='/review/:restId' component={ReviewForm} />
+                    <ProtectedRoute path='/profile/:tab?' component={UserShow} />
+                    <Redirect to='/' />
+                </Switch>
+            </Box>
+            <Footer />
+        </Box>
+    );
+};
 
 export default App;

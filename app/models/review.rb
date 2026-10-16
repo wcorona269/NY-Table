@@ -1,5 +1,6 @@
 class Review < ApplicationRecord
-	validates :body, :overall, :food, :service, :ambience, :author_id, :rest_id, presence: true
+	validates :body, :author_id, :rest_id, presence: true
+	validates :overall, :food, :service, :ambience, presence: true, inclusion: { in: 1..5 }
 
 	belongs_to :author,
 			primary_key: :id,

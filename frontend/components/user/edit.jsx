@@ -1,192 +1,88 @@
-import React, { useEffect, useState } from 'react';
-import { withRouter } from 'react-router-dom';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory, useLocation } from 'react-router-dom';
-import { updateUser } from '../../actions/session_actions';
-import { icClose } from 'otkit-icons/token.theme.common';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Alert from '@mui/material/Alert';
+import Divider from '@mui/material/Divider';
+import { updateUser, RECEIVE_CURRENT_USER } from '../../actions/session_actions';
+import { selectCurrentUser } from '../../util/selectors';
 
-const UserEdit = (props) => {
-	const user = Object.values(useSelector(state => state.entities.users));
-	let currentUser = user[0];
-	
-	const [updatedUser, setupdatedUser] = useState({
-		id: currentUser.id,
-		dname: currentUser.dname,
+const MIN_PASSWORD = 6;
+
+const UserEdit = () => {
+	const dispatch = useDispatch();
+	const currentUser = useSelector(selectCurrentUser);
+	const [form, setForm] = useState({
 		fname: currentUser.fname,
 		lname: currentUser.lname,
+		dname: currentUser.dname,
 		email: currentUser.email,
-		phone: currentUser.phone,
+		phone: String(currentUser.phone || ''),
 		password: '',
-		confirmPassword: ''
-	})
-	
-	const [passError, setPassError] = useState(false);
-	const [passEmpty, setPassEmpty] = useState(true);
-	const [passLengthInvalid, setPassLengthInvalid] = useState(false);
-	const [success, setSuccess] = useState(false);
-	const dispatch = useDispatch();
+		confirmPassword: '',
+	});
+	const [status, setStatus] = useState(null);
+	const [submitting, setSubmitting] = useState(false);
 
-
-	useEffect(() => {
-		window.scrollTo(0, 0)
-	}, [])
-
-	useEffect(() => {
-		if (success) {
-			setupdatedUser(updatedUser)
-		}
-	}, [success])
-
-	useEffect(() => {
-		if (updatedUser.password !== updatedUser.confirmPassword) {
-			setPassError(true)
-		} else {
-			setPassError(false)
-		}
-	}, [updatedUser]);
-
-	useEffect(() => {
-		if (updatedUser.password.length !== 0) {
-			setPassEmpty(false)
-		} else {
-			setPassEmpty(true)
-		}
-	}, [updatedUser])
-
-	useEffect(() => {
-		if (updatedUser.password.length < 8 && updatedUser.password.length) {
-			setPassLengthInvalid(true)
-		} else {
-			setPassLengthInvalid(false)
-		}
-	}, [updatedUser])
-
-	const updateInfo = (e) => {
-		const {name, value} = e.target
-		setupdatedUser({ ...updatedUser, [name]: value })
-		setSuccess(false);
+	const update = (field) => (e) => {
+		setStatus(null);
+		const value = field === 'phone' ? e.target.value.replace(/\D/g, '').slice(0, 10) : e.target.value;
+		setForm({ ...form, [field]: value });
 	};
+
+	const passwordTooShort = form.password.length > 0 && form.password.length < MIN_PASSWORD;
+	const passwordMismatch = form.confirmPassword.length > 0 && form.password !== form.confirmPassword;
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		if (updatedUser.password !== updatedUser.confirmPassword) {
-			setPassError(true)
-		}
+		if (passwordTooShort || form.password !== form.confirmPassword) return;
 
-		if (!passEmpty && !passLengthInvalid) {
-			dispatch(updateUser(updatedUser));
-			setSuccess(true);
-			setPassError(false);
-			window.scrollTo({
-				top: 0,
-				behavior: 'smooth'
-		})
-		}
-	}
+		// Only send a password when the user is changing it.
+		const { confirmPassword, password, ...rest } = form;
+		const user = { id: currentUser.id, ...rest, ...(password ? { password } : {}) };
+
+		setSubmitting(true);
+		Promise.resolve(dispatch(updateUser(user)))
+			.then(action => {
+				if (action?.type === RECEIVE_CURRENT_USER) {
+					setStatus({ severity: 'success', message: 'Your changes are saved!' });
+					setForm(f => ({ ...f, password: '', confirmPassword: '' }));
+				}
+			})
+			.catch(xhr => setStatus({ severity: 'error', message: (xhr.responseJSON || ['Something went wrong.']).join(' ') }))
+			.finally(() => setSubmitting(false));
+	};
 
 	return (
-		<div className='user-edit-container'>
-			<div className='user-edit-main'>
-				{success && (
-				<div id='success-box'>
-					<i className="fa-solid fa-circle-check"></i>
-					<div>
-						Your changes are saved!
-					</div>
-					<img onClick={() => setSuccess(false)} src={`data:image/svg+xml;utf8,${icClose}`}/>
-				</div>
-				)}
-				<form onSubmit={handleSubmit}>
-					<h2>
-						About Me
-					</h2>
-					<div id='user-edit-row'>
-						<div id='user-edit-input'>
-							<label>
-								First Name
-							</label>
-							<input onChange={updateInfo} defaultValue={currentUser.fname} type='text' name='fname' placeholder='First name'/>
-						</div>
-						<div id='user-edit-input'>
-							<label>
-								Last Name
-							</label>
-							<input onChange={updateInfo} defaultValue={currentUser.lname} type='text' name='lname' placeholder='Last name'/>
-						</div>
-					</div>
-					<div id='user-edit-row'>
-						<div id='user-edit-input'>
-							<label>
-								Display Name
-							</label>
-							<input onChange={updateInfo} defaultValue={currentUser.dname} type='text' name='dname' placeholder='Display name'/>
-							<small>
-									This is a name that will be shown whenever you leave a review. Remember to not use your full name or email.	
-							</small>
-						</div>
-					</div>
-					<div id='user-edit-row'>
-						<div id='user-edit-input'>
-							<label>
-								Email
-							</label>
-							<input onChange={updateInfo} defaultValue={currentUser.email} type='text' name='email' placeholder='Email'/>
-						</div>
-					</div>
-					<div id='user-edit-row'>
-						<div id='user-edit-input'>
-							<label>
-								Phone
-							</label>
-							<input onChange={updateInfo} defaultValue={currentUser.phone} id='small-input' type='text' name='phone' placeholder='Phone'/>
-						</div>
-					</div>
-					<h2>
-						Change Password
-					</h2>
-					<small>
-						Please choose a password that is at least 8 characters long.
-					</small>
-					<div id='user-edit-row'>
-						<div id='password-edit-box'>
-							<div id='user-edit-input'>
-								<label>
-									New Password
-								</label>
-								<input className={(passEmpty || passLengthInvalid) && 'error-input'} onChange={updateInfo} id='small-input' type='password' name='password' placeholder='Password'/>
-								{passLengthInvalid && (
-									<small id='error-small'>
-										Please choose a password that is at least 8 characters long.
-									</small>
-								)}
-								{passEmpty && (
-									<small id='error-small'>
-										Please enter your password. 
-									</small>
-								)}
-							</div>
-						</div>
-					</div>
-					<div id='user-edit-row'>
-						<div id='user-edit-input' className='user-edit-passwords'>
-							<label>
-								Confirm New Password
-							</label>
-							<input className={passError && 'error-input'} onChange={updateInfo} id='small-input' type='password' name='confirmPassword' placeholder='Confirm New Password'/>
-							{passError && (
-							<small id='error-small'>
-								Passwords do not match
-							</small>
-							)}
-						</div>
-					</div>
-					<button type="submit">
-						Save Changes
-					</button>
-				</form>
-			</div>
-		</div>
-	)
-}
+		<Card sx={{ maxWidth: 720 }}>
+			<CardContent component="form" onSubmit={handleSubmit} noValidate sx={{ p: { xs: 2.5, sm: 4 } }}>
+				{status && <Alert severity={status.severity} sx={{ mb: 3 }} onClose={() => setStatus(null)}>{status.message}</Alert>}
+				<Typography variant="h6" component="h2">About me</Typography>
+				<Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' }, gap: 2, mt: 2 }}>
+					<TextField label="First name" value={form.fname} onChange={update('fname')} autoComplete="given-name" />
+					<TextField label="Last name" value={form.lname} onChange={update('lname')} autoComplete="family-name" />
+					<TextField label="Display name" value={form.dname} onChange={update('dname')} sx={{ gridColumn: '1 / -1' }}
+						helperText="Shown on your reviews. Avoid using your full name or email." />
+					<TextField label="Email" type="email" value={form.email} onChange={update('email')} autoComplete="email" />
+					<TextField label="Phone" type="tel" value={form.phone} onChange={update('phone')} autoComplete="tel" />
+				</Box>
+				<Divider sx={{ my: 4 }} />
+				<Typography variant="h6" component="h2">Change password</Typography>
+				<Typography variant="body2" color="text.secondary">Leave blank to keep your current password.</Typography>
+				<Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' }, gap: 2, mt: 2 }}>
+					<TextField label="New password" type="password" value={form.password} onChange={update('password')} autoComplete="new-password"
+						error={passwordTooShort} helperText={passwordTooShort ? `At least ${MIN_PASSWORD} characters.` : ' '} />
+					<TextField label="Confirm new password" type="password" value={form.confirmPassword} onChange={update('confirmPassword')} autoComplete="new-password"
+						error={passwordMismatch} helperText={passwordMismatch ? 'Passwords do not match.' : ' '} />
+				</Box>
+				<Button type="submit" variant="contained" size="large" disabled={submitting} sx={{ mt: 2 }}>Save changes</Button>
+			</CardContent>
+		</Card>
+	);
+};
 
-export default withRouter(UserEdit);
+export default UserEdit;

@@ -1,30 +1,16 @@
-export const fetchAllBookings = () => {
-	$.ajax({
-		method: 'GET',
-		url: '/api/bookings'
-	})
-}
+import ajax from './ajax';
 
 export const fetchBookings = data => (
-	$.ajax({
+	ajax({
 			method: 'GET',
 			url: '/api/bookings',
 			data
 	})
 );
 
-export const fetchUserBookings = (userId) => {
-	return (
-		$.ajax({
-			method: 'GET',
-			url: `/api/bookings/${userId}`
-		})
-	)
-}
-
 export const fetchBooking = (bookingId) => {
 	return (
-		$.ajax({
+		ajax({
 			method: 'GET',
 			url: `/api/bookings/${bookingId}`
 		})
@@ -33,7 +19,7 @@ export const fetchBooking = (bookingId) => {
 
 export const createBooking = booking => {
 	return (
-		$.ajax({
+		ajax({
 			method: 'POST',
 			url: '/api/bookings',
 			data: { booking }
@@ -43,7 +29,7 @@ export const createBooking = booking => {
 
 export const updateBooking = booking => {
 	return(
-		$.ajax({
+		ajax({
 			method: 'PATCH',
 			url: `/api/bookings/${booking.id}`,
 			data: { booking }
@@ -53,7 +39,7 @@ export const updateBooking = booking => {
 
 export const deleteBooking = bookingId => {
 	return (
-		$.ajax({
+		ajax({
 			method: 'DELETE',
 			url: 	`/api/bookings/${bookingId}`
 		})

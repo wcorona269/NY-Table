@@ -1,21 +1,11 @@
-import { withRouter, Route, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-import React, { Component } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { Route, Redirect } from 'react-router-dom';
 
-
-  const Protected = ({ component: Component, path, currentUser, exact }) => (
-    <Route path={path} exact={exact} render={props => currentUser ? <Component {...props} /> : <Redirect to="/" />
-  }
-  />
-  );
-
-  const mapStateToProps = (state) => {
-    return { currentUser: Boolean(state.session.id)}
-  }
-
-  export const ProtectedRoute = withRouter(
-    connect(
-      mapStateToProps,
-      null
-    )(Protected)
-  );
+// Renders the route only for logged-in users; otherwise sends them home.
+export const ProtectedRoute = ({ component: Component, ...rest }) => {
+	const loggedIn = useSelector(state => Boolean(state.session.id));
+	return (
+		<Route {...rest} render={props => loggedIn ? <Component {...props} /> : <Redirect to="/" />} />
+	);
+};

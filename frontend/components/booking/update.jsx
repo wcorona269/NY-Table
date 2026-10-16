@@ -1,198 +1,95 @@
 import React, { useEffect, useState } from 'react'
-import { withRouter, useHistory, useLocation, Link, useParams} from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { icCalendar, icPerson, icClock, icDown, icSearch } from 'otkit-icons/token.theme.common';
-import DatePicker from 'react-datepicker';
-import "react-datepicker/dist/react-datepicker.css";
-import { updateBooking } from '../../actions/booking_actions';
+import { useHistory, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import Container from '@mui/material/Container';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
+import MenuItem from '@mui/material/MenuItem';
+import Button from '@mui/material/Button';
+import Alert from '@mui/material/Alert';
+import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
+import Skeleton from '@mui/material/Skeleton';
+import BookingSummary from './booking_summary';
+import NotFound from '../not_found';
+import { fetchBooking, updateBooking, RECEIVE_BOOKING } from '../../actions/booking_actions';
+import { TIME_OPTIONS, PARTY_OPTIONS, formatTime, partyLabel, toISODate, toHHMM } from '../../util/format';
 
-const UpdateBooking = (props) => {
+const UpdateBooking = () => {
 	const history = useHistory();
 	const dispatch = useDispatch();
-	const location = useLocation();
-
-	if (!props.location.state) {
-		history.push(`/`)
-		window.location.reload()
-	}
-
-	const {date, time, restaurant, booking, user} = props.location.state;
-	const size = booking.party_size;
-	const [newDate, setNewDate] = useState(new Date(`${date} 2022`));
-	const [newTime, setNewTime] = useState(time);
-	const [party, setParty] = useState(size);
-	const [newBooking, setNewBooking] = useState({
-		id: booking.id,
-		rest_id: booking.rest_id,
-		user_id: booking.user_id,
-		party_size: booking.party_size,
-		date: booking.date,
-		time: booking.time,
-		cancelled: false,
-		special_request: booking.special_request,
-		occasion: booking.occasion
-	})
+	const { bookingId } = useParams();
+	const booking = useSelector(state => state.entities.bookings[bookingId]);
+	const [form, setForm] = useState(null);
+	const [error, setError] = useState(null);
+	const [submitting, setSubmitting] = useState(false);
+	const [notFound, setNotFound] = useState(false);
 
 	useEffect(() => {
-		setNewBooking({ ...newBooking, date: newDate })
-	}, [newDate]) 
+		if (!booking?.restaurant) {
+			dispatch(fetchBooking(bookingId)).then(action => setNotFound(action.type !== RECEIVE_BOOKING));
+		}
+	}, [bookingId]);
 
-	const updateInfo = (e) => {
-		setNewBooking({ ...newBooking, [e.target.id]: e.target.value })
+	useEffect(() => {
+		if (booking && !form) {
+			setForm({ date: booking.date, time: toHHMM(booking.time), party_size: booking.party_size });
+		}
+	}, [booking]);
+
+	if (notFound) return <NotFound title="Reservation not found" message="We couldn't find that reservation on your account." />;
+
+	if (!booking?.restaurant || !form) {
+		return <Container maxWidth="sm" sx={{ py: 6 }}><Skeleton variant="rounded" height={360} /></Container>;
 	}
 
-	const parseTime = (time) => {
-		let split = time.split(":")
-		let hrs = parseInt(split[0])
-		if (hrs < 12) return time + ' AM';
-		if (hrs == 12) return time + ' PM'
-		hrs = hrs % 12;
-		let newTime = hrs + ':' + split[1] + ' PM'
-		return newTime
-	}
-
-	const parseDate = (date) => {
-		date = date.toDateString();
-		let split = date.split(' ');
-		return `${split[0]}, ${split[1]} ${split[2]}`
-	}
+	const update = (field) => (e) => setForm({ ...form, [field]: e.target.value });
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		dispatch(updateBooking(newBooking)).then(res =>
-				history.push({
-					pathname: `/booking/show/${res.booking.id}/${parseTime(newBooking.time)}/${parseDate(newBooking.date)}`,
-					// state: {
-					// 	time: parseTime(newBooking.time),
-					// 	date: parseDate(newBooking.date),
-						// restaurant: restaurant,
-						// user: user,
-						// booking: res.booking
-					// }
-				})
-			)
-		}
-		
+		setSubmitting(true);
+		dispatch(updateBooking({ id: booking.id, ...form })).then(action => {
+			setSubmitting(false);
+			if (action.type === RECEIVE_BOOKING) history.push(`/reservations/${booking.id}`);
+			else setError((action.errors || ['Something went wrong.']).join(' '));
+		});
+	};
+
+	// Keep the current time selectable even if it isn't on a half-hour boundary.
+	const timeOptions = TIME_OPTIONS.includes(form.time) ? TIME_OPTIONS : [form.time, ...TIME_OPTIONS].sort();
+
 	return (
-		<div className='booking-edit-container'>
-			<div className='booking-box'>
-				<main>
-					<h2 id='current-res'>
-						Your Current Reservation 
-					</h2>
-					<div id='booking-info-bar' className='booking-info-bar'>
-					<img src={restaurant.icon}/>
-					<div id='info-bar-right'>
-						<h2 id='rest-name'>
-							{restaurant.name}
-						</h2>
-						<div>
-							<div>
-								<img id="res-info-img" src={`data:image/svg+xml;utf8,${icCalendar}`}/>
-								<p id='res-info'>
-									{date}
-								</p>
-							</div>
-							<div>
-								<img id="res-info-img" src={`data:image/svg+xml;utf8,${icClock}`}/>
-								<p id='res-info'>
-								{time}	
-								</p>
-							</div>
-							<div>
-								<img id="res-info-img" src={`data:image/svg+xml;utf8,${icPerson}`}/>
-								<p id='res-info'>
-									{booking.party_size} People
-								</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div className='modify-box'>
-					<h3>
-						Modify your reservation
-					</h3>
-					<div id='mod-left'>
-						<div>
-							<img src={`data:image/svg+xml;utf8,${icCalendar}`}/>
-							<DatePicker
-								id='date'
-								className="res-update-select"
-								dateFormat="MM-dd-yy"
-								minDate={new Date()}
-								selected={newDate}
-								onChange={setNewDate}
-							/>
-							<img id='dropdown-img' src={`data:image/svg+xml;utf8,${icDown}`}/>
-						</div>
-						<div>
-							<img src={`data:image/svg+xml;utf8,${icClock}`}/>
-							<select id='time' className='res-update-select' onChange={updateInfo}>
-								<option defaultValue value={time}>{time}</option>
-								<option value='11:00'>11:00 AM</option>
-								<option value='11:30'>11:30 AM</option>
-								<option value='12:30'>12:30 PM</option>
-								<option value='13:00'>1:00 PM</option>
-								<option value='13:30'>1:30 PM</option>
-								<option value='14:00'>2:00 PM</option>
-								<option value='14:30'>2:30 PM</option>
-								<option value='15:00'>3:00 PM</option>
-								<option value='15:30'>3:30 PM</option>
-								<option value='16:00'>4:00 PM</option>
-								<option value='16:30'>4:30 PM</option>
-								<option value='17:00'>5:00 PM</option>
-								<option value='17:30'>5:30 PM</option>
-								<option value='18:00'>6:00 PM</option>
-								<option value='18:30'>6:30 PM</option>
-								<option value='19:00'>7:00 PM</option>
-								<option value='19:30'>7:30 PM</option>
-								<option value='20:00'>8:00 PM</option>
-								<option value='20:30'>8:30 PM</option>
-								<option value='21:00'>9:00 PM</option>
-								<option value='21:30'>9:30 PM</option>
-								<option value='22:00'>10:00 PM</option>
-								<option value='22:30'>10:30 PM</option>
-								<option value='23:00'>11:00 PM</option>
-							</select>
-							<img id='dropdown-img' src={`data:image/svg+xml;utf8,${icDown}`}/>
-						</div>
-						<div>
-							<img src={`data:image/svg+xml;utf8,${icPerson}`}/>
-							<select id='party_size' className='res-update-select' onChange={updateInfo}>
-								<option defaultValue value={party}>{party} people</option>
-								<option value='1'>1 person</option>
-								<option value='2'>2 people</option>
-								<option value='3'>3 people</option>
-								<option value='4'>4 people</option>
-								<option value='5'>5 people</option>
-								<option value='6'>6 people</option>
-								<option value='7'>7 people</option>
-								<option value='8'>8 people</option>
-								<option value='9'>9 people</option>
-								<option value='10'>10 people</option>
-								<option value='11'>11 people</option>
-								<option value='12'>12 people</option>
-								<option value='13'>13 people</option>
-								<option value='14'>14 people</option>
-								<option value='15'>15 people</option>
-								<option value='16'>16 people</option>
-								<option value='17'>17 people</option>
-								<option value='18'>18 people</option>
-								<option value='19'>19 people</option>
-								<option value='20'>20 people</option>
-							</select>
-							<img id='dropdown-img' src={`data:image/svg+xml;utf8,${icDown}`}/>
-						</div>
-					<button onClick={handleSubmit} id='update-button'>
-						Find a new table
-					</button>
-				</div>
-			</div>
-			</main>
-		</div>
-	</div>
-	)
-}
+		<Container maxWidth="sm" sx={{ py: { xs: 3, md: 6 } }}>
+			<Typography variant="h4" component="h1" sx={{ mb: 3 }}>Modify your reservation</Typography>
+			<Card>
+				<CardContent sx={{ p: { xs: 2.5, sm: 4 } }}>
+					<Typography variant="overline" color="text.secondary">Current reservation</Typography>
+					<Box sx={{ mt: 1 }}>
+						<BookingSummary restaurant={booking.restaurant} image={booking.icon}
+							date={booking.date} time={booking.time} party={booking.party_size} />
+					</Box>
+					<Divider sx={{ my: 3 }} />
+					<Box component="form" onSubmit={handleSubmit} sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr 1fr' }, gap: 2 }}>
+						<TextField type="date" label="Date" value={form.date} onChange={update('date')}
+							inputProps={{ min: toISODate() }} InputLabelProps={{ shrink: true }} />
+						<TextField select label="Time" value={form.time} onChange={update('time')}>
+							{timeOptions.map(t => <MenuItem key={t} value={t}>{formatTime(t)}</MenuItem>)}
+						</TextField>
+						<TextField select label="Party size" value={form.party_size} onChange={update('party_size')}>
+							{PARTY_OPTIONS.map(n => <MenuItem key={n} value={n}>{partyLabel(n)}</MenuItem>)}
+						</TextField>
+						{error && <Alert severity="error" sx={{ gridColumn: '1 / -1' }}>{error}</Alert>}
+						<Box sx={{ gridColumn: '1 / -1', display: 'flex', gap: 1.5, justifyContent: 'flex-end', mt: 1 }}>
+							<Button onClick={() => history.goBack()}>Back</Button>
+							<Button type="submit" variant="contained" disabled={submitting}>Update reservation</Button>
+						</Box>
+					</Box>
+				</CardContent>
+			</Card>
+		</Container>
+	);
+};
 
-
-export default withRouter(UpdateBooking);
+export default UpdateBooking;

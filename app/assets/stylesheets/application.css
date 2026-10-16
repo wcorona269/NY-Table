@@ -1,66 +1,6 @@
 /*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
+ * All styling lives in the React app (Material UI + emotion). This manifest is
+ * kept so `stylesheet_link_tag 'application'` keeps resolving.
  *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require reset
- *= require scrollbar
- *= require home
- *= require colors
- *= require form
- *= require nav_bar
- *= require searchbar
- *= require categories
- *= require footer
- *= require rest_show
- *= require gallery
- *= require menu
- *= require user_show
- *= require booking_form
- *= require booking_show
- *= require delete_booking
- *= require booking_update
- *= require time_buttons
- *= require index
- *= require review_form
-
- *= require_tree .
  *= require_self
  */
-
-
-/* 
- @import "./reset.scss";
- @import "./scrollbar.scss";
- @import "./home.scss";
- @import "./colors.scss";
- @import "./nav_bar.scss";
- @import "./form.scss";
- @import "./nav_bar.scss";
- @import "./searchbar.scss";
- @import './categories.scss';
- @import './footer.scss';
- @import './rest_show.scss';
- @import './gallery.scss';
- @import './menu.scss';
- @import './user_show.scss';
- @import './booking_form.scss';
- @import './booking_show.scss';
- @import './delete_booking.scss';
- @import './booking_update.scss';
- @import './time_buttons.scss';
- @import './index.scss';
- @import './review_form.scss'; */
- /* @import 'react-datepicker/dist/react-datepicker-cssmodules.css'; */
-
-
- body {
-	font-family: BrandonText,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
-}

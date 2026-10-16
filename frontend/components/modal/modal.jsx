@@ -1,69 +1,46 @@
 import React from 'react';
-import { render } from 'react-dom';
-// import { useSelector, useDispatch } from 'react-redux';
-import SignupFormContainer from "../form/signup_form_container";
-import LoginFormContainer from '../form/login_form_container';
+import { useDispatch, useSelector } from 'react-redux';
+import Dialog from '@mui/material/Dialog';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
+import SignupForm from "../form/signup_form_container";
+import LoginForm from '../form/login_form_container';
 import CancelBookingModal from '../booking/delete';
 import GalleryModal from '../restaurant/gallery_modal';
 import SearchModal from '../search/search_modal';
 import { closeModal } from '../../actions/modal_actions';
-import { icClose } from 'otkit-icons/token.theme.common';
 
-class Modal extends React.Component {
-	constructor(props) {
-		super(props)
+const MODALS = {
+	signup: { component: SignupForm, maxWidth: 'xs' },
+	login: { component: LoginForm, maxWidth: 'xs' },
+	cancel: { component: CancelBookingModal, maxWidth: 'xs' },
+	search: { component: SearchModal, maxWidth: 'md' },
+};
 
-		this.handleModal = this.handleModal.bind(this);
-	};
-	
-	// const modal = useSelector(state => state.ui.modal.type);
-	// const dispatch = useDispatch();
-	
-	handleModal(e) {
-		e.preventDefault();
-		this.props.closeModal();
-	};
+const Modal = () => {
+	const dispatch = useDispatch();
+	const theme = useTheme();
+	const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+	const { modal, ...props } = useSelector(state => state.ui.modal);
+	const onClose = () => dispatch(closeModal());
 
-	render() {
-		// deconstruct modal from props
-		const {modal} = this.props;
-		let component;
-
-		// check which modal type to render
-		switch (modal.modal) {
-			case "signup":
-				component = <SignupFormContainer/>
-				break;
-				case "login":
-				component = <LoginFormContainer/>
-				break;
-			case "cancel":
-				component = <CancelBookingModal/>
-				break;
-			case "gallery":
-				const photos = modal.photos
-				const idx = modal.idx
-				component = <GalleryModal photos={photos} idx={idx}/>
-				break;
-			case "search":
-				component = <SearchModal/>
-				break;
-			// case "review"
-			// component = <ReviewFormModal/>
-			default:
-				return null;
-		}
-
-		return (
-			<div className="modal-bg" onClick={this.handleModal}>
-				<div className="modal-guts" onClick={e => e.stopPropagation()}>
-						{/* <img className="auth-form-x-btn-img" src={`data:image/svg+xml;utf8,${icClose}`}/> */}
-					{component}
-				</div>
-			</div>
-		)
+	if (modal === 'gallery') {
+		return <GalleryModal photos={props.photos} idx={props.idx} onClose={onClose} />;
 	}
+
+	const config = MODALS[modal];
+	const Component = config?.component;
+
+	return (
+		<Dialog open={Boolean(config)} onClose={onClose} fullWidth maxWidth={config?.maxWidth} fullScreen={isMobile}>
+			<IconButton onClick={onClose} aria-label="Close" sx={{ position: 'absolute', right: 12, top: 12, zIndex: 1 }}>
+				<CloseIcon />
+			</IconButton>
+			{Component && <Component {...props} onClose={onClose} />}
+		</Dialog>
+	);
 }
 
 export default Modal;
-
