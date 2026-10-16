@@ -1,73 +1,49 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Button from '@mui/material/Button';
 import UserDropdown from "./user_dropdown";
 import ResDropdown from "./reservations_dropdown";
 import AbtDropdown from "./about_dropdown";
+import { showModal } from "../../actions/modal_actions";
+import { logout } from "../../actions/session_actions";
 
-import { icCalendar } from 'otkit-icons/token.theme.common';
-import { icBell } from 'otkit-icons/token.theme.common';
 import { icSearch } from 'otkit-icons/token.theme.common';
 
-class NavRight extends React.Component {
-	constructor(props) {
-		super(props);
+const NavRight = () => {
+	const dispatch = useDispatch();
+	const currentUser = useSelector(state => state.entities.users[state.session.id]);
 
-		this.state = {
-			userDropdown: false,
-			resDropdown: false,
-			abtDropdown: false,
-			searchModal: false
-		}
+	const signupModal = () => dispatch(showModal("signup"));
+	const loginModal = () => dispatch(showModal("login"));
+	const searchModal = () => dispatch(showModal("search"));
+	const handleLogout = () => dispatch(logout());
 
-		this.signupModal = this.signupModal.bind(this);
-		this.loginModal = this.loginModal.bind(this);
-		this.searchModal = this.searchModal.bind(this);
-	}
-
-	signupModal() {
-		this.props.showModal("signup")
-	}
-
-	loginModal() {
-		this.props.showModal("login")
-	}
-
-	searchModal() {
-		this.props.showModal("search")
-	}
-
-	render () {
-		const {currentUser, logout} = this.props;
-
-		const display = currentUser ? (
-			<div className="user-nav-right-container">
-				<UserDropdown currentUser={currentUser} logout={logout} />
-				<ResDropdown/>
-				<AbtDropdown/>
-				<div id="user-nav-right-search-button-container" className="user-nav-right-button-container">
-					<div id="user-search" className="user-nav-right-search-wrapper">
-						<button className="user-search-popout-button" onClick={this.searchModal}>
-							<img id="search-img"  src={`data:image/svg+xml;utf8,${icSearch}`} href="#"/>
-						</button>
-					</div>
-				</div>
-			</div> ) : (
+	return currentUser ? (
 		<div className="user-nav-right-container">
-			<button className="btn guest-btn btn-signup" onClick={this.signupModal}>Sign Up</button>
-			<button className="btn guest-btn btn-signin" onClick={this.loginModal}>Sign In</button>
+			<UserDropdown currentUser={currentUser} logout={handleLogout} />
+			<ResDropdown/>
+			<AbtDropdown/>
 			<div id="user-nav-right-search-button-container" className="user-nav-right-button-container">
-					<div id="user-search" className="user-nav-right-search-wrapper">				
-						<button className="user-search-popout-button">
-							<img id="search-img"  src={`data:image/svg+xml;utf8,${icSearch}`} href="#"/>
-						</button>
-					</div>
+				<div id="user-search" className="user-nav-right-search-wrapper">
+					<button className="user-search-popout-button" onClick={searchModal}>
+						<img id="search-img"  src={`data:image/svg+xml;utf8,${icSearch}`} href="#"/>
+					</button>
 				</div>
+			</div>
 		</div>
-		);
-
-		return (
-			display
-		);
-	}
+	) : (
+		<div className="user-nav-right-container">
+			<Button variant="outlined" color="primary" className="btn-signup" onClick={signupModal}>Sign Up</Button>
+			<Button variant="contained" color="primary" className="btn-signin" onClick={loginModal}>Sign In</Button>
+			<div id="user-nav-right-search-button-container" className="user-nav-right-button-container">
+				<div id="user-search" className="user-nav-right-search-wrapper">
+					<button className="user-search-popout-button">
+						<img id="search-img"  src={`data:image/svg+xml;utf8,${icSearch}`} href="#"/>
+					</button>
+				</div>
+			</div>
+		</div>
+	);
 };
 
 export default NavRight;

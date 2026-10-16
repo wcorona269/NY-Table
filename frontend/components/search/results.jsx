@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useHistory, withRouter, useParams } from 'react-router-dom';
+import { withRouter, useParams } from 'react-router-dom';
 import { fetchRests } from '../../actions/rest_actions';
 import { icCuisine, icPriceRange } from 'otkit-icons/token.theme.common';
 import RestaurantCard from './index_card';
@@ -9,16 +9,23 @@ import SearchBar from './searchbar'
 const SearchResultsContainer = (props) => {
 
 	const dispatch = useDispatch();
-	// const location = useLocation();
 	const {input, time, party, date} = useParams();
-	let rests = Object.values(useSelector(state => state.entities.rests))
-	const initial = Object.values(rests.filter(rest => rest.name.includes(input) || rest.neighborhood.includes(input) || rest.cuisines.includes(input)))
+	const restsById = useSelector(state => state.entities.rests);
+
+	const initial = useMemo(() => (
+		Object.values(restsById).filter(rest => rest.name.includes(input) || rest.neighborhood.includes(input) || rest.cuisines.includes(input))
+	), [restsById, input])
+
 	const [filtered, setFiltered] = useState([...initial])
-	const cuisines = initial.map(rest => rest.cuisines)
-	let priceRanges = initial.map(rest => rest.price_range)
-	let filteredPriceRanges = priceRanges.filter((v, i, a) => a.indexOf(v) === i)
-	let filteredCuisines = cuisines.filter((v, i, a) => a.indexOf(v) === i)
-	filteredPriceRanges = filteredPriceRanges.sort()
+
+	const { filteredCuisines, filteredPriceRanges } = useMemo(() => {
+		const cuisines = initial.map(rest => rest.cuisines)
+		const priceRanges = initial.map(rest => rest.price_range)
+		const filteredCuisines = cuisines.filter((v, i, a) => a.indexOf(v) === i)
+		const filteredPriceRanges = priceRanges.filter((v, i, a) => a.indexOf(v) === i).sort()
+		return { filteredCuisines, filteredPriceRanges }
+	}, [initial])
+
 	const [cuisineFilters, setCuisineFilters] = useState([])
 	const [priceFilters, setPriceFilters] = useState([])
 
@@ -26,10 +33,6 @@ const SearchResultsContainer = (props) => {
 		dispatch(fetchRests())
 			.then(res => setFiltered(Object.values(res.rests).filter(rest => rest.name.includes(input) || rest.neighborhood.includes(input) || rest.cuisines.includes(input))))
 		}, [])
-
-	useEffect(() => {
-
-	}, [rests, filtered])
 
 
 	const handleFilter = (e) => {
@@ -69,33 +72,13 @@ const SearchResultsContainer = (props) => {
 		setFiltered([...initial])
 	}
 
-	const priceDisplay = (range, idx) => {
-		return range == 1 ? (
-			<div>
-				<input type='checkbox' id={`price-button-${idx}`} name={range} className='input-checkbox' onChange={togglePriceFilter}/>
-				<label htmlFor={`price-button-${idx}`} key={idx} className='input-label'>
-					<span>$</span>
-				</label>
-			</div>
-		) : range == 2 ? (
-			<div>
-				<input type='checkbox' id={`price-button-${idx}`} name={range} className='input-checkbox' onChange={togglePriceFilter}/>
-				<label htmlFor={`price-button-${idx}`} key={idx}  className='input-label'>
-					<span>$$</span>
-				</label>
-			</div>
-		) : range == 3 ? (
-			<div>
-				<input type='checkbox' id={`price-button-${idx}`} name={range} className='input-checkbox' onChange={togglePriceFilter}/>
-				<label htmlFor={`price-button-${idx}`} key={idx} className='input-label'>
-					<span>$$$</span>
-				</label>
-			</div>
-		) : (
-			<div>
-				<input type='checkbox' id={`price-button-${idx}`} name={range} className='input-checkbox' onChange={togglePriceFilter}/>
-				<label htmlFor={`price-button-${idx}`} key={idx} className='input-label'>
-					<span>$$$$</span>
+	const priceDisplay = (range) => {
+		const dollarSigns = '$'.repeat(range);
+		return (
+			<div key={range}>
+				<input type='checkbox' id={`price-button-${range}`} name={range} className='input-checkbox' onChange={togglePriceFilter}/>
+				<label htmlFor={`price-button-${range}`} className='input-label'>
+					<span>{dollarSigns}</span>
 				</label>
 			</div>
 		)
@@ -115,9 +98,9 @@ const SearchResultsContainer = (props) => {
 						Cuisine
 					</h5>
 					<div>
-						{filteredCuisines.map((cuisine, idx) => 
-							<div key={idx}>
-								<input type='checkbox' 
+						{filteredCuisines.map((cuisine, idx) =>
+							<div key={cuisine}>
+								<input type='checkbox'
 									id={`checkbox-cuisines-${idx}`}
 									className='input-checkbox'
 									name={cuisine}
@@ -137,9 +120,7 @@ const SearchResultsContainer = (props) => {
 						Price
 					</h5>
 					<div id='price-filter-buttons'>
-						{filteredPriceRanges.map((range, idx) => 
-							{return priceDisplay(range, idx)}
-						)}
+						{filteredPriceRanges.map((range) => priceDisplay(range))}
 					</div>
 				</section>
 				}
@@ -151,7 +132,7 @@ const SearchResultsContainer = (props) => {
 					</h2>
 				</section>
 				<div id='restaurant-cards'>
-					{filtered.map((rest, idx) => <RestaurantCard rest={rest} time={time} date={date} party={party} key={idx}/>)}
+					{filtered.map((rest) => <RestaurantCard rest={rest} time={time} date={date} party={party} key={rest.id}/>)}
 				</div>
 			</div>
 		</div>

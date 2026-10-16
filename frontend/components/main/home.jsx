@@ -1,25 +1,16 @@
 import React from 'react';
 import SearchBarContainer from "../search/searchbar_container";
-import CategoriesContainer from './categories_container';
+import Categories from './categories';
 
-class Home extends React.Component {
-	constructor(props) {
-		super(props)
-	}
-
-	render () {
-		return (
-			<div className="home">
-				<div className="home-container">
-					<SearchBarContainer/>
-				</div>
-				<div className="main-page">
-					<CategoriesContainer/>
-				</div>
-			</div>
-		)
-	}
-}
+const Home = () => (
+	<div className="home">
+		<div className="home-container">
+			<SearchBarContainer/>
+		</div>
+		<div className="main-page">
+			<Categories/>
+		</div>
+	</div>
+)
 
 export default Home;
-

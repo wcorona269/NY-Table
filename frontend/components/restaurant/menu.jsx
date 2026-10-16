@@ -13,8 +13,8 @@ const Menu = ({menuItems}) => {
 	}, [menuItems])
 
 	const menuList = (items) => {
-		return items.map((item, idx) => 
-			<li key={idx}>
+		return items.map((item) =>
+			<li key={item.id}>
 				<h4>
 					<span>{item.item[0]}</span>
 					<span>${item.item[2]}</span>

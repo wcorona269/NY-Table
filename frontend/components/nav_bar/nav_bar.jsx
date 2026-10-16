@@ -1,27 +1,16 @@
-
 import React from "react";
 import NavLeft from "./nav_left";
-import NavRightContainer from "./nav_right_container";
+import NavRight from "./nav_right";
 
-class NavBar extends React.Component {
-	constructor(props) {
-		super(props);
-	}
-
-	render() {
-		return(
-			<>
-				<div className="nav-bar-container">
-					<div className="nav-left">
-						<NavLeft/>
-					</div>
-					<div className="nav-right">
-						<NavRightContainer/>
-					</div>
-				</div>
-			</>
-		)
-	}
-}
+const NavBar = () => (
+	<div className="nav-bar-container">
+		<div className="nav-left">
+			<NavLeft/>
+		</div>
+		<div className="nav-right">
+			<NavRight/>
+		</div>
+	</div>
+)
 
 export default NavBar;
